@@ -3,7 +3,7 @@
 ## Table of Contents
 1. [Getting Started](#getting-started)
 2. [Daily Use](#daily-use)
-3. [Customization](#customization)
+3. [Customisation](#customisation)
 4. [Importing Sets](#importing-sets)
 5. [Settings](#settings)
 6. [Tips for Caregivers](#tips-for-caregivers)
@@ -22,7 +22,7 @@ When you first open FlashTalk AAC, you'll see:
 
 ### Understanding Categories
 
-Categories organize flashcards by topic:
+Categories organise flashcards by topic:
 - **Food & Drink** 🍎: Hunger, thirst, meals
 - **Feelings** 😊: Emotions and states
 - **Activities** ⚽: Things to do
@@ -63,7 +63,7 @@ Categories organize flashcards by topic:
 
 ---
 
-## Customization
+## Customisation
 
 ### Adding a Custom Category
 
@@ -79,7 +79,7 @@ Categories organize flashcards by topic:
 
 ### Adding Custom Cards to a Category
 
-**Why**: Add personal items, favorite foods, specific people, or special requests
+**Why**: Add personal items, favourite foods, specific people, or special requests
 
 **How**:
 1. Open any category
@@ -203,7 +203,7 @@ Access settings via: Main screen → Menu (⋮) → **Settings**
 
 **When to adjust**:
 - Voice sounds too robotic → Adjust slightly
-- Preference for different tone → Customize
+- Preference for different tone → Customise
 - Matching user's natural voice → Adjust accordingly
 
 ### Dark Mode
@@ -239,8 +239,8 @@ Access settings via: Main screen → Menu (⋮) → **Settings**
 - Explain that tapping = speaking
 - Respond immediately to requests
 
-**Week 2: Personalize**
-- Add 2-3 favorite foods
+**Week 2: Personalise**
+- Add 2-3 favourite foods
 - Add photos of family members
 - Create one custom category
 - Add 5-10 most-used items
@@ -272,7 +272,7 @@ Access settings via: Main screen → Menu (⋮) → **Settings**
 ### Building Communication Skills
 
 **Start Simple**:
-1. Begin with high-motivation items (favorite snacks)
+1. Begin with high-motivation items (favourite snacks)
 2. Use 1-step communication (tap = get item)
 3. Respond immediately and consistently
 

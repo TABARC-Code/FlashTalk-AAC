@@ -1,32 +1,36 @@
 # FlashTalk AAC — Description
 
-**One line:** Free, offline, single-tap flashcard communication app for
+**One line:** free, offline, single-tap flashcard communication app for
 Android, built for autistic users.
 
-**Longer:** FlashTalk AAC turns an Android phone or tablet into a
-picture-card communication device. The user taps a card — a symbol with
-a word under it — and the device speaks the word aloud. No
-sentence-building ceremony, no accounts, no cloud, no cost. Eight seeded
-vocabulary categories cover daily needs out of the box; caregivers extend
-it with photos from the device gallery or bulk-import whole card sets
-built on a PC.
+**Longer:** the phone or tablet becomes a picture-card communication
+device. Tap a card, it speaks the word. That's genuinely the whole
+mechanism, and I'd rather defend that as a feature than apologise for it.
+No sentence-building ceremony, no account creation, no cloud, no
+subscription. Eight seeded categories cover the daily-needs basics out of
+the box, and caregivers can extend it with photos from the gallery or a
+bulk-imported card set built on a PC.
 
-**Who it's for:** Autistic children and adults with limited or unreliable
-speech, their families, SLTs, and teachers. Also anyone with a
-communication disability who wants a tool that respects their privacy and
-their wallet.
+Who it's actually for: autistic children and adults with limited or
+unreliable speech, the people around them, and the SLTs and teachers
+trying to make it work in practice. Also, frankly, anyone who's tired of
+communication apps that cost money and phone home for no reason.
 
-**Design position:** Leeloo-style quick communication rather than
-PECS-style sentence assembly. Deliberately narrow — the app optimises one
-interaction (tap → speak) and refuses features that would slow it down.
+**Design position:** closer to Leeloo's quick-tap communication than
+PECS-style sentence assembly. Narrow on purpose — it does one interaction
+(tap → speak) and says no to anything that would slow that down, which is
+a harder discipline to hold onto than it sounds when every feature
+request looks reasonable in isolation.
 
 **Stack:** Kotlin, MVVM, Room, Coroutines, Glide, Material Components.
-Min SDK 24. Single module, no DI framework, no network stack (no INTERNET
-permission at all).
+Min SDK 24. One module, no DI framework, and no network stack at all —
+not even an INTERNET permission in the manifest.
 
-**Status:** v1.0 working build. Core loop is solid; seed cards render as
-emoji glyphs rather than photos, which sidesteps a symbol-set licensing
-decision entirely rather than deferring it. Edit/delete UI and export are
-the headline gaps — tracked honestly in BACKLOG.md.
+**Status:** v1.0, and it actually builds — I ran it through a real SDK
+before calling it done, not just assumed. Seed cards render as emoji
+glyphs rather than photos, which sidesteps a symbol-set licensing
+decision entirely rather than kicking it down the road. Edit/delete UI
+and export are the honest gaps left; see BACKLOG.md, in order, no
+skipping ahead.
 
 Author: TABARC-Code

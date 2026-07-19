@@ -1,14 +1,15 @@
 # Example import sets
 
-Three ready-to-use sets — Animals, Colors, Transportation — each a single
-`manifest.json`. They're JSON-only (no bundled photos), so every card
-falls back to an emoji glyph rather than a missing image.
+Three ready-made sets — Animals, Colours, Transportation — each a single
+`manifest.json`. JSON-only, no bundled photos, so every card falls back
+to an emoji glyph. Didn't see the point in shipping placeholder images
+when the emoji fallback already exists and looks fine.
 
 ## Trying them
 
-In the app: **Menu (⋮) → Import Set → Import JSON File**, then pick one of
-these `manifest.json` files. Each import creates one new category with all
-of its cards.
+In the app: **Menu (⋮) → Import Set → Import JSON File**, then pick one
+of these `manifest.json` files. Each import creates one new category
+with all of its cards.
 
 ## The manifest format
 
@@ -31,13 +32,12 @@ of its cards.
   below) — the name of an image file bundled alongside `manifest.json`.
 - `cards[].icon`: an optional per-card emoji, used when there's no image.
   Falls back to `category_icon` if omitted. This is what the three sets
-  in this folder use — no images needed.
+  in this folder use.
 
 ## Two ways to package a set
 
-**JSON only** (what's in this folder): just `manifest.json`, imported
-directly. Fastest to create, no photos required — cards render with
-`icon` (or `category_icon` as a fallback).
+**JSON only** (what's here): just `manifest.json`, imported directly.
+Fastest to put together, no photos required.
 
 **ZIP with photos**: `manifest.json` plus the image files it references,
 zipped together:
@@ -51,13 +51,14 @@ my_set.zip
 
 Reference each file by name in `image_filename`. The importer copies
 referenced images into the app's private storage on import; anything in
-the ZIP that isn't referenced by a card is ignored. If `image_filename`
-doesn't match any file in the ZIP, that card falls back to `icon` /
-`category_icon` instead of failing the whole import — you'll see which
-ones didn't match in the import summary.
+the ZIP that isn't referenced by a card gets ignored, not an error. If
+`image_filename` doesn't match a file in the ZIP, that one card falls
+back to `icon` / `category_icon` rather than failing the whole import —
+you'll see exactly which ones didn't match in the import summary, not a
+generic "something went wrong".
 
 ## Limits
 
 - ZIP imports are capped at 50MB total.
-- `category_name` and `cards` are required; everything else has a
-  sensible default.
+- `category_name` and `cards` are required. Everything else has a
+  sensible default, so don't feel obliged to fill in every field.
