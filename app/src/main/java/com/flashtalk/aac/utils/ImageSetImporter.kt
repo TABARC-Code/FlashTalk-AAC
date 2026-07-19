@@ -5,7 +5,7 @@ import android.net.Uri
 import com.flashtalk.aac.data.Category
 import com.flashtalk.aac.data.FlashCard
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -118,14 +118,11 @@ class ImageSetImporter(private val context: Context) {
             return ImportResult.Error("manifest.json has no cards to import.")
         }
 
-        val warnings = mutableListOf<String>()
+        val warnings = findMissingImageWarnings(manifest, imageFiles.keys)
         val destDir = File(context.filesDir, "custom_images").apply { mkdirs() }
 
         val cards = manifest.cards.mapIndexed { index, cardData ->
             val sourceImage = imageFiles[cardData.imageFilename]
-            if (cardData.imageFilename.isNotBlank() && sourceImage == null) {
-                warnings.add("${cardData.text}: image \"${cardData.imageFilename}\" was not found in the set.")
-            }
 
             if (sourceImage != null) {
                 val destFile = File(destDir, "${UUID.randomUUID()}_${sourceImage.name}")
@@ -158,18 +155,67 @@ class ImageSetImporter(private val context: Context) {
         return ImportResult.Success(category, cards, warnings)
     }
 
-    private fun parseManifest(json: String): ImportManifest? {
-        return try {
-            val manifest = Gson().fromJson(json, ImportManifest::class.java)
-            if (manifest?.categoryName.isNullOrBlank() || manifest?.cards == null) null else manifest
-        } catch (e: JsonSyntaxException) {
-            null
-        }
-    }
-
     private fun openStream(uri: Uri): InputStream? = context.contentResolver.openInputStream(uri)
 
     companion object {
         private const val MAX_IMPORT_BYTES = 50L * 1024 * 1024
+
+        // Pure, Context-free — no reason to hide it behind the
+        // suspend/Context-requiring importFromJson/importFromZip entry
+        // points. ImageSetImporterTest calls both of these directly.
+        //
+        // Deliberately NOT `Gson().fromJson(json, ImportManifest::class.java)`
+        // — Gson populates data classes via reflection, bypassing the Kotlin
+        // constructor entirely, so a field missing from the JSON lands as a
+        // real `null` rather than triggering the constructor's default value.
+        // For a `String` property declared non-null, that's an unchecked
+        // null the type system doesn't know about — exactly the kind of bug
+        // that stays invisible until someone imports a manifest missing an
+        // optional field, which is the one thing example_imports/README.md
+        // promises is safe to do. Parsing into a JsonObject and constructing
+        // ImportManifest/CardData through their real constructors (with `?:`
+        // filling the gaps) means the defaults actually apply.
+        fun parseManifest(json: String): ImportManifest? {
+            return try {
+                val root = Gson().fromJson(json, JsonObject::class.java) ?: return null
+                val categoryName = root.stringOrNull("category_name")
+                val cardsArray = root.get("cards")?.takeIf { it.isJsonArray }?.asJsonArray
+                if (categoryName.isNullOrBlank() || cardsArray == null) return null
+
+                val cards = cardsArray.mapNotNull { element ->
+                    if (!element.isJsonObject) return@mapNotNull null
+                    val obj = element.asJsonObject
+                    val text = obj.stringOrNull("text") ?: return@mapNotNull null
+                    CardData(
+                        text = text,
+                        imageFilename = obj.stringOrNull("image_filename") ?: "",
+                        icon = obj.stringOrNull("icon") ?: ""
+                    )
+                }
+
+                ImportManifest(
+                    setName = root.stringOrNull("set_name") ?: categoryName,
+                    categoryName = categoryName,
+                    categoryIcon = root.stringOrNull("category_icon") ?: "📦",
+                    categoryColor = root.stringOrNull("category_color") ?: "#95E1D3",
+                    cards = cards
+                )
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+        private fun JsonObject.stringOrNull(key: String): String? =
+            get(key)?.takeIf { !it.isJsonNull }?.asString
+
+        fun findMissingImageWarnings(manifest: ImportManifest, availableFilenames: Set<String>): List<String> {
+            return manifest.cards.mapNotNull { cardData ->
+                if (cardData.imageFilename.isNotBlank() && cardData.imageFilename !in availableFilenames) {
+                    "${cardData.text}: image \"${cardData.imageFilename}\" was not found in the set."
+                } else {
+                    null
+                }
+            }
+        }
     }
 }

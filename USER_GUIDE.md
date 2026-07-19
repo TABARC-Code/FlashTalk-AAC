@@ -51,9 +51,13 @@ None of this needs building before it's useful. It needs using.
 Here's the mechanism, in full: open a category, find a card, tap it.
 The app speaks the word or phrase immediately — most cards show a
 picture-style emoji and the label together, so recognition doesn't
-depend on reading. A small on-screen message confirms what was said,
-and the card gives a brief, satisfying press animation, mostly so a
-young user gets the same tactile feedback they'd get from a real button.
+depend on reading. A bar at the top of the screen holds onto the
+last-spoken word after the app says it, with a small repeat button
+beside it — useful when a caregiver walks in mid-exchange, or when the
+person using the app wants to hear it again without tapping a second
+time. The card itself gives a brief, satisfying press animation, mostly
+so a young user gets the same tactile feedback they'd get from a real
+button.
 
 That's the whole interaction. No sentence to build first, no menu to
 navigate through, no second screen confirming the choice. **Tap
@@ -92,13 +96,38 @@ sometimes "loo." AAC users build associations between a specific word
 and a specific need; switching the label around undermines exactly the
 thing you're trying to build.
 
-## Importing a whole vocabulary at once
+## Changing your mind: editing and removing cards
+
+Vocabularies aren't static — interests change, a photo goes out of date,
+a category turns out not to be needed after all. Editing and deleting
+exist for exactly that, and they're deliberately not switched on by
+default.
+
+Here's why, and it's worth understanding rather than just accepting:
+long-press is a natural gesture, and an AAC user mid-communication who
+long-presses a card by accident should never find themselves staring at
+a delete confirmation. So editing lives behind **Edit mode**, a toggle
+in Settings that's off until a caregiver turns it on deliberately. With
+it off, long-pressing a card or category does precisely nothing — the
+app behaves exactly as described everywhere else in this guide.
+
+Turn it on (Menu → Settings → Edit mode) and a banner appears at the top
+of the screen as a reminder that things can now be changed. Long-press
+any card to edit its text or swap its photo, or delete it outright, with
+a confirmation step before anything's actually removed. Long-press a
+category to rename it, change its icon, or delete it and every card
+inside it — again, with a confirmation naming exactly how many cards
+that would take with it. Turn Edit mode back off when you're done, and
+the app goes back to being exactly as accident-proof as it was before.
+
+## Importing and exporting a whole vocabulary at once
 
 Building cards one by one has its place, but sometimes what's needed is
 faster: a school importing a shared vocabulary, a therapist handing over
 a set built for a specific goal, a parent restoring cards after setting
 up a new phone. For all of that, there's Import Set, tucked under the
-menu (⋮) on the main screen.
+menu (⋮) on the main screen — and because it's a settings-adjacent
+action, opening it asks a quick maths question first (see below).
 
 Two formats are supported, and which one you want depends on whether
 you have photos to go with the words.
@@ -120,11 +149,19 @@ whole import — you'll see exactly which cards that happened to in the
 summary once the import finishes, which is a small thing but a genuinely
 useful one when you're troubleshooting later.
 
+Going the other way — **exporting** — works from inside a category
+rather than the main menu: open the category, tap its menu, choose
+Export, and pick where to save it. What comes out is a ZIP in exactly
+the same format Import reads, photos and all, ready to hand to another
+device or another person, or just to keep somewhere safe. It's the same
+category you started with, just portable.
+
 ## Shaping how it sounds and looks
 
 Every voice needs adjusting for the person listening to it, and
-FlashTalk AAC's settings screen (menu → Settings) covers the handful of
-things that actually matter:
+FlashTalk AAC's settings screen (menu → Settings — also behind that
+same quick maths question) covers the handful of things that actually
+matter:
 
 **Speech rate** and **voice pitch** each run from 0.5× to 2×, defaulting
 to a measured 0.9× rate and a neutral 1× pitch. Slow the rate down for
@@ -138,6 +175,14 @@ to glare — flip it and it applies straight away, no restart required.
 **Large text** does exactly what it says, scaling text across the whole
 app rather than just on one screen. Worth turning on early rather than
 waiting for it to become a problem.
+
+**Edit mode** lives here too — see "Changing your mind" above.
+
+A quick word on that maths question you'll see before Settings or
+Import open: it's two single-digit numbers and a sum, nothing more.
+It's not there to stop anyone determined — it exists so a curious or
+impulsive user doesn't wander into Settings mid-session and change
+something without meaning to. A speed bump, not a lock.
 
 ## What actually helps, week to week
 
@@ -207,9 +252,8 @@ itself isn't simply out of storage.
 
 **The app crashes or won't respond?** Force-stop it, clear cache, and
 update Android if it's been a while. Reinstalling is the last resort —
-there's no export feature yet (it's coming; see the project's own
-roadmap), so anything genuinely irreplaceable is worth noting down
-before you take that step.
+export any category you'd hate to lose first (category menu → Export),
+just in case.
 
 ## The short version
 
@@ -219,6 +263,8 @@ before you take that step.
 | Add a card | Category → **+** → Select Image → type the word → Save |
 | Add a category | Main screen → **+** → name it → Save |
 | Bring in a whole vocabulary | Menu → Import Set → choose ZIP or JSON |
+| Send a category elsewhere | Open it → category menu → Export |
+| Edit or delete a card/category | Settings → turn on Edit mode → long-press it |
 | Change how fast it speaks | Menu → Settings → Speech Rate |
 | Ease eye strain | Menu → Settings → Dark Mode |
 | Make everything bigger | Menu → Settings → Large Text |

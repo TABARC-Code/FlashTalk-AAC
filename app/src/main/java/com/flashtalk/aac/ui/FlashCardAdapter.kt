@@ -17,7 +17,11 @@ import com.flashtalk.aac.data.FlashCard
 import java.io.File
 
 class FlashCardAdapter(
-    private val onCardClick: (FlashCard) -> Unit
+    private val onCardClick: (FlashCard) -> Unit,
+    // Null when Edit mode is off — no long-click listener attached at all.
+    // Mutable so CategoryActivity can flip it after Settings changes Edit
+    // mode; call notifyDataSetChanged() afterwards.
+    var onCardLongClick: ((FlashCard) -> Unit)? = null
 ) : ListAdapter<FlashCard, FlashCardAdapter.FlashCardViewHolder>(FlashCardDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlashCardViewHolder {
@@ -27,7 +31,7 @@ class FlashCardAdapter(
     }
 
     override fun onBindViewHolder(holder: FlashCardViewHolder, position: Int) {
-        holder.bind(getItem(position), onCardClick)
+        holder.bind(getItem(position), onCardClick, onCardLongClick)
     }
 
     class FlashCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,7 +42,7 @@ class FlashCardAdapter(
         private val textView: TextView = itemView.findViewById(R.id.cardText)
         private val urgentStrokeWidth = (2 * context.resources.displayMetrics.density).toInt()
 
-        fun bind(flashCard: FlashCard, onClick: (FlashCard) -> Unit) {
+        fun bind(flashCard: FlashCard, onClick: (FlashCard) -> Unit, onLongClick: ((FlashCard) -> Unit)?) {
             textView.text = flashCard.text
             itemView.contentDescription =
                 if (flashCard.priority == "urgent") "Urgent: ${flashCard.text}" else flashCard.text
@@ -75,10 +79,20 @@ class FlashCardAdapter(
             // listener, so TalkBack's synthesized clicks work correctly
             // (BACKLOG.md item 10).
             itemView.setOnClickListener { onClick(flashCard) }
+            if (onLongClick != null) {
+                itemView.setOnLongClickListener {
+                    onLongClick(flashCard)
+                    true
+                }
+            } else {
+                itemView.setOnLongClickListener(null)
+                itemView.isLongClickable = false
+            }
         }
     }
 
-    private class FlashCardDiffCallback : DiffUtil.ItemCallback<FlashCard>() {
+    // internal, not private: FlashCardDiffCallbackTest exercises this directly.
+    internal class FlashCardDiffCallback : DiffUtil.ItemCallback<FlashCard>() {
         override fun areItemsTheSame(oldItem: FlashCard, newItem: FlashCard) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: FlashCard, newItem: FlashCard) = oldItem == newItem
     }

@@ -28,6 +28,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateCategory(category: Category) {
+        viewModelScope.launch {
+            repository.updateCategory(category)
+        }
+    }
+
+    suspend fun cardCountFor(categoryId: Long): Int = repository.getCardsByCategorySync(categoryId).size
+
     fun deleteCategory(category: Category) {
         viewModelScope.launch {
             repository.deleteCategory(category)

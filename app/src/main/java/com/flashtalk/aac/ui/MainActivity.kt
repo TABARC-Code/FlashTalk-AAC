@@ -1,23 +1,29 @@
 package com.flashtalk.aac.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.Category
+import com.flashtalk.aac.utils.TTSManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var categoryAdapter: CategoryAdapter
+    private val prefs by lazy { getSharedPreferences(TTSManager.PREFS_NAME, Context.MODE_PRIVATE) }
 
     // A fixed, high-contrast rotating palette for custom categories —
     // simpler and more foolproof than a colour-picker UI for v1.0.
@@ -40,14 +46,28 @@ class MainActivity : BaseActivity() {
         observeData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Edit mode is toggled in SettingsActivity — pick up any change made
+        // while we were away, without needing to rebuild the adapter.
+        applyEditModeState()
+    }
+
     private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
-        categoryAdapter = CategoryAdapter { category -> openCategory(category) }
+        categoryAdapter = CategoryAdapter(onCategoryClick = { category -> openCategory(category) })
         recyclerView.apply {
             layoutManager = GridLayoutManager(this@MainActivity, 2)
             adapter = categoryAdapter
             setHasFixedSize(true)
         }
+    }
+
+    private fun applyEditModeState() {
+        val editModeOn = prefs.getBoolean(TTSManager.KEY_EDIT_MODE, false)
+        findViewById<View>(R.id.editModeBanner).visibility = if (editModeOn) View.VISIBLE else View.GONE
+        categoryAdapter.onCategoryLongClick = if (editModeOn) { category -> showEditCategoryDialog(category) } else null
+        categoryAdapter.notifyDataSetChanged()
     }
 
     private fun setupFab() {
@@ -82,6 +102,38 @@ class MainActivity : BaseActivity() {
             .show()
     }
 
+    private fun showEditCategoryDialog(category: Category) {
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_add_category, null)
+        val nameInput = view.findViewById<EditText>(R.id.inputCategoryName).apply { setText(category.name) }
+        val iconInput = view.findViewById<EditText>(R.id.inputCategoryIcon).apply { setText(category.icon) }
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.edit_category_title)
+            .setView(view)
+            .setPositiveButton(R.string.save) { _, _ ->
+                val name = nameInput.text.toString().trim()
+                if (name.isNotEmpty()) {
+                    val icon = iconInput.text.toString().trim().ifEmpty { category.icon }
+                    viewModel.updateCategory(category.copy(name = name, icon = icon))
+                }
+            }
+            .setNeutralButton(R.string.delete) { _, _ -> showDeleteCategoryConfirm(category) }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
+    private fun showDeleteCategoryConfirm(category: Category) {
+        lifecycleScope.launch {
+            val cardCount = viewModel.cardCountFor(category.id)
+            AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.delete_category_title)
+                .setMessage(getString(R.string.delete_category_message, category.name, cardCount))
+                .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteCategory(category) }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
+        }
+    }
+
     private fun openCategory(category: Category) {
         val intent = Intent(this, CategoryActivity::class.java).apply {
             putExtra(EXTRA_CATEGORY_ID, category.id)
@@ -99,11 +151,11 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_import -> {
-                startActivity(Intent(this, ImportSetActivity::class.java))
+                MathGate.show(this) { startActivity(Intent(this, ImportSetActivity::class.java)) }
                 true
             }
             R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                MathGate.show(this) { startActivity(Intent(this, SettingsActivity::class.java)) }
                 true
             }
             else -> super.onOptionsItemSelected(item)

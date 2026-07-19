@@ -92,22 +92,17 @@ issue with:
 ## Areas for Contribution
 
 `BACKLOG.md` is the actively-maintained, prioritised queue — that's the
-real answer. Short version, highest priority first:
-
-### High Priority
-- [ ] Edit existing cards/categories (with an entry point that's hard to
-  trigger by accident — see BACKLOG.md item 1 for why that constraint
-  matters more than it sounds)
-- [ ] Delete UI for cards/categories (repository support already exists)
-- [ ] Settings/import lock, caregiver-facing
-- [ ] Export functionality
+real answer. Edit/delete, the speech bar, the Settings/Import lock, and
+export are all done now (see `CHANGELOG.md`); what's left, highest
+priority first:
 
 ### Medium Priority
-- [ ] kapt → KSP migration
-- [ ] Automated tests, data layer first
 - [ ] Reorder cards
-- [ ] Locale-aware seed vocabulary
+- [ ] Locale-aware seed vocabulary (currently English-only)
 - [ ] Real screenshots for the README
+- [ ] UI/instrumented tests — everything so far is unit-tested (30 tests,
+  JVM + Robolectric), but nothing's been watched running on an actual
+  device or emulator yet
 
 ### Low Priority (P3 in BACKLOG.md)
 - [ ] Sentence builder mode (PECS-style, opt-in)

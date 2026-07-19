@@ -28,7 +28,16 @@ everyone wants.
   photo/document chooser, so no storage permission is ever requested
 - Custom categories, unlimited
 - Bulk import of whole card sets from ZIP or JSON — build a set on your
-  PC, drop it onto the device
+  PC, drop it onto the device — and export any category back out again
+  in the same format
+- Edit or delete any card or category, behind an Edit mode toggle that's
+  off by default — long-press does nothing until you've deliberately
+  turned it on in Settings
+- A persistent speech bar shows the last-spoken word with a repeat
+  button, instead of a Toast that's gone before anyone slower than
+  instant can read it
+- A maths-question gate on Settings and Import — not security, a
+  caregiver-facing speed bump against wandering in mid-session
 - TTS rate and pitch controls, dark mode, and a large-text mode that
   actually does something
 - Works entirely offline, always
@@ -41,10 +50,12 @@ a photo — that's a decision, not a placeholder waiting on one. It means
 the app never had to settle a symbol-set licence before it could ship
 with cards that look like something. Your own photo cards work exactly
 as you'd expect, no caveats there.
-There's no sentence building (single-tap is the whole design, though a
-strip mode is sitting in the backlog for anyone who wants it), no export
-yet, and no edit-in-place for existing cards. `BACKLOG.md` has the full
-confession, in priority order — I'd rather it be too honest than
+There's no sentence building yet (single-tap is the whole design, though
+a strip mode is sitting in the backlog for anyone who wants it), no card
+reordering, and the seed vocabulary is English-only. Nothing here has
+been run on an actual device or emulator either — compiled, linted, and
+unit-tested (30 tests), but not watched running. `BACKLOG.md` has the
+full confession, in priority order — I'd rather it be too honest than
 flattering.
 
 ## Building it
@@ -62,12 +73,15 @@ cd FlashTalkAAC
 Or open the folder in Android Studio and hit Run. Min SDK is 24
 (Android 7.0), target's 34.
 
-## Importing card sets
+## Importing and exporting card sets
 
 Zip up a `manifest.json` with your images and import it from the app
 menu — or skip the images entirely and import a JSON-only set instead,
-where each card falls back to an emoji. Format and worked examples live
-in `example_imports/`. Short version:
+where each card falls back to an emoji. Export works the same way in
+reverse: pick a category's menu → Export, and it writes out to the exact
+same ZIP+manifest format, ready to hand to someone else or re-import
+later. Format and worked examples live in `example_imports/`. Short
+version:
 
 ```json
 {

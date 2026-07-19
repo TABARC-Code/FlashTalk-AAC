@@ -5,4 +5,8 @@
         android:id="@+id/action_edit_category"
         android:title="@string/action_edit_category"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_export_category"
+        android:title="@string/action_export_category"
+        app:showAsAction="never" />
 </menu>

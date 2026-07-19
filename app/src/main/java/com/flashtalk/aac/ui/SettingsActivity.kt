@@ -23,6 +23,7 @@ class SettingsActivity : BaseActivity() {
         setupPitchSlider()
         setupDarkModeSwitch()
         setupLargeTextSwitch()
+        setupEditModeSwitch()
     }
 
     private fun setupRateSlider() {
@@ -67,6 +68,15 @@ class SettingsActivity : BaseActivity() {
             setOnCheckedChangeListener { _, isChecked ->
                 prefs.edit().putBoolean(TTSManager.KEY_LARGE_TEXT, isChecked).apply()
                 recreate() // re-applies BaseActivity#attachBaseContext with the new fontScale
+            }
+        }
+    }
+
+    private fun setupEditModeSwitch() {
+        findViewById<MaterialSwitch>(R.id.switchEditMode).apply {
+            isChecked = prefs.getBoolean(TTSManager.KEY_EDIT_MODE, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit().putBoolean(TTSManager.KEY_EDIT_MODE, isChecked).apply()
             }
         }
     }

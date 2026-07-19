@@ -39,14 +39,59 @@ kind of waste of everyone's time.
   that's exactly the kind of thing that breaks silently under a later
   refactor with nothing to catch it.
 
+### Added — Edit mode, speech bar, settings lock, export
+- **Edit mode**, off by default, toggled in Settings. On: long-press a
+  category to rename/re-icon or delete it (cascades to its cards and
+  their photos); long-press a card to change its text/photo or delete
+  it. Off (the default): no long-click listener is attached at all, not
+  a listener that happens to do nothing — that distinction is the actual
+  safety mechanism, see `CLAUDE.md` invariant 9.
+- **Persistent speech bar** in `CategoryActivity`, replacing the Toast on
+  card tap. Shows the last-spoken card's label with a repeat button.
+  Toasts vanish before anyone slower than instant can read them and
+  can't be replayed; a bar that stays put and repeats fixes both.
+- **Settings/Import lock**: a maths-question dialog (`MathGate`) gates
+  entry to Settings and Import from the main menu. Not security — a
+  caregiver-facing speed bump so a curious or impulsive user doesn't
+  wander in mid-session. One gate at the door; the Edit mode toggle
+  inside Settings doesn't get a second one.
+- **Category export**: `ImageSetExporter` writes a category and its
+  cards back out in the exact ZIP+manifest format `ImageSetImporter`
+  already reads (custom photos bundled in, emoji-only cards get their
+  glyph stored as `icon`). Reuses `ImageSetImporter`'s own manifest data
+  classes rather than a second copy of the schema.
+
+### Fixed
+- **Gson doesn't apply Kotlin constructor defaults for missing JSON
+  fields** — it populates data classes via reflection, bypassing the
+  constructor, so an optional field like `category_icon` landed as an
+  actual `null` at runtime rather than falling back to `"📦"`, for any
+  manifest that omitted it. That's precisely the minimal-JSON case
+  `example_imports/README.md` promises works. `ImageSetImporter
+  .parseManifest` now parses into a `JsonObject` and builds
+  `ImportManifest`/`CardData` through their real constructors instead,
+  so the documented defaults actually apply. Found by writing
+  `ImageSetImporterTest`, not by inspection — worth remembering next
+  time a data class default looks obviously fine.
+
+### Changed
+- kapt → KSP for Room's annotation processing. Glide's compiler artifact
+  was removed outright rather than migrated: this app has never declared
+  an `AppGlideModule`, so it was doing nothing and had nothing to
+  migrate.
+- 30 unit tests now exist, up from 5: CSV parsing, manifest parsing
+  (happy path, malformed JSON, missing images), DiffUtil callbacks for
+  both adapters, the export round-trip, and Repository CRUD against an
+  in-memory Room database via Robolectric (no emulator needed).
+
 ### Planned
-- Edit existing flashcards
-- Delete cards and categories via the UI (the repository layer already
-  supports this — it's a screen away, not a rewrite)
 - Reorder cards within categories
-- Export categories to ZIP
 - Favourites / frequently used cards
 - Usage history and statistics
+- Locale-aware seed vocabulary (currently English-only)
+- Real screenshots for the README
+- UI/instrumented tests — everything above is unit-tested, nothing has
+  been watched running on a device or emulator yet
 
 ## [1.0.0] - 2026-07-19
 

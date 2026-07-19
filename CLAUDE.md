@@ -24,15 +24,24 @@ renaming SDK methods to make a point).
 - Single module: `app/`
 - No DI framework, deliberately. The app's small enough that Hilt would
   be ceremony, not architecture. Don't add it without asking first.
+- KSP for annotation processing (Room), not kapt — kapt's gone entirely.
+  Glide's compiler artifact is gone too, not migrated: this app never
+  declares an `AppGlideModule`, so it was doing nothing.
 
 ## Build and test
 
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests (a handful exist now — see backlog item 6)
+./gradlew test                 # unit tests — 30 of them, see below
 ./gradlew lint                 # always run before committing
 ```
+
+Tests run on the JVM via Robolectric where they touch Room/Context
+(`AppRepositoryTest`); everything else (CSV parsing, manifest parsing,
+DiffUtil callbacks, the exporter) is plain, Context-free JUnit. No
+emulator or device needed for any of it, which matters in an environment
+without one.
 
 ## Architecture map
 
@@ -44,10 +53,12 @@ data/     Room entities (Category, FlashCard), DAOs, AppDatabase (seeds
 ui/       One activity per screen + ViewModel + adapter. Main (category
           grid) → Category (card grid) → tap speaks via TTSManager.
           BaseActivity applies the "Large text" font-scale override that
-          every other activity extends.
+          every other activity extends. MathGate is a shared maths-
+          question dialog gating Settings/Import entry.
 utils/    TTSManager (reads rate/pitch from SharedPreferences
           "FlashTalkSettings" on every speak() call), ImageSetImporter
-          (ZIP/JSON bulk import)
+          (ZIP/JSON bulk import), ImageSetExporter (the reverse — same
+          manifest schema, reused rather than duplicated)
 FlashTalkApplication  Applies the stored dark-mode preference at process
           start, before any activity is created.
 ```
@@ -103,6 +114,20 @@ turn this from an AAC app into a mildly insulting toy:
    `getCardsByCategorySync`, which the delete-cleanup path uses and needs
    to see every card, enabled or not. Don't "simplify" that query to a
    single shared version; it's two queries on purpose.
+9. **Edit mode is off by default, and long-press listeners aren't just
+   inert when it's off — they're not attached at all.** `CategoryAdapter
+   .onCategoryLongClick`/`FlashCardAdapter.onCardLongClick` are nullable
+   `var`s that `MainActivity`/`CategoryActivity` set to `null` whenever
+   the `KEY_EDIT_MODE` preference is off, in `onResume()`. This is the
+   actual safety mechanism the "hard to trigger accidentally" design
+   constraint depends on — don't refactor it into a listener that just
+   checks a flag and no-ops, because a no-op listener is still a listener
+   that TalkBack and accidental long-presses can still find.
+10. **`MathGate.show()` is a caregiver speed bump, not access control.**
+    It gates Settings and Import from `MainActivity`'s menu. Don't wire
+    it in front of individual actions inside Settings (the Edit mode
+    toggle doesn't get its own gate) — one gate at the door is the
+    design, not one at every room.
 
 ## Design rules (accessibility is the product)
 
@@ -153,8 +178,12 @@ way:
   across all 266 cards, correctly, but they're a placeholder, not a
   destination. What replaces them is an open decision, not this file's
   to make.
-- Only a handful of automated tests exist (the CSV parser). Everything
-  else in BACKLOG.md item 6 is still untested.
+- Seed vocabulary is English-only. See BACKLOG.md item 7 for the actual
+  plan (locale-specific CSV variants, not string resources).
+- No UI/instrumented tests exist — everything runs on the JVM (plain
+  JUnit or Robolectric). That's a deliberate foundation-first choice, not
+  an oversight, but it means the actual on-screen behaviour of edit mode,
+  the speech bar, and the maths gate has never been watched running.
 - If `PROJECT_OVERVIEW.md` is still floating around anywhere, don't trust
   it — it oversells completeness in a way `BACKLOG.md` immediately
   contradicts. `BACKLOG.md` is the source of truth on status, always.
@@ -172,6 +201,19 @@ don't reintroduce them just because it'd be quicker):
 - Deleting a card or category now removes its custom image file.
 - Card touch feedback uses a `StateListAnimator`, not a manual
   `setOnTouchListener` that skipped `performClick()`.
+- Edit and delete for both cards and categories, gated behind an
+  off-by-default Edit mode toggle (invariant 9).
+- Toasts on card tap replaced with a persistent speech bar (last-spoken
+  text + repeat button) in `CategoryActivity`.
+- A maths-question gate on Settings/Import (`MathGate`, invariant 10).
+- Export: `ImageSetExporter` writes a category back out in the same
+  ZIP+manifest format `ImageSetImporter` reads. Round-trip covered by
+  `ImageSetExporterTest`.
+- kapt → KSP, and the unused Glide annotation processor removed outright.
+- 30 unit tests now exist, up from zero: CSV parsing, manifest parsing
+  (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
+  `BUILD_NOTES.md`), DiffUtil callbacks, the export round-trip, and
+  Repository CRUD via Robolectric.
 
 ## Skills that pair with this repo
 

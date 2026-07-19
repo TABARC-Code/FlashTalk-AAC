@@ -145,10 +145,85 @@ Also added: an `enabled` flag per card, respected by the card-list query
 but not yet exposed as a toggle anywhere — plumbing for later, not a
 feature today.
 
-## What's deliberately still broken (or missing)
+## Working through the rest of P1 and P2
 
-Nothing here is an accident — see BACKLOG.md for the ordered list, but
-the short version: no edit/delete UI (repository support exists, no
-screen wired to it yet), no export, no settings lock, still on kapt
-instead of KSP, seed vocabulary is still English-only, and testing is a
-CSV parser and nothing else yet. All flagged, all intentional, all next.
+The instruction was "keep working until the app is complete," which I've
+taken to mean: finish BACKLOG's P1 (core UX gaps) properly, and as much
+of P2 (engineering hygiene) as doesn't need an emulator. Not P3 — those
+are each their own feature (sentence strips, profiles, a widget,
+switch-access scanning), explicitly marked "future, only after the
+above," and treating them as part of "complete" would be scope
+invention, not scope completion.
+
+**Edit mode, not raw long-press.** BACKLOG flagged the risk plainly: a
+kid mid-communication landing in a delete confirmation is the app
+actively working against the person it exists for. The fix isn't
+cleverness, it's a light switch — an off-by-default toggle in Settings,
+and when it's off, `CategoryAdapter`/`FlashCardAdapter` don't have a
+long-click listener *attached at all*. Not a listener that checks a flag
+and no-ops — genuinely absent. That distinction matters more than it
+sounds: a listener that's there-but-inert is still a thing TalkBack and
+accidental long-presses can trip over.
+
+**Repeat button over Toast.** Barely worth its own paragraph, except
+that it's exactly the kind of "obviously fine" UI choice that turns out
+to actively work against the product once you think about who's using
+it. A Toast that vanishes in two seconds is useless to anyone processing
+slower than that, and there was never a way to hear the word again
+without tapping the card a second time.
+
+**The maths gate is a speed bump, on purpose.** Two random single-digit
+numbers, add them, get past Settings/Import. It would take a curious
+seven-year-old about four seconds to defeat this, and that's fine — it's
+not meant to stop anyone determined, it's meant to stop *accidental*
+wandering. Real access control was never the ask.
+
+**Export reuses the import schema, not a parallel one.** `ImageSetExporter
+.buildManifest` constructs `ImageSetImporter.ImportManifest`/`CardData`
+directly rather than declaring its own shape. Two independently-evolving
+definitions of "what a manifest.json looks like" is exactly how an
+export ends up producing a file the importer can't read back — the
+failure mode this was built specifically to avoid.
+
+**A real bug, caught by writing the tests for the above.** `parseManifest`
+used `Gson().fromJson(json, ImportManifest::class.java)` and trusted the
+Kotlin constructor's default values (`categoryIcon: String = "📦"`) to
+fill in anything missing from the JSON. They don't. Gson populates data
+classes through reflection, not by calling the constructor, so a field
+absent from the JSON lands as a genuine `null` — on a property Kotlin's
+type system insists is non-null. That's not a hypothetical: it's exactly
+the minimal-manifest case `example_imports/README.md` tells people is
+safe to rely on. Writing `ImageSetImporterTest` surfaced it inside a
+minute; inspection alone hadn't. Fixed by parsing into a `JsonObject`
+and constructing the real objects through their actual constructors,
+with `?:` filling every gap. The lesson isn't "Gson is bad," it's that a
+Kotlin default value is only as real as the code path that's supposed to
+trigger it.
+
+**kapt → KSP, and Glide's compiler just left.** The version pairing
+matters (`1.9.24-1.0.20` for Kotlin 1.9.24 — get this wrong and the
+build fails in a way that doesn't obviously point at a version
+mismatch). While in there: this app has never declared an
+`AppGlideModule`, so Glide's annotation processor was compiling for a
+generated `GlideApp` API that doesn't exist anywhere in the codebase.
+Removed rather than migrated — there was nothing to migrate.
+
+**Thirty tests, mostly Context-free on purpose.** Every pure function
+(CSV parsing, manifest parsing, DiffUtil callbacks, the exporter's
+manifest-building) lives in a companion object specifically so a plain
+JUnit test can call it without an Android runtime standing behind it.
+The one place that genuinely needs Room + Context —
+`AppRepositoryTest` — pulled in Robolectric rather than skip the
+coverage, since there's no emulator here to run an instrumented test on
+instead. `Room.inMemoryDatabaseBuilder` directly, not
+`AppDatabase.getDatabase()`, so the tests get a database they control
+rather than the full 266-card seed.
+
+## What's deliberately still missing
+
+See BACKLOG.md for the ordered, current list. Short version: no card
+reordering, no favourites/history, seed vocabulary is still English-only,
+no real screenshots, and — the one that actually matters most — none of
+this has been watched running on a device or emulator. Compiling clean,
+linting clean, and thirty passing unit tests are real signal. They are
+not the same thing as tapping the app and watching it work.

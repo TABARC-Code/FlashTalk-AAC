@@ -1,0 +1,110 @@
+package com.flashtalk.aac.data
+
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import kotlinx.coroutines.test.runTest
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import java.io.File
+
+/**
+ * Repository CRUD against a real (in-memory) Room database — Robolectric,
+ * not a real device, since there's no emulator in this environment. Built
+ * via Room.inMemoryDatabaseBuilder directly rather than
+ * AppDatabase.getDatabase(), which deliberately skips the CSV-seeding
+ * callback: these tests want an empty database they control, not the
+ * production seed data (BACKLOG.md P2 item 6).
+ */
+@RunWith(RobolectricTestRunner::class)
+class AppRepositoryTest {
+
+    private lateinit var db: AppDatabase
+    private lateinit var repository: AppRepository
+
+    @Before
+    fun setUp() {
+        db = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
+        repository = AppRepository(db.categoryDao(), db.flashCardDao())
+    }
+
+    @After
+    fun tearDown() {
+        db.close()
+    }
+
+    @Test
+    fun `inserting a category makes it fetchable by id`() = runTest {
+        val id = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+
+        assertTrue(id > 0)
+        assertEquals("Test", repository.getCategoryById(id)?.name)
+    }
+
+    @Test
+    fun `inserting cards makes them fetchable by category`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+        repository.insertCard(FlashCard(categoryId = categoryId, text = "Hello", emoji = "👋"))
+        repository.insertCard(FlashCard(categoryId = categoryId, text = "Bye", emoji = "👋"))
+
+        assertEquals(2, repository.getCardsByCategorySync(categoryId).size)
+    }
+
+    @Test
+    fun `deleting a category cascades to its cards`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+        repository.insertCard(FlashCard(categoryId = categoryId, text = "Hello", emoji = "👋"))
+        val category = repository.getCategoryById(categoryId)!!
+
+        repository.deleteCategory(category)
+
+        assertNull(repository.getCategoryById(categoryId))
+        assertTrue(repository.getCardsByCategorySync(categoryId).isEmpty())
+    }
+
+    @Test
+    fun `deleting a custom card removes its image file`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+        val imageFile = File.createTempFile("card", ".jpg")
+        val cardId = repository.insertCard(
+            FlashCard(categoryId = categoryId, text = "Photo", imagePath = imageFile.absolutePath, isCustom = true)
+        )
+        assertTrue(imageFile.exists())
+
+        repository.deleteCard(repository.getCardById(cardId)!!)
+
+        assertFalse(imageFile.exists())
+    }
+
+    @Test
+    fun `deleting a category removes every custom card's image file`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+        val imageFile = File.createTempFile("card", ".jpg")
+        repository.insertCard(
+            FlashCard(categoryId = categoryId, text = "Photo", imagePath = imageFile.absolutePath, isCustom = true)
+        )
+        val category = repository.getCategoryById(categoryId)!!
+
+        repository.deleteCategory(category)
+
+        assertFalse(imageFile.exists())
+    }
+
+    @Test
+    fun `updating a category persists the change`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Old", icon = "🎯", color = "#FFFFFF"))
+        val category = repository.getCategoryById(categoryId)!!
+
+        repository.updateCategory(category.copy(name = "New"))
+
+        assertEquals("New", repository.getCategoryById(categoryId)?.name)
+    }
+}

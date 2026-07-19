@@ -23,15 +23,18 @@ PECS-style sentence assembly. Narrow on purpose — it does one interaction
 a harder discipline to hold onto than it sounds when every feature
 request looks reasonable in isolation.
 
-**Stack:** Kotlin, MVVM, Room, Coroutines, Glide, Material Components.
-Min SDK 24. One module, no DI framework, and no network stack at all —
-not even an INTERNET permission in the manifest.
+**Stack:** Kotlin, MVVM, Room (KSP, not kapt), Coroutines, Glide, Material
+Components. Min SDK 24. One module, no DI framework, and no network
+stack at all — not even an INTERNET permission in the manifest.
 
-**Status:** v1.0, and it actually builds — I ran it through a real SDK
-before calling it done, not just assumed. Seed cards render as emoji
-glyphs rather than photos, which sidesteps a symbol-set licensing
-decision entirely rather than kicking it down the road. Edit/delete UI
-and export are the honest gaps left; see BACKLOG.md, in order, no
-skipping ahead.
+**Status:** edit/delete, a persistent speech bar, a Settings/Import
+maths gate, and category export are all in now, alongside the original
+tap-to-speak core. 30 unit tests cover the logic layer (CSV parsing,
+manifest parsing, DiffUtil callbacks, Repository CRUD via Robolectric).
+Seed cards render as emoji glyphs rather than photos, which sidesteps a
+symbol-set licensing decision entirely rather than kicking it down the
+road. The honest gaps: nothing's been watched running on an actual
+device or emulator, the seed vocabulary is English-only, and there's no
+card reordering yet. See BACKLOG.md, in order, no skipping ahead.
 
 Author: TABARC-Code

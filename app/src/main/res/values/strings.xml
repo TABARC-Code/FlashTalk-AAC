@@ -12,8 +12,21 @@
 
     <!-- Category screen -->
     <string name="add_card_content_description">Add card</string>
-    <string name="action_edit_category">Edit</string>
-    <string name="edit_not_yet_available">Editing categories isn\'t available yet</string>
+    <string name="action_edit_category">Edit category</string>
+    <string name="action_export_category">Export category</string>
+    <string name="edit_mode_off_hint">Turn on Edit mode in Settings first</string>
+    <string name="edit_mode_banner">Edit mode is on — long-press a card or category to edit or delete it</string>
+    <string name="repeat_content_description">Repeat</string>
+
+    <!-- Edit/delete dialogs -->
+    <string name="edit_category_title">Edit category</string>
+    <string name="delete">Delete</string>
+    <string name="delete_category_title">Delete category?</string>
+    <string name="delete_category_message">This removes "%1$s" and all %2$d card(s) in it. This can\'t be undone.</string>
+    <string name="edit_card_title">Edit card</string>
+    <string name="change_image">Change image</string>
+    <string name="delete_card_title">Delete card?</string>
+    <string name="delete_card_message">This removes "%1$s". This can\'t be undone.</string>
 
     <!-- Custom card screen -->
     <string name="custom_card_title">New Card</string>
@@ -30,6 +43,14 @@
     <string name="settings_pitch">Voice pitch</string>
     <string name="settings_dark_mode">Dark mode</string>
     <string name="settings_large_text">Large text</string>
+    <string name="settings_edit_mode">Edit mode</string>
+    <string name="settings_edit_mode_explainer">Turn this on to edit or delete cards and categories by long-press. Off by default, so nothing changes by accident.</string>
+
+    <!-- Settings lock -->
+    <string name="settings_lock_title">Quick check</string>
+    <string name="settings_lock_message">What\'s %1$d + %2$d?</string>
+    <string name="settings_lock_wrong">Not quite — try again</string>
+    <string name="continue_action">Continue</string>
 
     <!-- Import screen -->
     <string name="action_import">Import Set</string>
@@ -39,4 +60,9 @@
     <string name="import_json">Import JSON File</string>
     <string name="importing">Importing…</string>
     <string name="import_success">Imported %1$d card(s) into "%2$s"</string>
+
+    <!-- Export -->
+    <string name="exporting">Exporting…</string>
+    <string name="export_success">Exported "%1$s" (%2$d card(s))</string>
+    <string name="export_failed">Export failed: %1$s</string>
 </resources>
