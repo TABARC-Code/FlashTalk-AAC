@@ -70,8 +70,10 @@ class CategoryActivity : BaseActivity() {
 
     private fun speakCard(flashCard: FlashCard) {
         // Tap-to-speak latency is the product (CLAUDE.md invariant 1): speak
-        // first, Toast is fire-and-forget visual confirmation only.
-        ttsManager.speak(flashCard.text)
+        // first, Toast is fire-and-forget visual confirmation only. Speaks
+        // speechText, not the on-screen label — they differ for cards like
+        // "Bathroom / Toilet" (label) which should just say "Bathroom".
+        ttsManager.speak(flashCard.speechText)
         Toast.makeText(this, flashCard.text, Toast.LENGTH_SHORT).show()
     }
 

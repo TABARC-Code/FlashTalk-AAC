@@ -29,7 +29,7 @@ interface CategoryDao {
 
 @Dao
 interface FlashCardDao {
-    @Query("SELECT * FROM flashcards WHERE categoryId = :categoryId ORDER BY `order` ASC, text ASC")
+    @Query("SELECT * FROM flashcards WHERE categoryId = :categoryId AND enabled = 1 ORDER BY `order` ASC, text ASC")
     fun getCardsByCategory(categoryId: Long): LiveData<List<FlashCard>>
 
     @Query("SELECT * FROM flashcards WHERE categoryId = :categoryId ORDER BY `order` ASC, text ASC")

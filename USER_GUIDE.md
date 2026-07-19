@@ -1,448 +1,239 @@
-# FlashTalk AAC User Guide
-
-## Table of Contents
-1. [Getting Started](#getting-started)
-2. [Daily Use](#daily-use)
-3. [Customisation](#customisation)
-4. [Importing Sets](#importing-sets)
-5. [Settings](#settings)
-6. [Tips for Caregivers](#tips-for-caregivers)
-7. [Troubleshooting](#troubleshooting)
-
----
-
-## Getting Started
-
-### First Launch
-
-When you first open FlashTalk AAC, you'll see:
-- **8 colorful category cards** on the main screen
-- Each category has an emoji icon and name
-- A **+ button** in the bottom-right corner
-
-### Understanding Categories
-
-Categories organise flashcards by topic:
-- **Food & Drink** 🍎: Hunger, thirst, meals
-- **Feelings** 😊: Emotions and states
-- **Activities** ⚽: Things to do
-- **People** 👨‍👩‍👧: Family and relationships
-- **Places** 🏠: Locations
-- **Needs** 🆘: Urgent communication
-- **Yes/No** ✅: Agreement and thanks
-- **Time** 🕐: When things happen
-
----
-
-## Daily Use
-
-### Communicating with Flashcards
-
-**Step 1**: Tap a category (e.g., "Food & Drink")
-
-**Step 2**: Browse the flashcards
-- Each card shows an emoji or photo, and text
-- Cards are arranged in a grid
-
-**Step 3**: Tap a card to speak
-- The text is spoken aloud immediately
-- A small popup shows the text
-- The card animates when you tap it
-
-**Example Communication Flow**:
-1. User taps "Food & Drink"
-2. User taps "Water"
-3. App speaks "Water"
-4. Caregiver provides water
-
-### Quick Tips
-- **Single tap** = Speak immediately
-- **No need to build sentences** - just tap what you need
-- **Visual feedback** confirms your tap
-- **Return home** with the back button or arrow
-
----
-
-## Customisation
-
-### Adding a Custom Category
-
-**Why**: Create categories for personal interests (e.g., "Toys", "Video Games", "Pets")
-
-**How**:
-1. From the main screen, tap the **+ button**
-2. You'll see "New Category" at the top
-3. Enter a category name (e.g., "My Toys")
-4. (Optional) Enter an emoji as the category icon
-5. Tap **Save**
-6. Your new category appears on the main screen
-
-### Adding Custom Cards to a Category
-
-**Why**: Add personal items, favourite foods, specific people, or special requests
-
-**How**:
-1. Open any category
-2. Tap the **+ button** in the bottom-right
-3. Tap **"Select Image"**
-4. Choose a photo from your gallery — the system photo/document picker
-   opens; no in-app storage permission prompt is needed
-   - Pick a clear, high-contrast image
-5. Enter the text (what should be spoken)
-6. Tap **Save**
-7. Your new card appears in the category
-
-### Best Practices for Custom Cards
-
-**Photos**:
-✅ Use clear, well-lit photos
-✅ Focus on the main subject
-✅ High contrast works best
-❌ Avoid dark or blurry images
-❌ Avoid busy backgrounds
-
-**Text**:
-✅ Keep it short and clear
-✅ Use common words
-✅ Be consistent (e.g., always "bathroom", not mixing with "toilet")
-❌ Avoid long sentences
-❌ Avoid ambiguous words
-
----
-
-## Importing Sets
-
-### When to Import
-
-Import flashcard sets when you want to:
-- Add many cards at once (faster than one-by-one)
-- Use sets created by therapists or educators
-- Share sets between family members
-- Backup and restore your cards
-
-### Import Methods
-
-#### Method 1: JSON File (No Images)
-**Best for**: Quick setup, text-only needs — cards fall back to an emoji
-
-1. Get or create a `.json` file (see example_imports folder)
-2. Transfer file to your Android device
-3. In FlashTalk AAC: Menu (⋮) → **Import Set**
-4. Tap **"Import JSON File"**
-5. Navigate to and select your .json file
-6. Wait for the import summary to appear
-7. New category appears on main screen
-
-#### Method 2: ZIP File (With Images)
-**Best for**: Complete sets with custom images
-
-1. Create or download a `.zip` file containing:
-   - `manifest.json` (card definitions)
-   - Image files (referenced in manifest)
-2. Transfer ZIP to your Android device
-3. In FlashTalk AAC: Menu (⋮) → **Import Set**
-4. Tap **"Import ZIP File"**
-5. Navigate to and select your .zip file
-6. Wait for import to complete
-7. New category appears with all cards and images (any card whose image
-   filename didn't match a file in the ZIP falls back to an emoji, and is
-   listed in the import summary rather than failing silently)
-
-### Creating Your Own Import Files
-
-See `example_imports/README.md` for detailed instructions and examples.
-
-**Quick Template**:
-```json
-{
-  "set_name": "My Set Name",
-  "category_name": "Category Display Name",
-  "category_icon": "🎯",
-  "category_color": "#FF6B6B",
-  "cards": [
-    {
-      "text": "First Card",
-      "image_filename": "first.jpg"
-    },
-    {
-      "text": "Second Card",
-      "icon": "🎨"
-    }
-  ]
-}
-```
-
----
-
-## Settings
-
-Access settings via: Main screen → Menu (⋮) → **Settings**
-
-### Speech Rate
-**What it does**: Controls how fast the speech is
-
-**Adjust**:
-- Drag the slider left = slower
-- Drag the slider right = faster
-- Range: 0.5x to 2.0x
-- Default: 0.9x
-
-**When to adjust**:
-- Too fast to understand → Slow down
-- Feels sluggish → Speed up
-- Processing time needed → Slow down
-
-### Voice Pitch
-**What it does**: Controls the voice tone
-
-**Adjust**:
-- Drag left = lower pitch
-- Drag right = higher pitch
-- Range: 0.5x to 2.0x
-- Default: 1.0x
-
-**When to adjust**:
-- Voice sounds too robotic → Adjust slightly
-- Preference for different tone → Customise
-- Matching user's natural voice → Adjust accordingly
-
-### Dark Mode
-**What it does**: Changes app colors to darker theme
-
-**Benefits**:
-- Easier on eyes in low light
-- Reduces screen glare
-- Some users find it calming
-- Better for photosensitivity
-
-**Toggle**: Tap the switch on/off — takes effect immediately
-
-### Large Text
-**What it does**: Increases text size throughout app
-
-**Benefits**:
-- Easier to read
-- Better for visual impairments
-- Clearer from a distance
-
-**Toggle**: Tap the switch on/off
-
----
-
-## Tips for Caregivers
-
-### Initial Setup
-
-**Week 1: Learn the Basics**
-- Explore all pre-loaded categories
-- Practice tapping cards together
-- Explain that tapping = speaking
-- Respond immediately to requests
-
-**Week 2: Personalise**
-- Add 2-3 favourite foods
-- Add photos of family members
-- Create one custom category
-- Add 5-10 most-used items
-
-**Week 3+: Expand**
-- Add more personal items
-- Import additional sets
-- Adjust settings to preference
-- Establish communication routines
-
-### Encouraging Use
-
-**Do's**:
-✅ Respond immediately when device is used
-✅ Keep device accessible and charged
-✅ Model using the app yourself
-✅ Celebrate all communication attempts
-✅ Add items the user requests
-✅ Keep frequently-used cards easy to access
-
-**Don'ts**:
-❌ Force use - offer as an option
-❌ Correct "wrong" choices - validate all communication
-❌ Rush the user
-❌ Use as reward/punishment
-❌ Limit to only "needs" - include fun items
-❌ Let the device battery die
-
-### Building Communication Skills
-
-**Start Simple**:
-1. Begin with high-motivation items (favourite snacks)
-2. Use 1-step communication (tap = get item)
-3. Respond immediately and consistently
-
-**Gradually Expand**:
-1. Add more categories
-2. Introduce choices (this snack or that snack?)
-3. Practice in different settings
-4. Extend to social communication (greetings, feelings)
-
-**Maintenance**:
-1. Regular review of cards (remove unused, add needed)
-2. Update photos as interests change
-3. Keep device charged and accessible
-4. Involve therapists/educators in setup
-
-### Working with Professionals
-
-**Speech Therapist**:
-- Share the app in sessions
-- Ask for recommended card sets
-- Get guidance on vocabulary selection
-- Coordinate home and therapy use
-
-**Teachers**:
-- Create school-specific category
-- Add classroom vocabulary
-- Align with IEP goals
-- Train classroom staff
-
-**Family Members**:
-- Train all caregivers on use
-- Share custom categories
-- Import sets between devices (export is on the roadmap — see BACKLOG.md)
-- Maintain consistency
-
----
-
-## Troubleshooting
-
-### Sound Issues
-
-**Problem**: No sound when tapping cards
-
-**Solutions**:
-1. Check device volume (turn up media volume)
-2. Ensure device is not in silent mode
-3. Verify text-to-speech is installed:
-   - Settings → Accessibility → Text-to-Speech
-   - Install "Google Text-to-Speech" if needed
-4. Close and reopen the app
-5. Restart your device
-
-**Problem**: Voice sounds robotic or unclear
-
-**Solutions**:
-1. Install better TTS engine (Google Text-to-Speech recommended)
-2. Adjust speech rate (Settings → Speech Rate)
-3. Adjust pitch (Settings → Voice Pitch)
-4. Try different TTS engine in Android settings
-
-### Image Issues
-
-**Problem**: Images not loading for custom cards
-
-**Solutions**:
-1. Re-select the photo — the app doesn't request a storage/media
-   permission (it uses the system picker), so this is almost always an
-   unsupported or corrupted file rather than a permission problem
-2. Use smaller image files (under 5MB)
-3. Try a different image format (.jpg recommended)
-
-**Problem**: Import shows a card with an emoji instead of the expected photo
-
-**Solutions**:
-1. Check the import summary — it lists exactly which `image_filename`
-   values didn't match a file in the ZIP
-2. Verify images are included in the ZIP file
-3. Check image filenames match manifest.json exactly (case-sensitive)
-4. Ensure images are in same folder as manifest.json (not a subfolder)
-5. Re-import with corrected file
-
-### Import Issues
-
-**Problem**: Import fails with error message
-
-**Solutions**:
-1. Validate JSON syntax at jsonlint.com
-2. Check manifest.json is properly formatted
-3. Ensure all image_filenames are correct
-4. Verify ZIP contains manifest.json
-5. Try smaller set first (fewer cards)
-6. Check file size (under 50MB — the import will refuse anything larger)
-
-### Performance Issues
-
-**Problem**: App is slow or laggy
-
-**Solutions**:
-1. Clear app cache:
-   - Settings → Apps → FlashTalk AAC → Storage → Clear Cache
-2. Reduce number of cards (move some to separate categories)
-3. Use smaller image files
-4. Close other apps
-5. Restart device
-6. Ensure device has sufficient storage
-
-### General Issues
-
-**Problem**: App crashes or freezes
-
-**Solutions**:
-1. Force stop app:
-   - Settings → Apps → FlashTalk AAC → Force Stop
-2. Clear cache (not data!)
-3. Reinstall app (will lose custom content — there's no export yet, so
-   note down anything irreplaceable first)
-4. Update Android OS
-5. Report issue with details
-
-**Problem**: Lost custom cards after update
-
-**Prevention**:
-1. There's no export/backup yet (see BACKLOG.md) — for anything
-   irreplaceable, keep a copy of the original photos separately
-2. Note: export is planned; see CHANGELOG.md [Unreleased]
-
----
-
-## Quick Reference Guide
-
-### Common Actions
-
-| I want to... | How to do it |
-|-------------|-------------|
-| Communicate | Tap category → Tap card |
-| Add a card | Open category → Tap + → Select image → Enter text → Save |
-| Add category | Main screen → Tap + → Enter name → Save |
-| Import set | Menu → Import Set → Choose file |
-| Change speech speed | Menu → Settings → Adjust Speech Rate |
-| Enable dark mode | Menu → Settings → Toggle Dark Mode |
-| Make text bigger | Menu → Settings → Toggle Large Text |
-
-### Keyboard Shortcuts
-
-Currently, the app is touch-optimized. Keyboard shortcuts may be added in future versions.
-
-### Accessibility Features
-
-- ✅ Large touch targets
-- ✅ High contrast design
-- ✅ Text-to-speech
-- ✅ Dark mode
-- ✅ Adjustable text size
-- ✅ Simple navigation
-- ✅ TalkBack-correct tap feedback
-- 🔜 Switch access (future)
-- 🔜 Voice control (future)
-
----
-
-## Contact & Support
-
-For additional help:
-- Check the main README.md
-- Review example_imports for import guidance
-- Consult with speech therapist
-- Share feedback via app store review
-
----
-
-**Remember**: Communication is a right, not a privilege. This app is a tool to support autonomy, choice, and self-expression. Every tap is communication. Every communication attempt is valuable.
-
-Happy communicating! 💙
+# Living with FlashTalk AAC: a guide for the people around the tap
+
+A four-year-old taps a card that says "hungry." A phone says the word
+back in a clear, unhurried voice. Somewhere in the kitchen, someone
+finally understands what's been wrong for the last twenty minutes. That
+exchange — tap, speak, respond — is the entire idea behind FlashTalk
+AAC, and everything in this guide exists to help it happen faster, more
+often, and with less friction than whatever came before it.
+
+This isn't a manual in the shrink-wrapped, read-once-and-forget sense.
+It's closer to a briefing for anyone who's about to hand a communication
+tool to someone who needs it to work the first time, and every time
+after that. Parents, grandparents, teaching assistants, speech and
+language therapists, the paid support worker who's covering a shift for
+someone else — all of you are the audience here, and all of you are
+going to be asking some version of the same question: how do I make
+this thing actually useful for this specific person, today?
+
+## First look: what's already there
+
+Open the app for the first time and you're met with a grid of coloured
+category tiles, not a blank slate demanding you build a vocabulary from
+scratch. That matters more than it sounds — a communication tool that
+arrives empty is one more thing to set up before it's any use at all,
+and setting things up is precisely the kind of task that gets postponed
+indefinitely when life is already full.
+
+Seven categories are seeded in from the start, and between them they
+carry 266 cards — a genuinely working vocabulary, not a demo:
+
+- **Core & Social** — yes, no, please, thank you, hello, sorry, the
+  small connective words that carry most of a conversation's weight
+- **Actions & Requests** — want, stop, help, more, wait, go
+- **Physical Needs & Self-Care** — the bathroom, food, water, washing,
+  dressing, medication
+- **Health, Feelings & Emergencies** — pain, sickness, fear, and the
+  urgent ones: *emergency*, *call for help*, *seizure warning*, marked
+  with a red border so they're never the card you have to search for
+- **Sensory & Comfort** — too loud, too bright, need a break, need to
+  move — the vocabulary that autistic users especially reach for, and
+  that many simpler apps leave out entirely
+- **Objects & Leisure** — toys, screens, books, the things worth asking
+  for beyond survival
+- **Places, Time & Sequence** — home, school, now, later, days of the
+  week, first, then, next
+
+None of this needs building before it's useful. It needs using.
+
+## The tap, and what happens after it
+
+Here's the mechanism, in full: open a category, find a card, tap it.
+The app speaks the word or phrase immediately — most cards show a
+picture-style emoji and the label together, so recognition doesn't
+depend on reading. A small on-screen message confirms what was said,
+and the card gives a brief, satisfying press animation, mostly so a
+young user gets the same tactile feedback they'd get from a real button.
+
+That's the whole interaction. No sentence to build first, no menu to
+navigate through, no second screen confirming the choice. **Tap
+category, tap card, hear word** — repeat as many times a day as needed,
+which for some users is a great many times a day, and the app is built
+to not mind that at all.
+
+## Making it theirs
+
+The seeded vocabulary earns its keep on day one, but it isn't the
+ceiling. Every category can be extended, and entirely new ones created,
+which matters because the words someone actually needs are rarely a
+perfect match for what any app ships with — nobody's seed vocabulary
+knows the name of the family dog, or that "nana's house" and "school"
+are two entirely different destinations that deserve two entirely
+different cards.
+
+**A new category**, from the main screen: tap the **+** button, give it
+a name, optionally give it an emoji of your own choosing, and save.
+It's sitting on the home grid within seconds, no different from the
+seven that shipped with the app.
+
+**A new card inside any category**: tap **+** again, then **Select
+Image**. This opens the phone's own photo picker — not a permission
+dialogue, just the picker, because FlashTalk AAC never asks Android for
+access to your photo library in the first place. It only ever sees the
+one photo you hand it. Choose a picture, type what it should say when
+tapped, and save.
+
+A little care with the photo pays off. Clear, well-lit, one clear
+subject, high contrast against its background — a phone held up to a
+lunchbox in good light will always beat a blurry photo cropped from
+somewhere else. And be consistent with wording: if the card says
+"bathroom," keep saying "bathroom" rather than sometimes "toilet" and
+sometimes "loo." AAC users build associations between a specific word
+and a specific need; switching the label around undermines exactly the
+thing you're trying to build.
+
+## Importing a whole vocabulary at once
+
+Building cards one by one has its place, but sometimes what's needed is
+faster: a school importing a shared vocabulary, a therapist handing over
+a set built for a specific goal, a parent restoring cards after setting
+up a new phone. For all of that, there's Import Set, tucked under the
+menu (⋮) on the main screen.
+
+Two formats are supported, and which one you want depends on whether
+you have photos to go with the words.
+
+**JSON only** is the fast route — a single text file listing card
+labels, with no images required. Anything without a photo shows a
+sensible emoji instead, so nothing turns up as a blank grey box. This is
+the format to reach for when you want a vocabulary set built and shared
+in minutes rather than hours; `example_imports/` in the app's project
+files has ready-made sets (animals, colours, transportation) that
+double as templates for building your own.
+
+**ZIP with photos** is the complete version: a manifest file plus the
+actual images, bundled together. Import it and the app matches each
+listed image to its card and copies it into the app's own private
+storage. If a filename in the manifest doesn't match anything in the
+ZIP, that one card falls back to an emoji rather than derailing the
+whole import — you'll see exactly which cards that happened to in the
+summary once the import finishes, which is a small thing but a genuinely
+useful one when you're troubleshooting later.
+
+## Shaping how it sounds and looks
+
+Every voice needs adjusting for the person listening to it, and
+FlashTalk AAC's settings screen (menu → Settings) covers the handful of
+things that actually matter:
+
+**Speech rate** and **voice pitch** each run from 0.5× to 2×, defaulting
+to a measured 0.9× rate and a neutral 1× pitch. Slow the rate down for
+someone who needs processing time between hearing a word and acting on
+it; speed it up if the default starts to feel sluggish once the words
+are familiar.
+
+**Dark mode** softens the screen for low light or for users sensitive
+to glare — flip it and it applies straight away, no restart required.
+
+**Large text** does exactly what it says, scaling text across the whole
+app rather than just on one screen. Worth turning on early rather than
+waiting for it to become a problem.
+
+## What actually helps, week to week
+
+Software is only half of this. The other half is how it gets introduced,
+and that part is entirely down to the people around the user.
+
+**The first fortnight** is for exploring, not customising. Let the
+seeded 266 cards do their job. Practise tapping together. Respond to
+every tap the same way you'd respond to spoken words — immediately,
+consistently, without correcting or second-guessing the choice.
+
+**The weeks after that** are for making it personal: two or three
+favourite foods added by photo, family members' faces in the People
+cards that already exist, one new category built around whatever this
+particular person is actually interested in. Interest-led vocabulary
+gets used; vocabulary chosen because it seemed sensible often doesn't.
+
+Some things are worth holding onto for as long as the app is in use.
+Respond immediately, every time — a communication tool that gets ignored
+teaches its user not to bother. Never make it conditional on good
+behaviour; AAC is not a reward system, and treating it as one corrodes
+trust in the tool itself. Keep it charged and within reach, because a
+communication device that's flat in a drawer is not a communication
+device. And resist the urge to correct: if the "wrong" card gets tapped,
+that's still communication, and it's still worth honouring.
+
+Bring in the professionals already involved. A speech and language
+therapist can point toward vocabulary priorities that aren't obvious
+from outside; a classroom team can build a school-specific category
+aligned with whatever the current goals actually are. None of this
+needs to happen through the app — a conversation and a shared card set
+usually does it.
+
+## When something goes wrong
+
+Most problems here have small causes and smaller fixes.
+
+**No sound at all?** Check the media volume specifically, not just that
+the phone isn't silenced — Android treats them differently. Confirm a
+text-to-speech engine is actually installed (Settings → Accessibility →
+Text-to-Speech on the device; Google's is the reliable default), then
+close and reopen the app. A full device restart is the last resort, but
+it does occasionally clear whatever the first three steps didn't.
+
+**Voice sounds robotic or hard to follow?** Try a better TTS engine
+first, then reach for FlashTalk's own rate and pitch sliders — a voice
+that's simply too fast is often mistaken for a voice that's poor
+quality.
+
+**A custom photo won't load?** This is essentially never a permissions
+problem — the app was never granted access to your photo library beyond
+the one image you picked, so there's no permission to have gone wrong.
+Look instead at the file itself: re-select it, try a smaller image
+(under 5MB), or switch to a plain .jpg if the original was something
+unusual.
+
+**An imported card shows an emoji instead of the photo you expected?**
+Check the import summary first — it names exactly which image filenames
+didn't match anything in the ZIP. Filenames are case-sensitive and need
+to sit in the same folder as the manifest, not a subfolder; both are
+common, easy slips.
+
+**Everything feels sluggish?** Clear the app's cache (not its data —
+that would take the vocabulary with it) via Settings → Apps → FlashTalk
+AAC → Storage, trim down an overloaded category, and check the device
+itself isn't simply out of storage.
+
+**The app crashes or won't respond?** Force-stop it, clear cache, and
+update Android if it's been a while. Reinstalling is the last resort —
+there's no export feature yet (it's coming; see the project's own
+roadmap), so anything genuinely irreplaceable is worth noting down
+before you take that step.
+
+## The short version
+
+| Want to... | Do this |
+|---|---|
+| Say something | Tap category → tap card |
+| Add a card | Category → **+** → Select Image → type the word → Save |
+| Add a category | Main screen → **+** → name it → Save |
+| Bring in a whole vocabulary | Menu → Import Set → choose ZIP or JSON |
+| Change how fast it speaks | Menu → Settings → Speech Rate |
+| Ease eye strain | Menu → Settings → Dark Mode |
+| Make everything bigger | Menu → Settings → Large Text |
+
+Accessibility isn't a features list bolted onto the side here — it's
+most of what the app actually is. Large touch targets throughout. High
+contrast by design, not as an afterthought. A dark theme for
+photosensitivity. Text that genuinely scales when asked to. Navigation
+shallow enough that nobody needs a manual to find their way back to the
+home screen. Screen-reader support that was built to actually work, not
+merely to pass a checklist.
+
+Every tap through this app is somebody saying something. That's worth
+remembering on the difficult days, when progress feels slow or the same
+three cards get tapped forty times before lunch. Communication is a
+right, not a privilege to be earned through effort or good behaviour —
+and a four-year-old getting a bowl of cereal because they found the
+right card is, in every way that matters, the whole point.

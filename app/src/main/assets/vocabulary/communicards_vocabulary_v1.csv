@@ -1,0 +1,267 @@
+id,label,speech_text,category_id,category,category_colour,category_hex,aliases,priority,enabled,sort_order,emoji
+core_social-yes,Yes,Yes,core_social,Core & Social,Yellow,#F4D35E,,standard,True,1,✅
+core_social-no,No,No,core_social,Core & Social,Yellow,#F4D35E,,standard,True,2,❌
+core_social-please,Please,Please,core_social,Core & Social,Yellow,#F4D35E,,standard,True,3,🙏
+core_social-thank-you,Thank you,Thank you,core_social,Core & Social,Yellow,#F4D35E,,standard,True,4,🙌
+core_social-i-understand,I understand,I understand,core_social,Core & Social,Yellow,#F4D35E,,standard,True,5,💡
+core_social-i-dont-understand,I don't understand,I don't understand,core_social,Core & Social,Yellow,#F4D35E,,standard,True,6,❓
+core_social-i-dont-know,I don't know,I don't know,core_social,Core & Social,Yellow,#F4D35E,,standard,True,7,🤷
+core_social-excuse-me,Excuse me,Excuse me,core_social,Core & Social,Yellow,#F4D35E,,standard,True,8,🖐️
+core_social-sorry,Sorry,Sorry,core_social,Core & Social,Yellow,#F4D35E,,standard,True,9,😔
+core_social-welcome,Welcome,Welcome,core_social,Core & Social,Yellow,#F4D35E,,standard,True,10,🤗
+core_social-good-morning,Good morning,Good morning,core_social,Core & Social,Yellow,#F4D35E,,standard,True,11,🌅
+core_social-good-night,Good night,Good night,core_social,Core & Social,Yellow,#F4D35E,,standard,True,12,🌙
+core_social-agree,Agree,Agree,core_social,Core & Social,Yellow,#F4D35E,,standard,True,13,👍
+core_social-disagree,Disagree,Disagree,core_social,Core & Social,Yellow,#F4D35E,,standard,True,14,👎
+core_social-me,Me / I,Me,core_social,Core & Social,Yellow,#F4D35E,I,standard,True,15,🙋
+core_social-you,You,You,core_social,Core & Social,Yellow,#F4D35E,,standard,True,16,👉
+core_social-we,We / Us,We,core_social,Core & Social,Yellow,#F4D35E,Us,standard,True,17,👥
+core_social-family,Family,Family,core_social,Core & Social,Yellow,#F4D35E,,standard,True,18,👨‍👩‍👧‍👦
+core_social-friend,Friend,Friend,core_social,Core & Social,Yellow,#F4D35E,,standard,True,19,🧑‍🤝‍🧑
+core_social-teacher,Teacher / Staff,Teacher,core_social,Core & Social,Yellow,#F4D35E,Staff,standard,True,20,🧑‍🏫
+core_social-support-worker,Support worker,Support worker,core_social,Core & Social,Yellow,#F4D35E,,standard,True,21,🤝
+core_social-doctor,Doctor,Doctor,core_social,Core & Social,Yellow,#F4D35E,,standard,True,22,🩺
+core_social-hello,Hello / Hi,Hello,core_social,Core & Social,Yellow,#F4D35E,Hi,standard,True,23,👋
+core_social-goodbye,Goodbye / Bye,Goodbye,core_social,Core & Social,Yellow,#F4D35E,Bye,standard,True,24,🚶
+core_social-i-love-you,I love you,I love you,core_social,Core & Social,Yellow,#F4D35E,,standard,True,25,❤️
+core_social-good-job,Good job,Good job,core_social,Core & Social,Yellow,#F4D35E,,standard,True,26,👏
+core_social-proud,Proud,Proud,core_social,Core & Social,Yellow,#F4D35E,,standard,True,27,🌟
+core_social-turn-taking,Turn taking,Turn taking,core_social,Core & Social,Yellow,#F4D35E,,standard,True,28,🔄
+core_social-my-turn,My turn,My turn,core_social,Core & Social,Yellow,#F4D35E,,standard,True,29,☝️
+core_social-your-turn,Your turn,Your turn,core_social,Core & Social,Yellow,#F4D35E,,standard,True,30,👆
+core_social-share,Share,Share,core_social,Core & Social,Yellow,#F4D35E,,standard,True,31,🤲
+core_social-wait-for-me,Wait for me,Wait for me,core_social,Core & Social,Yellow,#F4D35E,,standard,True,32,⏳
+actions_requests-want,Want,Want,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,33,🙋
+actions_requests-dont-want,Don't want,Don't want,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,34,🙅
+actions_requests-help,Help,Help,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,35,🆘
+actions_requests-stop,Stop,Stop,actions_requests,Actions & Requests,Green,#7BC47F,,urgent,True,36,🛑
+actions_requests-wait,Wait,Wait,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,37,⏳
+actions_requests-go,Go,Go,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,38,🟢
+actions_requests-come-here,Come here,Come here,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,39,👋
+actions_requests-more,More,More,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,40,➕
+actions_requests-finished,Finished / Done,Finished,actions_requests,Actions & Requests,Green,#7BC47F,Done,standard,True,41,🏁
+actions_requests-keep-going,Keep going,Keep going,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,42,▶️
+actions_requests-slow-down,Slow down,Slow down,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,43,🐢
+actions_requests-speed-up,Speed up,Speed up,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,44,🐇
+actions_requests-eat,Eat,Eat,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,45,🍽️
+actions_requests-drink,Drink,Drink,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,46,🥤
+actions_requests-sit-down,Sit down,Sit down,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,47,🪑
+actions_requests-stand-up,Stand up,Stand up,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,48,🧍
+actions_requests-play,Play,Play,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,49,🎲
+actions_requests-listen,Listen,Listen,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,50,👂
+actions_requests-look,Look,Look,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,51,👀
+actions_requests-read,Read,Read,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,52,📖
+actions_requests-watch,Watch,Watch,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,53,📺
+actions_requests-walk,Walk,Walk,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,54,🚶
+actions_requests-open,Open,Open,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,55,🔓
+actions_requests-close,Close,Close,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,56,🔒
+actions_requests-give-me,Give me,Give me,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,57,🤲
+actions_requests-show-me,Show me,Show me,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,58,👁️
+actions_requests-tell-me,Tell me,Tell me,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,59,🗣️
+actions_requests-wash-hands,Wash hands,Wash hands,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,60,🧼
+actions_requests-go-home,Go home,Go home,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,61,🏠
+actions_requests-go-outside,Go outside,Go outside,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,62,🌳
+actions_requests-change,Change,Change,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,63,🔁
+physical_self_care-bathroom,Bathroom / Toilet,Bathroom,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Toilet,standard,True,64,🚽
+physical_self_care-water,Water / Drink,Water,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Drink,standard,True,65,💧
+physical_self_care-food,Food,Food,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,66,🍎
+physical_self_care-hungry,Hungry,Hungry,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,67,😋
+physical_self_care-thirsty,Thirsty,Thirsty,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,68,🥤
+physical_self_care-full,Full,Full,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,69,🈵
+physical_self_care-snack,Snack,Snack,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,70,🍪
+physical_self_care-meal,Meal,Meal,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,71,🍽️
+physical_self_care-breakfast,Breakfast,Breakfast,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,72,🥞
+physical_self_care-lunch,Lunch,Lunch,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,73,🥪
+physical_self_care-dinner,Dinner,Dinner,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,74,🍝
+physical_self_care-medication,Medication / Medicine,Medication,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Medicine,standard,True,75,💊
+physical_self_care-rest,Rest / Sleep,Rest,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Sleep,standard,True,76,😌
+physical_self_care-nap,Nap,Nap,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,77,😴
+physical_self_care-shower,Shower / Bath,Shower,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Bath,standard,True,78,🚿
+physical_self_care-brush-teeth,Brush teeth,Brush teeth,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,79,🪥
+physical_self_care-dress,Dress / Clothes on,Dress,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Clothes on,standard,True,80,👕
+physical_self_care-undress,Undress / Clothes off,Undress,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Clothes off,standard,True,81,🧺
+physical_self_care-shoes-on,Shoes on,Shoes on,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,82,👟
+physical_self_care-shoes-off,Shoes off,Shoes off,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,83,🧦
+physical_self_care-coat-on,Coat on,Coat on,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,84,🧥
+physical_self_care-coat-off,Coat off,Coat off,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,85,☀️
+physical_self_care-change-clothes,Change clothes,Change clothes,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,86,🔄
+physical_self_care-nappy-change,Nappy change,Nappy change,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,87,🍼
+physical_self_care-pad,Pad / Tampon,Pad,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,Tampon,standard,True,88,🩸
+physical_self_care-tissues,Tissues,Tissues,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,89,🤧
+physical_self_care-wipe-face,Wipe face,Wipe face,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,90,🧻
+physical_self_care-comb-hair,Comb hair,Comb hair,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,91,💇
+physical_self_care-lotion,Lotion,Lotion,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,92,🧴
+physical_self_care-heavy-blanket,Heavy blanket,Heavy blanket,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,93,🛏️
+physical_self_care-pillow,Pillow,Pillow,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,94,🛌
+physical_self_care-fan,Fan,Fan,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,95,💨
+physical_self_care-heater,Heater,Heater,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,96,🔥
+physical_self_care-light-on,Light on,Light on,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,97,💡
+physical_self_care-light-off,Light off,Light off,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,98,🌑
+physical_self_care-door-open,Door open,Door open,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,99,🚪
+physical_self_care-door-closed,Door closed,Door closed,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,100,🔒
+physical_self_care-window-open,Window open,Window open,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,101,🪟
+physical_self_care-window-closed,Window closed,Window closed,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,102,❎
+health_feelings_emergency-emergency,Emergency,Emergency,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,103,🚨
+health_feelings_emergency-call-for-help,Call for help,Call for help,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,104,📞
+health_feelings_emergency-pain,Pain / Hurt,Pain,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,Hurt,standard,True,105,🤕
+health_feelings_emergency-sick,Sick / Nausea,Sick,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,Nausea,standard,True,106,🤢
+health_feelings_emergency-dizzy,Dizzy,Dizzy,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,107,😵
+health_feelings_emergency-headache,Headache,Headache,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,108,😖
+health_feelings_emergency-stomach-ache,Stomach ache,Stomach ache,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,109,😣
+health_feelings_emergency-breathing-difficulty,Breathing difficulty,Breathing difficulty,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,110,😤
+health_feelings_emergency-allergic-reaction,Allergic reaction,Allergic reaction,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,111,🤧
+health_feelings_emergency-asthma-inhaler,Asthma inhaler,Asthma inhaler,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,112,🌬️
+health_feelings_emergency-seizure-warning,Seizure warning,Seizure warning,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,113,⚡
+health_feelings_emergency-low-blood-sugar,Low blood sugar,Low blood sugar,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,114,🍬
+health_feelings_emergency-heart-racing,Heart racing,Heart racing,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,115,💓
+health_feelings_emergency-chest-pain,Chest pain,Chest pain,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,116,💔
+health_feelings_emergency-numbness,Numbness,Numbness,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,117,🧊
+health_feelings_emergency-tingling,Tingling,Tingling,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,118,✨
+health_feelings_emergency-burning-feeling,Burning feeling,Burning feeling,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,119,🔥
+health_feelings_emergency-sharp-pain,Sharp pain,Sharp pain,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,120,💢
+health_feelings_emergency-dull-ache,Dull ache,Dull ache,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,121,😩
+health_feelings_emergency-cramps,Cramps,Cramps,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,122,🌀
+health_feelings_emergency-fever,Fever,Fever,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,123,🤒
+health_feelings_emergency-chills,Chills,Chills,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,124,🥶
+health_feelings_emergency-cough,Cough,Cough,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,125,😷
+health_feelings_emergency-sore-throat,Sore throat,Sore throat,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,126,🗣️
+health_feelings_emergency-stuffy-nose,Stuffy nose,Stuffy nose,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,127,👃
+health_feelings_emergency-ear-ache,Ear ache,Ear ache,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,128,👂
+health_feelings_emergency-tooth-ache,Tooth ache,Tooth ache,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,129,🦷
+health_feelings_emergency-bleeding,Bleeding,Bleeding,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,130,🩸
+health_feelings_emergency-bruise,Bruise,Bruise,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,131,🟣
+health_feelings_emergency-swelling,Swelling,Swelling,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,132,🎈
+health_feelings_emergency-burn,Burn,Burn,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,133,🧯
+health_feelings_emergency-bite,Bite / Sting,Bite,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,Sting,standard,True,134,🐝
+health_feelings_emergency-happy,Happy,Happy,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,135,😀
+health_feelings_emergency-sad,Sad,Sad,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,136,😢
+health_feelings_emergency-angry,Angry,Angry,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,137,😠
+health_feelings_emergency-scared,Scared,Scared,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,138,😨
+health_feelings_emergency-anxious,Anxious,Anxious,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,139,😰
+health_feelings_emergency-excited,Excited,Excited,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,140,🤩
+health_feelings_emergency-calm,Calm,Calm,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,141,😌
+health_feelings_emergency-tired,Tired,Tired,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,142,😴
+health_feelings_emergency-bored,Bored,Bored,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,143,😑
+health_feelings_emergency-frustrated,Frustrated,Frustrated,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,144,🙄
+health_feelings_emergency-confused,Confused,Confused,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,145,😕
+health_feelings_emergency-overwhelmed,Overwhelmed,Overwhelmed,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,146,🥴
+sensory_comfort-sensory-overload,Sensory overload,Sensory overload,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,147,🤯
+sensory_comfort-meltdown-coming,Meltdown coming,Meltdown coming,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,148,🌋
+sensory_comfort-shutdown-mode,Shutdown mode,Shutdown mode,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,149,🔌
+sensory_comfort-need-quiet,Need quiet,Need quiet,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,150,🤫
+sensory_comfort-need-space,Need space,Need space,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,151,↔️
+sensory_comfort-quiet-space,Quiet space,Quiet space,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,152,🧘
+sensory_comfort-need-a-break,Need a break,Need a break,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,153,⏸️
+sensory_comfort-too-loud,Too loud,Too loud,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,154,🔊
+sensory_comfort-too-quiet,Too quiet,Too quiet,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,155,🔇
+sensory_comfort-too-bright,Too bright,Too bright,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,156,🔆
+sensory_comfort-too-dark,Too dark,Too dark,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,157,🌑
+sensory_comfort-too-crowded,Too crowded,Too crowded,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,158,👥
+sensory_comfort-too-hot,Too hot,Too hot,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,159,🥵
+sensory_comfort-too-cold,Too cold,Too cold,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,160,🥶
+sensory_comfort-noise-cancelling-headphones,Noise-cancelling headphones,Noise-cancelling headphones,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,161,🎧
+sensory_comfort-fidget-toy,Fidget toy,Fidget toy,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,162,🌀
+sensory_comfort-chew-toy,Chew toy,Chew toy,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,163,🦴
+sensory_comfort-sunglasses,Sunglasses,Sunglasses,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,164,🕶️
+sensory_comfort-need-pressure,Need pressure,Need pressure,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,165,🤗
+sensory_comfort-need-movement,Need movement,Need movement,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,166,🏃
+sensory_comfort-need-to-spin,Need to spin,Need to spin,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,167,🌪️
+sensory_comfort-need-to-rock,Need to rock,Need to rock,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,168,↕️
+sensory_comfort-need-to-jump,Need to jump,Need to jump,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,169,🤸
+sensory_comfort-texture-issue,Texture issue,Texture issue,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,170,🧶
+sensory_comfort-bad-smell,Bad smell,Bad smell,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,171,🤢
+sensory_comfort-strong-taste,Strong taste,Strong taste,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,172,👅
+sensory_comfort-itchy-clothing,Itchy clothing,Itchy clothing,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,173,👕
+sensory_comfort-cut-clothing-tag,Cut clothing tag,Cut clothing tag,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,174,✂️
+sensory_comfort-wet-hands,Wet hands,Wet hands,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,175,💦
+sensory_comfort-sticky-hands,Sticky hands,Sticky hands,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,176,🍯
+sensory_comfort-blinking-light,Blinking light,Blinking light,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,177,💡
+sensory_comfort-buzzing-sound,Buzzing sound,Buzzing sound,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,178,🐝
+objects_leisure-tv,TV,TV,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,179,📺
+objects_leisure-movie,Movie,Movie,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,180,🎬
+objects_leisure-music,Music,Music,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,181,🎵
+objects_leisure-video-game,Video game,Video game,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,182,🎮
+objects_leisure-tablet,Tablet / iPad,Tablet,objects_leisure,Objects & Leisure,Orange,#F3A65A,iPad,standard,True,183,📱
+objects_leisure-phone,Phone,Phone,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,184,☎️
+objects_leisure-computer,Computer,Computer,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,185,💻
+objects_leisure-book,Book,Book,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,186,📚
+objects_leisure-toy,Toy,Toy,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,187,🧸
+objects_leisure-blocks,Blocks,Blocks,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,188,🧱
+objects_leisure-doll,Doll / Action figure,Doll,objects_leisure,Objects & Leisure,Orange,#F3A65A,Action figure,standard,True,189,🪆
+objects_leisure-puzzle,Puzzle,Puzzle,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,190,🧩
+objects_leisure-art,Art / Colouring,Art,objects_leisure,Objects & Leisure,Orange,#F3A65A,Colouring,standard,True,191,🎨
+objects_leisure-paint,Paint,Paint,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,192,🖌️
+objects_leisure-paper,Paper,Paper,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,193,📄
+objects_leisure-crayons,Crayons / Markers,Crayons,objects_leisure,Objects & Leisure,Orange,#F3A65A,Markers,standard,True,194,✏️
+objects_leisure-ball,Ball,Ball,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,195,⚽
+objects_leisure-bike,Bike / Scooter,Bike,objects_leisure,Objects & Leisure,Orange,#F3A65A,Scooter,standard,True,196,🚲
+objects_leisure-swing,Swing,Swing,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,197,🎠
+objects_leisure-board-game,Board game,Board game,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,198,🎲
+objects_leisure-cards,Cards,Cards,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,199,🃏
+objects_leisure-camera,Camera,Camera,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,200,📷
+objects_leisure-instrument,Instrument,Instrument,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,201,🎸
+objects_leisure-pet,Pet / Animal,Pet,objects_leisure,Objects & Leisure,Orange,#F3A65A,Animal,standard,True,202,🐶
+objects_leisure-blanket,Blanket,Blanket,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,203,🛏️
+objects_leisure-ice-pack,Ice pack,Ice pack,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,204,🧊
+places_time_sequence-home,Home,Home,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,205,🏠
+places_time_sequence-work,Work / School,Work,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,School,standard,True,206,🏢
+places_time_sequence-bedroom,Bedroom,Bedroom,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,207,🛏️
+places_time_sequence-kitchen,Kitchen,Kitchen,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,208,🍳
+places_time_sequence-living-room,Living room,Living room,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,209,🛋️
+places_time_sequence-dining-room,Dining room,Dining room,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,210,🍽️
+places_time_sequence-back-garden,Back garden / Garden,Back garden,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,Garden,standard,True,211,🌻
+places_time_sequence-playground,Playground,Playground,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,212,🎡
+places_time_sequence-park,Park,Park,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,213,🌳
+places_time_sequence-library,Library,Library,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,214,📚
+places_time_sequence-therapy-room,Therapy room,Therapy room,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,215,🧩
+places_time_sequence-doctors-surgery,Doctor's surgery,Doctor's surgery,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,216,🩺
+places_time_sequence-dentists-surgery,Dentist's surgery,Dentist's surgery,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,217,🦷
+places_time_sequence-hospital-room,Hospital room,Hospital room,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,218,🏥
+places_time_sequence-supermarket,Supermarket / Shop,Supermarket,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,Shop,standard,True,219,🛒
+places_time_sequence-restaurant,Restaurant,Restaurant,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,220,🍔
+places_time_sequence-cinema,Cinema,Cinema,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,221,🎬
+places_time_sequence-shopping-centre,Shopping centre,Shopping centre,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,222,🏬
+places_time_sequence-swimming-pool,Swimming pool,Swimming pool,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,223,🏊
+places_time_sequence-beach,Beach,Beach,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,224,🏖️
+places_time_sequence-hotel,Hotel,Hotel,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,225,🏨
+places_time_sequence-airport,Airport,Airport,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,226,✈️
+places_time_sequence-lift,Lift,Lift,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,227,🛗
+places_time_sequence-stairs,Stairs,Stairs,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,228,🪜
+places_time_sequence-vehicle,Vehicle / Car,Vehicle,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,Car,standard,True,229,🚗
+places_time_sequence-bus,Bus,Bus,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,230,🚌
+places_time_sequence-train,Train,Train,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,231,🚆
+places_time_sequence-outside,Outside,Outside,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,232,☀️
+places_time_sequence-now,Now,Now,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,233,⏰
+places_time_sequence-later,Later,Later,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,234,⏭️
+places_time_sequence-next,Next,Next,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,235,➡️
+places_time_sequence-today,Today,Today,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,236,📅
+places_time_sequence-tomorrow,Tomorrow,Tomorrow,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,237,🌅
+places_time_sequence-yesterday,Yesterday,Yesterday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,238,⏮️
+places_time_sequence-morning,Morning,Morning,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,239,🌄
+places_time_sequence-afternoon,Afternoon,Afternoon,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,240,🌤️
+places_time_sequence-night,Night,Night,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,241,🌃
+places_time_sequence-first,First,First,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,242,1️⃣
+places_time_sequence-then,Then,Then,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,243,👉
+places_time_sequence-always,Always,Always,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,244,♾️
+places_time_sequence-never,Never,Never,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,245,🚫
+places_time_sequence-sometimes,Sometimes,Sometimes,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,246,🔀
+places_time_sequence-usually,Usually,Usually,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,247,🔁
+places_time_sequence-soon,Soon,Soon,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,248,⏳
+places_time_sequence-fast,Fast,Fast,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,249,🐇
+places_time_sequence-slow,Slow,Slow,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,250,🐢
+places_time_sequence-clock,Clock,Clock,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,251,🕐
+places_time_sequence-timer,Timer,Timer,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,252,⏲️
+places_time_sequence-5-minutes,5 minutes,5 minutes,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,253,5️⃣
+places_time_sequence-10-minutes,10 minutes,10 minutes,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,254,🔟
+places_time_sequence-monday,Monday,Monday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,255,🗓️
+places_time_sequence-tuesday,Tuesday,Tuesday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,256,🗓️
+places_time_sequence-wednesday,Wednesday,Wednesday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,257,🗓️
+places_time_sequence-thursday,Thursday,Thursday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,258,🗓️
+places_time_sequence-friday,Friday,Friday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,259,🗓️
+places_time_sequence-saturday,Saturday,Saturday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,260,🗓️
+places_time_sequence-sunday,Sunday,Sunday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,261,🗓️
+places_time_sequence-weekend,Weekend,Weekend,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,262,🎉
+places_time_sequence-holiday,Holiday,Holiday,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,263,🧳
+places_time_sequence-calendar,Calendar,Calendar,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,264,🗓️
+places_time_sequence-schedule,Schedule,Schedule,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,265,📋
+places_time_sequence-schedule-change,Schedule change,Schedule change,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,266,🔄

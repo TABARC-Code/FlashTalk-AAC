@@ -7,9 +7,10 @@ Android, built for autistic users.
 device. Tap a card, it speaks the word. That's genuinely the whole
 mechanism, and I'd rather defend that as a feature than apologise for it.
 No sentence-building ceremony, no account creation, no cloud, no
-subscription. Eight seeded categories cover the daily-needs basics out of
-the box, and caregivers can extend it with photos from the gallery or a
-bulk-imported card set built on a PC.
+subscription. Seven seeded categories, 266 cards, cover a genuinely
+comprehensive daily-needs vocabulary out of the box — not a starter
+list — and caregivers can extend it further with photos from the
+gallery or a bulk-imported card set built on a PC.
 
 Who it's actually for: autistic children and adults with limited or
 unreliable speech, the people around them, and the SLTs and teachers

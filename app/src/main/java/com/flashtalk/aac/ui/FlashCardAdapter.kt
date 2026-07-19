@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.FlashCard
 import java.io.File
@@ -30,13 +32,26 @@ class FlashCardAdapter(
 
     class FlashCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val context: Context = itemView.context
+        private val cardView: MaterialCardView = itemView as MaterialCardView
         private val imageView: ImageView = itemView.findViewById(R.id.cardImage)
         private val emojiView: TextView = itemView.findViewById(R.id.cardEmoji)
         private val textView: TextView = itemView.findViewById(R.id.cardText)
+        private val urgentStrokeWidth = (2 * context.resources.displayMetrics.density).toInt()
 
         fun bind(flashCard: FlashCard, onClick: (FlashCard) -> Unit) {
             textView.text = flashCard.text
-            itemView.contentDescription = flashCard.text
+            itemView.contentDescription =
+                if (flashCard.priority == "urgent") "Urgent: ${flashCard.text}" else flashCard.text
+
+            // Urgent cards (Stop, Emergency, Seizure warning, ...) get a
+            // visible red border so they're quick to spot under stress,
+            // regardless of which category colour they sit in.
+            if (flashCard.priority == "urgent") {
+                cardView.strokeWidth = urgentStrokeWidth
+                cardView.strokeColor = ContextCompat.getColor(context, R.color.urgentAccent)
+            } else {
+                cardView.strokeWidth = 0
+            }
 
             val photoFile = flashCard.imagePath.takeIf { it.isNotBlank() }?.let { File(it) }
             if (flashCard.isCustom && photoFile?.exists() == true) {

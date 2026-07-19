@@ -9,6 +9,36 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Changed
+- Seed vocabulary replaced wholesale: 56 cards / 8 categories →
+  **266 cards / 7 categories** (Core & Social, Actions & Requests,
+  Physical Needs & Self-Care, Health/Feelings/Emergencies, Sensory &
+  Comfort, Objects & Leisure, Places/Time/Sequence), sourced from a real
+  clinically-structured vocabulary set rather than a starter list.
+- Vocabulary now lives in a bundled CSV
+  (`assets/vocabulary/communicards_vocabulary_v1.csv`) parsed at seed
+  time, not hand-written as Kotlin. 266 rows of Kotlin data literals
+  wasn't a maintainable format for anyone who isn't touching Kotlin day
+  to day.
+- Every seed card now has its own hand-picked emoji, not a shared
+  generic one — same placeholder-glyph approach as before, just applied
+  properly across the full set instead of a 56-card starter list.
+
+### Added
+- `FlashCard.speechText`: what's actually spoken, separate from the
+  on-screen label. Matters for cards like "Bathroom / Toilet" (label) →
+  "Bathroom" (speech) — previously the same field did both jobs.
+- `FlashCard.priority` ("standard" | "urgent"): urgent cards (Stop,
+  Emergency, Seizure warning, and the like) now get a visible red border
+  in the card grid, regardless of which category they're in.
+- `FlashCard.enabled`: respected by the card list query, so a card can
+  exist without being shown — no UI to toggle this yet, but the data
+  layer supports it.
+- First unit tests in the project: `AppDatabaseCsvTest` covers the CSV
+  parser's quoted-comma and doubled-quote-escaping behaviour, since
+  that's exactly the kind of thing that breaks silently under a later
+  refactor with nothing to catch it.
+
 ### Planned
 - Edit existing flashcards
 - Delete cards and categories via the UI (the repository layer already
@@ -33,9 +63,10 @@ kind of waste of everyone's time.
 #### Categories & Cards
 Seed cards render as an emoji glyph rather than a bundled photo. Worth
 repeating why, because it looks like a shortcut and isn't one: it means
-the app never had to settle a symbol-set licence (ARASAAC, Mulberry, or
-otherwise) before it could ship with cards that actually look like
-something. Custom cards use real photos, as you'd expect.
+the app never had to settle a symbol-set licence before it could ship
+with cards that actually look like something. Custom cards use real
+photos, as you'd expect. (This starter set was superseded shortly after
+— see [Unreleased] above for the real 266-card vocabulary.)
 
 - **Food & Drink**: 9 cards (water, juice, milk, hungry, thirsty, snack, breakfast, lunch, dinner)
 - **Feelings**: 8 cards (happy, sad, angry, scared, excited, tired, confused, love)

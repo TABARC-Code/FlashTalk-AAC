@@ -20,18 +20,18 @@ curious.
 
 This was the whole reason BACKLOG.md flagged item 1 as P0: sixty-odd seed
 cards, and every single one pointed at a drawable that was never
-bundled. Grey boxes, the lot. Three ways out were on the table —
-ARASAAC (CC BY-NC-SA, and that NC clause is exactly the kind of thing
-that turns into a licensing headache six months in), Mulberry Symbols
-(safer, still a dependency to track), or just... use emoji.
+bundled. Grey boxes, the lot. A proper symbol set was on the table, but
+that's a real licensing and cost decision — not one to make quietly by
+just picking one and bundling it.
 
-Went with emoji. Not because it's clever, but because it makes an entire
-category of future problem simply not exist. No licence to track, no
-asset pipeline, no "did we attribute this correctly" Slack thread at 11pm
-before a release. `FlashCard` got an `emoji` field sat next to
-`imagePath`; seed cards use one, custom photo cards use the other. It's
-a two-line change with an outsized effect on how much I have to think
-about this later.
+Went with emoji instead, for now. Not because it's clever, but because
+it makes an entire category of future problem simply not exist while
+that decision's still open. No licence to track, no asset pipeline, no
+"did we attribute this correctly" conversation before a release.
+`FlashCard` got an `emoji` field sat next to `imagePath`; seed cards use
+one, custom photo cards use the other. It's a small change with an
+outsized effect on how much I have to think about this later — and it's
+a stand-in, not a decision about what the final symbols will be.
 
 ## The photo permission that isn't
 
@@ -108,10 +108,47 @@ switching, and the import UI have never actually been looked at running.
 Compiling clean and lint being quiet is a real signal, but it's not the
 same as watching it work.
 
+## The vocabulary overhaul
+
+The original 56-card, 8-category set was always a starter list, never
+the real thing — it existed so the app had *something* to seed on first
+run. It got replaced with a proper 266-card, 7-category vocabulary
+(Core & Social, Actions & Requests, Physical Needs & Self-Care, Health/
+Feelings/Emergencies, Sensory & Comfort, Objects & Leisure, Places/Time/
+Sequence), supplied as a CSV rather than dictated from scratch here.
+
+Three decisions worth writing down:
+
+- **The CSV is an asset, parsed at seed time — not transcribed into
+  Kotlin.** 266 rows of `FlashCard(...)` constructor calls would be a
+  genuinely unpleasant file to review, let alone maintain. Instead
+  `AppDatabase` reads `assets/vocabulary/communicards_vocabulary_v1.csv`
+  and parses it with a small hand-rolled, quote-aware line splitter
+  (needed because category names like "Health, Feelings & Emergencies"
+  have a comma inside quotes — a naive `split(",")` would silently
+  mangle every one of those). Wrote actual unit tests for that parser
+  rather than trusting it by eye, which is exactly the kind of "this
+  looks obviously right" code that isn't, until it meets a row nobody
+  tested.
+- **Label and speech text are now different fields.** Cards like
+  "Bathroom / Toilet" want to display the alt term but only speak
+  "Bathroom" — the old single `text` field couldn't do that without
+  either cluttering the display or the speech. `speechText` defaults to
+  the label if nothing else is given, so nothing else broke.
+- **"Urgent" cards get an actual visual accent now** — a red border,
+  regardless of which category colour they happen to sit in. Emergency,
+  Stop, Seizure warning, that sort of thing. Data already distinguished
+  standard from urgent priority; not using it anywhere would've been
+  pointless.
+
+Also added: an `enabled` flag per card, respected by the card-list query
+but not yet exposed as a toggle anywhere — plumbing for later, not a
+feature today.
+
 ## What's deliberately still broken (or missing)
 
 Nothing here is an accident — see BACKLOG.md for the ordered list, but
 the short version: no edit/delete UI (repository support exists, no
-screen wired to it yet), no export, no settings lock, zero automated
-tests, still on kapt instead of KSP, seed vocabulary is still
-hardcoded English. All flagged, all intentional, all next.
+screen wired to it yet), no export, no settings lock, still on kapt
+instead of KSP, seed vocabulary is still English-only, and testing is a
+CSV parser and nothing else yet. All flagged, all intentional, all next.

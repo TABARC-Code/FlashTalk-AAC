@@ -30,7 +30,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests (currently none — see backlog)
+./gradlew test                 # unit tests (a handful exist now — see backlog item 6)
 ./gradlew lint                 # always run before committing
 ```
 
@@ -38,7 +38,9 @@ renaming SDK methods to make a point).
 
 ```
 data/     Room entities (Category, FlashCard), DAOs, AppDatabase (seeds
-          default categories on first run), AppRepository
+          from assets/vocabulary/communicards_vocabulary_v1.csv on first
+          run — 266 cards, 7 categories, real production vocabulary, not
+          a toy set), AppRepository
 ui/       One activity per screen + ViewModel + adapter. Main (category
           grid) → Category (card grid) → tap speaks via TTSManager.
           BaseActivity applies the "Large text" font-scale override that
@@ -72,16 +74,35 @@ turn this from an AAC app into a mildly insulting toy:
    TTSManager companion object for the actual names). Keep them in sync —
    this is exactly the kind of thing that silently drifts apart across a
    few PRs and nobody notices until Settings stops doing anything.
-5. **Seed data** lives in `AppDatabase.populateDatabase()`. Any schema
-   change needs a proper Room migration. Do not just bump the version
-   number and let it wipe — that's how you lose someone's custom cards
-   over an app update, which is about as bad as this gets.
+5. **Seed data** lives in `assets/vocabulary/communicards_vocabulary_v1.csv`,
+   parsed by `AppDatabase.populateDatabase()` on first run — not hardcoded
+   Kotlin, deliberately, because 266 rows of Kotlin literals is nobody's
+   idea of maintainable. Any *schema* change (new FlashCard/Category
+   fields) still needs a proper Room migration once this app has real
+   installs. It didn't need one for the current vocabulary overhaul only
+   because there were zero installs to protect — that reasoning expires
+   the moment this ships. Don't just bump the version and let it wipe
+   after that point; that's how you lose someone's custom cards over an
+   app update, which is about as bad as this gets.
 6. **Seed cards render an emoji glyph, not a photo.** `FlashCard.emoji` is
    the seed-card visual; `FlashCard.imagePath` is only ever set for
    custom photo cards. Don't reintroduce a
    `context.resources.getIdentifier(...)` drawable lookup for seed
    content — that lookup pattern is exactly the bug this design exists to
    avoid, and it'll come back as silently as it left.
+7. **`FlashCard.text` is the label; `FlashCard.speechText` is what's
+   spoken.** They differ on purpose for cards like "Bathroom / Toilet"
+   (label) → "Bathroom" (speech). `CategoryActivity.speakCard()` must
+   keep using `speechText` for TTS and `text` for the on-screen label/
+   Toast — swapping them back to a single field quietly breaks every
+   card with an alternate term in its label.
+8. **`FlashCard.priority == "urgent"` gets a visual accent** (currently a
+   red `MaterialCardView` stroke in `FlashCardAdapter`) and
+   **`FlashCard.enabled == false` cards are excluded** from
+   `FlashCardDao.getCardsByCategory` — but not from
+   `getCardsByCategorySync`, which the delete-cleanup path uses and needs
+   to see every card, enabled or not. Don't "simplify" that query to a
+   single shared version; it's two queries on purpose.
 
 ## Design rules (accessibility is the product)
 
@@ -128,7 +149,12 @@ way:
 - No screenshots exist. None are referenced either, so there's nothing
   stale to fix — just nothing to show yet. Add real ones from an emulator
   before claiming any.
-- Zero automated tests (BACKLOG.md item 6).
+- Still no proper symbol imagery — emoji glyphs are the current stand-in
+  across all 266 cards, correctly, but they're a placeholder, not a
+  destination. What replaces them is an open decision, not this file's
+  to make.
+- Only a handful of automated tests exist (the CSV parser). Everything
+  else in BACKLOG.md item 6 is still untested.
 - If `PROJECT_OVERVIEW.md` is still floating around anywhere, don't trust
   it — it oversells completeness in a way `BACKLOG.md` immediately
   contradicts. `BACKLOG.md` is the source of truth on status, always.
@@ -137,8 +163,10 @@ Resolved in the current build (these used to be listed here as debts —
 don't reintroduce them just because it'd be quicker):
 
 - Seed cards no longer reference missing drawables; they render an emoji
-  glyph (`FlashCard.emoji`), which sidesteps needing a symbol-set licence
-  entirely rather than deferring it.
+  glyph (`FlashCard.emoji`) instead.
+- The vocabulary itself went from a 56-card, 8-category placeholder set
+  to a real 266-card, 7-category one, sourced from a bundled CSV rather
+  than hardcoded Kotlin.
 - "Large text" now applies a real `Configuration.fontScale` override
   (`BaseActivity`), instead of writing a preference nothing read.
 - Deleting a card or category now removes its custom image file.

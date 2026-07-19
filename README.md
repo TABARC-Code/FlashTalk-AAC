@@ -20,8 +20,10 @@ everyone wants.
 ## What it does
 
 - Single-tap communication — card to speech, nothing blocking in between
-- Eight seeded categories (food, feelings, activities, people, places,
-  needs, yes/no, time), 56 starter cards
+- Seven seeded categories (Core & Social, Actions & Requests, Physical
+  Needs & Self-Care, Health/Feelings/Emergencies, Sensory & Comfort,
+  Objects & Leisure, Places/Time/Sequence), 266 starter cards — a real
+  vocabulary set, not a starter list
 - Custom cards from your own photos, unlimited — picked via the system
   photo/document chooser, so no storage permission is ever requested
 - Custom categories, unlimited
@@ -36,9 +38,9 @@ everyone wants.
 Honesty section, because I'd rather write this than have someone else
 discover it the hard way. Seed cards render as an emoji glyph rather than
 a photo — that's a decision, not a placeholder waiting on one. It means
-the app never had to settle a symbol-set licence (ARASAAC, Mulberry, take
-your pick) before it could ship with cards that look like something.
-Your own photo cards work exactly as you'd expect, no caveats there.
+the app never had to settle a symbol-set licence before it could ship
+with cards that look like something. Your own photo cards work exactly
+as you'd expect, no caveats there.
 There's no sentence building (single-tap is the whole design, though a
 strip mode is sitting in the backlog for anyone who wants it), no export
 yet, and no edit-in-place for existing cards. `BACKLOG.md` has the full
