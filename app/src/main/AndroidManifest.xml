@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        No storage or media permission is declared: custom card photos are
+        picked via the system photo/document chooser (ActivityResultContracts
+        .GetContent), which hands back a content:// Uri without needing
+        READ_EXTERNAL_STORAGE / READ_MEDIA_IMAGES on any supported API level.
+        No INTERNET permission either — this app is offline-first by design
+        (CLAUDE.md invariant 2), so it must never be able to ask for it.
+    -->
+
+    <application
+        android:name=".FlashTalkApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.FlashTalkAAC"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.CategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.CustomCardActivity"
+            android:exported="false"
+            android:label="@string/custom_card_title"
+            android:parentActivityName=".ui.CategoryActivity" />
+
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false"
+            android:label="@string/action_settings"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.ImportSetActivity"
+            android:exported="false"
+            android:label="@string/import_title"
+            android:parentActivityName=".ui.MainActivity" />
+
+    </application>
+
+</manifest>

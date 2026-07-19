@@ -1,0 +1,70 @@
+package com.flashtalk.aac.ui
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.flashtalk.aac.R
+import com.flashtalk.aac.data.FlashCard
+import java.io.File
+
+class FlashCardAdapter(
+    private val onCardClick: (FlashCard) -> Unit
+) : ListAdapter<FlashCard, FlashCardAdapter.FlashCardViewHolder>(FlashCardDiffCallback()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlashCardViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_flashcard, parent, false)
+        return FlashCardViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: FlashCardViewHolder, position: Int) {
+        holder.bind(getItem(position), onCardClick)
+    }
+
+    class FlashCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val context: Context = itemView.context
+        private val imageView: ImageView = itemView.findViewById(R.id.cardImage)
+        private val emojiView: TextView = itemView.findViewById(R.id.cardEmoji)
+        private val textView: TextView = itemView.findViewById(R.id.cardText)
+
+        fun bind(flashCard: FlashCard, onClick: (FlashCard) -> Unit) {
+            textView.text = flashCard.text
+            itemView.contentDescription = flashCard.text
+
+            val photoFile = flashCard.imagePath.takeIf { it.isNotBlank() }?.let { File(it) }
+            if (flashCard.isCustom && photoFile?.exists() == true) {
+                imageView.visibility = View.VISIBLE
+                emojiView.visibility = View.GONE
+                Glide.with(context)
+                    .load(photoFile)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_image_placeholder)
+                    .into(imageView)
+            } else {
+                // Seed (and image-less imported) cards render their emoji glyph
+                // directly — see BACKLOG.md item 1 and FlashCard.emoji.
+                imageView.visibility = View.GONE
+                emojiView.visibility = View.VISIBLE
+                emojiView.text = flashCard.emoji.ifBlank { "🗂️" }
+            }
+
+            // Click handling only — press feedback is a StateListAnimator on
+            // the card root in item_flashcard.xml, not a manual touch
+            // listener, so TalkBack's synthesized clicks work correctly
+            // (BACKLOG.md item 10).
+            itemView.setOnClickListener { onClick(flashCard) }
+        }
+    }
+
+    private class FlashCardDiffCallback : DiffUtil.ItemCallback<FlashCard>() {
+        override fun areItemsTheSame(oldItem: FlashCard, newItem: FlashCard) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: FlashCard, newItem: FlashCard) = oldItem == newItem
+    }
+}

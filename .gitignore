@@ -1,21 +1,15 @@
-node_modules/
-.expo/
-dist/
-web-build/
-npm-debug.*
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+
+# Keystore files (never commit signing keys)
 *.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-.DS_Store
-.env*.local
-
-# macOS
-.DS_Store
-
-# Xcode / Android build artifacts (bare workflow, if ejected later)
-ios/build/
-android/build/
-android/app/build/
+*.keystore

@@ -1,0 +1,14 @@
+{
+  "set_name": "Animals",
+  "category_name": "Animals",
+  "category_icon": "🐾",
+  "category_color": "#FF9F43",
+  "cards": [
+    { "text": "Dog", "icon": "🐶" },
+    { "text": "Cat", "icon": "🐱" },
+    { "text": "Bird", "icon": "🐦" },
+    { "text": "Fish", "icon": "🐟" },
+    { "text": "Horse", "icon": "🐴" },
+    { "text": "Rabbit", "icon": "🐰" }
+  ]
+}

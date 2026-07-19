@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Sample backup rules file; uncomment and customize as needed.
+   See https://developer.android.com/guide/topics/data/autobackup
+   for details, and note that these rules can be overridden by preferences
+   set in the app manifest.
+-->
+<full-backup-content>
+    <include domain="sharedpref" path="FlashTalkSettings.xml" />
+    <include domain="database" path="flashtalk_database" />
+    <include domain="file" path="custom_images/" />
+</full-backup-content>

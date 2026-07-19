@@ -1,0 +1,14 @@
+{
+  "set_name": "Transportation",
+  "category_name": "Transportation",
+  "category_icon": "🚗",
+  "category_color": "#00C2A8",
+  "cards": [
+    { "text": "Car", "icon": "🚗" },
+    { "text": "Bus", "icon": "🚌" },
+    { "text": "Train", "icon": "🚆" },
+    { "text": "Bike", "icon": "🚲" },
+    { "text": "Plane", "icon": "✈️" },
+    { "text": "Boat", "icon": "⛵" }
+  ]
+}

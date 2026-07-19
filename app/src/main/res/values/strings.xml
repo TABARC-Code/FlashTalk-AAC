@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FlashTalk AAC</string>
+
+    <!-- Main screen -->
+    <string name="add_category_content_description">Add category</string>
+    <string name="new_category">New Category</string>
+    <string name="category_name_hint">Category name</string>
+    <string name="category_icon_hint">Icon (emoji, optional)</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Category screen -->
+    <string name="add_card_content_description">Add card</string>
+    <string name="action_edit_category">Edit</string>
+    <string name="edit_not_yet_available">Editing categories isn\'t available yet</string>
+
+    <!-- Custom card screen -->
+    <string name="custom_card_title">New Card</string>
+    <string name="select_image">Select Image</string>
+    <string name="card_text_hint">What should this card say?</string>
+    <string name="card_text_required">Enter what this card should say</string>
+    <string name="select_image_first">Choose a photo first</string>
+    <string name="image_select_failed">Couldn\'t load that image — try another</string>
+    <string name="save_card_content_description">Save card</string>
+
+    <!-- Settings screen -->
+    <string name="action_settings">Settings</string>
+    <string name="settings_speech_rate">Speech rate</string>
+    <string name="settings_pitch">Voice pitch</string>
+    <string name="settings_dark_mode">Dark mode</string>
+    <string name="settings_large_text">Large text</string>
+
+    <!-- Import screen -->
+    <string name="action_import">Import Set</string>
+    <string name="import_title">Import a card set</string>
+    <string name="import_explainer">Import a whole set of cards at once: a ZIP with photos and a manifest, or a JSON file for text-only cards. See example_imports/README.md for the format.</string>
+    <string name="import_zip">Import ZIP File</string>
+    <string name="import_json">Import JSON File</string>
+    <string name="importing">Importing…</string>
+    <string name="import_success">Imported %1$d card(s) into "%2$s"</string>
+</resources>

@@ -1,0 +1,14 @@
+{
+  "set_name": "Colors",
+  "category_name": "Colors",
+  "category_icon": "🎨",
+  "category_color": "#845EC2",
+  "cards": [
+    { "text": "Red", "icon": "🔴" },
+    { "text": "Blue", "icon": "🔵" },
+    { "text": "Green", "icon": "🟢" },
+    { "text": "Yellow", "icon": "🟡" },
+    { "text": "Purple", "icon": "🟣" },
+    { "text": "Orange", "icon": "🟠" }
+  ]
+}
