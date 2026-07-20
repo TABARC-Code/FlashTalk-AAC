@@ -219,11 +219,60 @@ instead. `Room.inMemoryDatabaseBuilder` directly, not
 `AppDatabase.getDatabase()`, so the tests get a database they control
 rather than the full 266-card seed.
 
+## Locale-aware vocabulary, and where I drew the line
+
+The mechanism first: `AppDatabase` lists what's actually in
+`assets/vocabulary/`, picks `communicards_vocabulary_v1_<lang>.csv` if
+the device locale has one, and falls back to the English file otherwise.
+The selection logic is a pure function taking a language tag and a set
+of filenames — no Context, no asset access — so it's fully unit-tested
+without Robolectric. Adding a language from here really is just
+"translate the CSV, drop it in the folder." No code change required,
+which was the entire point of making vocabulary an asset instead of
+Kotlin literals back when this started.
+
+Then I translated all 266 rows into French myself, in one pass, and
+this is the part worth being honest about rather than quietly shipping.
+I'm reasonably confident in most of it — the vocabulary is short,
+concrete, mostly unambiguous words ("Oui", "Stop", "Fatigué"), the kind
+of thing a competent non-native speaker gets right without much risk.
+I am specifically **not** confident enough in `health_feelings_emergency`
+to call it done. "Seizure warning" became "Crise à venir," "allergic
+reaction" became "Réaction allergique" — these read fine to me, but
+"fine to me" isn't the bar for a phrase someone might need to get right
+in an actual emergency, and I'm not a fluent French speaker, let alone a
+clinician. I've flagged it three times now (here, `CLAUDE.md`,
+`BACKLOG.md`) specifically so it can't quietly become "the French one's
+done" in someone's head. It parses, it displays, the mechanism works.
+The words in the one category where a wrong word actually costs
+something haven't been checked by anyone who'd know if they're wrong.
+
+Checked what I could check without a fluent reader: every id matches
+the English file exactly, same order, same colours, same emoji, same
+priority flags — a script confirmed it, not just a read-through. That's
+the part testing can verify. The words themselves needed a human who
+isn't me, and didn't get one yet.
+
+## No emulator, and it's not just "not set up yet"
+
+Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
+in `/proc/cpuinfo`, no nested virtualisation exposed. That's not a
+missing SDK component or a config flag — it's the underlying hardware
+access an Android emulator needs, genuinely absent from this container.
+Software-rendered emulation without acceleration exists in theory but is
+slow enough to be impractical for anything beyond a toy demo, and
+wouldn't represent real device behaviour reliably even if it ran.
+Screenshots and instrumented UI tests (BACKLOG P2 items 2 and 3) are
+blocked on this specifically, not on time or effort — worth knowing the
+difference before someone spends an hour trying to coax an AVD out of a
+container that structurally can't run one.
+
 ## What's deliberately still missing
 
 See BACKLOG.md for the ordered, current list. Short version: no card
-reordering, no favourites/history, seed vocabulary is still English-only,
-no real screenshots, and — the one that actually matters most — none of
-this has been watched running on a device or emulator. Compiling clean,
-linting clean, and thirty passing unit tests are real signal. They are
-not the same thing as tapping the app and watching it work.
+reordering, no favourites/history, the French translation needs a
+fluent-speaker review (see above), no real screenshots, no instrumented
+tests — the last two genuinely blocked by the missing emulator, not
+skipped. Compiling clean, linting clean, and thirty-four passing unit
+tests are real signal. They are not the same thing as tapping the app
+and watching it work.

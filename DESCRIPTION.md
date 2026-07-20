@@ -28,13 +28,17 @@ Components. Min SDK 24. One module, no DI framework, and no network
 stack at all — not even an INTERNET permission in the manifest.
 
 **Status:** edit/delete, a persistent speech bar, a Settings/Import
-maths gate, and category export are all in now, alongside the original
-tap-to-speak core. 30 unit tests cover the logic layer (CSV parsing,
-manifest parsing, DiffUtil callbacks, Repository CRUD via Robolectric).
-Seed cards render as emoji glyphs rather than photos, which sidesteps a
+maths gate, category export, and locale-aware seed vocabulary (English
++ French so far) are all in now, alongside the original tap-to-speak
+core. 34 unit tests cover the logic layer (CSV parsing, manifest
+parsing, DiffUtil callbacks, Repository CRUD via Robolectric). Seed
+cards render as emoji glyphs rather than photos, which sidesteps a
 symbol-set licensing decision entirely rather than kicking it down the
-road. The honest gaps: nothing's been watched running on an actual
-device or emulator, the seed vocabulary is English-only, and there's no
-card reordering yet. See BACKLOG.md, in order, no skipping ahead.
+road. The honest gaps: the French translation needs a native-speaker or
+SLT review before the emergency vocabulary specifically is trusted,
+there's no card reordering yet, and nothing's been watched running on
+an actual device or emulator — this environment has no virtualisation
+support at all, so that's a hard blocker here, not a "hasn't happened
+yet." See BACKLOG.md, in order, no skipping ahead.
 
 Author: TABARC-Code

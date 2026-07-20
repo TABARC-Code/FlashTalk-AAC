@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Database(entities = [Category::class, FlashCard::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -19,12 +20,18 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        // The seed vocabulary lives in assets/vocabulary/communicards_vocabulary_v1.csv,
-        // not hardcoded here — 266 cards is too much to hand-maintain as Kotlin
-        // literals, and the CSV is the actual source of truth a non-developer
-        // could sensibly update. Category icon is the one thing the CSV doesn't
-        // carry, so it's assigned here per category_id.
-        private const val VOCABULARY_ASSET = "vocabulary/communicards_vocabulary_v1.csv"
+        // The seed vocabulary lives in assets/vocabulary/, not hardcoded here —
+        // 266 cards is too much to hand-maintain as Kotlin literals, and the
+        // CSV is the actual source of truth a non-developer could sensibly
+        // update. Category icon is the one thing the CSV doesn't carry, so
+        // it's assigned here per category_id.
+        //
+        // Locale picks a variant file (communicards_vocabulary_v1_<lang>.csv)
+        // if one's bundled, falling back to the English default otherwise —
+        // see vocabularyAssetNameFor. Non-English translations are a first
+        // pass, not clinically reviewed; see BACKLOG.md item 1.
+        private const val VOCABULARY_DIR = "vocabulary"
+        private const val DEFAULT_VOCABULARY_ASSET = "communicards_vocabulary_v1.csv"
 
         private val CATEGORY_ICONS = mapOf(
             "core_social" to "💬",
@@ -64,7 +71,10 @@ abstract class AppDatabase : RoomDatabase() {
             categoryDao: CategoryDao,
             flashCardDao: FlashCardDao
         ) {
-            val rows = context.assets.open(VOCABULARY_ASSET).bufferedReader(Charsets.UTF_8).use { it.readLines() }
+            val availableAssets = context.assets.list(VOCABULARY_DIR)?.toSet() ?: emptySet()
+            val assetName = vocabularyAssetNameFor(Locale.getDefault().language, availableAssets)
+            val rows = context.assets.open("$VOCABULARY_DIR/$assetName")
+                .bufferedReader(Charsets.UTF_8).use { it.readLines() }
             if (rows.isEmpty()) return
 
             val header = parseCsvLine(rows.first())
@@ -109,6 +119,15 @@ abstract class AppDatabase : RoomDatabase() {
                 val cards = cardsByCategory[key].orEmpty().map { it.copy(categoryId = categoryId) }
                 flashCardDao.insertCards(cards)
             }
+        }
+
+        // Pure — no Context/asset access — so AppDatabaseCsvTest can check
+        // the selection logic without needing Robolectric. `languageTag` is
+        // Locale.getDefault().language (e.g. "fr", "en"); `availableAssets`
+        // is whatever's actually bundled, from context.assets.list(...).
+        internal fun vocabularyAssetNameFor(languageTag: String, availableAssets: Set<String>): String {
+            val localised = "communicards_vocabulary_v1_${languageTag.lowercase()}.csv"
+            return if (localised in availableAssets) localised else DEFAULT_VOCABULARY_ASSET
         }
 
         // Quote-aware CSV split — needed because category names like

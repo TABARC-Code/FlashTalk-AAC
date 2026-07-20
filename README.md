@@ -24,6 +24,11 @@ everyone wants.
   Needs & Self-Care, Health/Feelings/Emergencies, Sensory & Comfort,
   Objects & Leisure, Places/Time/Sequence), 266 starter cards — a real
   vocabulary set, not a starter list
+- Seed vocabulary follows the device's locale — French is bundled
+  alongside English, and adding another language is just translating a
+  CSV, no code changes needed. (The French file is a single first-pass
+  translation, not a native-speaker or SLT-reviewed one — see
+  `BACKLOG.md` item 1 before trusting the emergency-related cards.)
 - Custom cards from your own photos, unlimited — picked via the system
   photo/document chooser, so no storage permission is ever requested
 - Custom categories, unlimited
@@ -51,12 +56,14 @@ the app never had to settle a symbol-set licence before it could ship
 with cards that look like something. Your own photo cards work exactly
 as you'd expect, no caveats there.
 There's no sentence building yet (single-tap is the whole design, though
-a strip mode is sitting in the backlog for anyone who wants it), no card
-reordering, and the seed vocabulary is English-only. Nothing here has
-been run on an actual device or emulator either — compiled, linted, and
-unit-tested (30 tests), but not watched running. `BACKLOG.md` has the
-full confession, in priority order — I'd rather it be too honest than
-flattering.
+a strip mode is sitting in the backlog for anyone who wants it), and no
+card reordering. Nothing here has been run on an actual device or
+emulator either — compiled, linted, and unit-tested (34 tests), but not
+watched running, and that's not a "hasn't gotten to it yet": this
+environment has no `/dev/kvm` and no CPU virtualisation flags at all, so
+an Android emulator genuinely isn't something that runs here. `BACKLOG.md`
+has the full confession, in priority order — I'd rather it be too honest
+than flattering.
 
 ## Building it
 

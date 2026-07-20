@@ -37,25 +37,35 @@ manifest parsing, DiffUtil callbacks, the export round-trip, and
 Repository CRUD via Robolectric — up from the single CSV-parser test
 this item started with._
 
-1. **[S] Locale-aware seed data.** The vocabulary CSV is English-only.
-   Since it's now an asset rather than hardcoded Kotlin, the honest path
-   is locale-specific CSV variants (`communicards_vocabulary_v1_fr.csv`
-   and so on) picked by device locale at seed time, not Android string
-   resources — bulk-translating 266 rows through `strings.xml` would be
-   miserable to maintain. TTS already follows the device locale via
-   `Locale.getDefault()`; the vocabulary itself is what's still stuck in
-   English.
+1. ~~**[S] Locale-aware seed data.**~~ **Done for French, mechanism done
+   for everyone else.** `AppDatabase` now picks
+   `communicards_vocabulary_v1_<lang>.csv` by device locale
+   (`vocabularyAssetNameFor`, tested), falling back to the English file
+   when no variant is bundled. Only French is bundled today — 266 rows
+   translated in one pass, by me, not a fluent speaker, not an SLT. Fine
+   for a lot of it; **not** fine to trust blind for
+   `health_feelings_emergency` specifically ("seizure warning", "allergic
+   reaction", "call for help" and the like) — those need a native-speaker
+   or clinical review before anyone relies on them for a real emergency.
+   Flagged in `BUILD_NOTES.md` too so it doesn't get lost. Adding another
+   language is now "translate a CSV, drop it in `assets/vocabulary/`" —
+   no code changes required.
 
 2. **[S] Screenshots.** Take real ones on an emulator, drop them in
    `docs/screenshots/`. Nothing currently references phantom images, so
    this is purely additive — there's no lie to fix, just a gap to fill.
+   Still blocked: no `/dev/kvm`, no vmx/svm CPU flags in this environment
+   — an emulator isn't just "not set up yet" here, it's not viable
+   without different hardware.
 
 3. **[M] UI/instrumented tests.** Everything so far runs on the JVM
    (plain JUnit or Robolectric) precisely because there's no emulator in
-   the environment this got built in. The actual on-screen behaviour of
-   Edit mode, the speech bar, and the maths gate has never been watched
-   running — only reasoned about and unit-tested at the logic layer.
-   Espresso tests for the core tap-to-speak flow would close that gap.
+   the environment this got built in (see item 2 — same root cause). The
+   actual on-screen behaviour of Edit mode, the speech bar, and the maths
+   gate has never been watched running — only reasoned about and
+   unit-tested at the logic layer. Espresso tests for the core
+   tap-to-speak flow would close that gap, whenever this runs somewhere
+   with real virtualisation.
 
 ## P3 — future, only after the above
 

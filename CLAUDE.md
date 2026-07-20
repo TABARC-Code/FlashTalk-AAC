@@ -47,9 +47,11 @@ without one.
 
 ```
 data/     Room entities (Category, FlashCard), DAOs, AppDatabase (seeds
-          from assets/vocabulary/communicards_vocabulary_v1.csv on first
-          run — 266 cards, 7 categories, real production vocabulary, not
-          a toy set), AppRepository
+          from assets/vocabulary/ on first run — 266 cards, 7 categories,
+          real production vocabulary, not a toy set. File picked by
+          device locale, e.g. communicards_vocabulary_v1_fr.csv, falling
+          back to the English default — see vocabularyAssetNameFor),
+          AppRepository
 ui/       One activity per screen + ViewModel + adapter. Main (category
           grid) → Category (card grid) → tap speaks via TTSManager.
           BaseActivity applies the "Large text" font-scale override that
@@ -128,6 +130,14 @@ turn this from an AAC app into a mildly insulting toy:
     it in front of individual actions inside Settings (the Edit mode
     toggle doesn't get its own gate) — one gate at the door is the
     design, not one at every room.
+11. **Non-English vocabulary CSVs are draft translations, not clinically
+    reviewed ones.** `communicards_vocabulary_v1_fr.csv` exists and is
+    wired up correctly, but it's a single-pass translation, not a
+    native-speaker or SLT-reviewed one — treat the
+    `health_feelings_emergency` category in any translated file as
+    needing that review specifically before anyone relies on it for a
+    real emergency. Don't add another language file and assume it's
+    "done" just because it parses and displays.
 
 ## Design rules (accessibility is the product)
 
@@ -172,18 +182,21 @@ I'd rather list these plainly than have someone discover them the hard
 way:
 
 - No screenshots exist. None are referenced either, so there's nothing
-  stale to fix — just nothing to show yet. Add real ones from an emulator
-  before claiming any.
+  stale to fix — just nothing to show yet. And genuinely blocked, not
+  just undone: no `/dev/kvm`, no vmx/svm CPU flags in this environment,
+  so there's no emulator to take them on until this runs somewhere with
+  real virtualisation.
 - Still no proper symbol imagery — emoji glyphs are the current stand-in
   across all 266 cards, correctly, but they're a placeholder, not a
   destination. What replaces them is an open decision, not this file's
   to make.
-- Seed vocabulary is English-only. See BACKLOG.md item 7 for the actual
-  plan (locale-specific CSV variants, not string resources).
+- The French vocabulary file is a single-pass translation (mine), not a
+  native-speaker or SLT-reviewed one. See invariant 11 — the
+  Health/Feelings/Emergencies category specifically needs that review
+  before anyone trusts it for a real emergency.
 - No UI/instrumented tests exist — everything runs on the JVM (plain
-  JUnit or Robolectric). That's a deliberate foundation-first choice, not
-  an oversight, but it means the actual on-screen behaviour of edit mode,
-  the speech bar, and the maths gate has never been watched running.
+  JUnit or Robolectric). Same root cause as the screenshots: no
+  emulator, not a choice to skip it.
 - If `PROJECT_OVERVIEW.md` is still floating around anywhere, don't trust
   it — it oversells completeness in a way `BACKLOG.md` immediately
   contradicts. `BACKLOG.md` is the source of truth on status, always.
@@ -201,6 +214,9 @@ don't reintroduce them just because it'd be quicker):
 - Deleting a card or category now removes its custom image file.
 - Card touch feedback uses a `StateListAnimator`, not a manual
   `setOnTouchListener` that skipped `performClick()`.
+- Seed vocabulary is no longer hardcoded to English — locale-based CSV
+  selection exists and works (invariant 11), even though only French is
+  bundled today.
 - Edit and delete for both cards and categories, gated behind an
   off-by-default Edit mode toggle (invariant 9).
 - Toasts on card tap replaced with a persistent speech bar (last-spoken

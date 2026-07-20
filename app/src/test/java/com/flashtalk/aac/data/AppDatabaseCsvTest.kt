@@ -4,10 +4,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Covers AppDatabase.parseCsvLine — the vocabulary seed data depends on it
- * getting quoted, comma-containing category names right (e.g. "Health,
- * Feelings & Emergencies"), which is exactly the kind of thing that breaks
- * silently under a later refactor with nothing here to catch it.
+ * Covers AppDatabase's pure companion functions: parseCsvLine (the
+ * vocabulary seed data depends on it getting quoted, comma-containing
+ * category names right, e.g. "Health, Feelings & Emergencies") and
+ * vocabularyAssetNameFor (locale-based seed file selection, BACKLOG.md
+ * item 1). Neither touches Context or the filesystem, so no Robolectric
+ * needed here.
  */
 class AppDatabaseCsvTest {
 
@@ -46,5 +48,41 @@ class AppDatabaseCsvTest {
     fun `trailing empty field is preserved`() {
         val result = AppDatabase.parseCsvLine("a,b,")
         assertEquals(listOf("a", "b", ""), result)
+    }
+
+    @Test
+    fun `matching locale variant is chosen when bundled`() {
+        val result = AppDatabase.vocabularyAssetNameFor(
+            "fr",
+            setOf("communicards_vocabulary_v1.csv", "communicards_vocabulary_v1_fr.csv")
+        )
+        assertEquals("communicards_vocabulary_v1_fr.csv", result)
+    }
+
+    @Test
+    fun `falls back to the English default when no variant is bundled`() {
+        val result = AppDatabase.vocabularyAssetNameFor(
+            "de",
+            setOf("communicards_vocabulary_v1.csv", "communicards_vocabulary_v1_fr.csv")
+        )
+        assertEquals("communicards_vocabulary_v1.csv", result)
+    }
+
+    @Test
+    fun `language tag matching is case-insensitive`() {
+        val result = AppDatabase.vocabularyAssetNameFor(
+            "FR",
+            setOf("communicards_vocabulary_v1.csv", "communicards_vocabulary_v1_fr.csv")
+        )
+        assertEquals("communicards_vocabulary_v1_fr.csv", result)
+    }
+
+    @Test
+    fun `english locale uses the default file, not a redundant variant`() {
+        val result = AppDatabase.vocabularyAssetNameFor(
+            "en",
+            setOf("communicards_vocabulary_v1.csv", "communicards_vocabulary_v1_fr.csv")
+        )
+        assertEquals("communicards_vocabulary_v1.csv", result)
     }
 }

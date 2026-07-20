@@ -46,6 +46,15 @@ carry 266 cards — a genuinely working vocabulary, not a demo:
 
 None of this needs building before it's useful. It needs using.
 
+One more thing worth knowing: which language shows up here follows the
+phone's own language setting, automatically, with no toggle to hunt for.
+Set the device to French and the seeded vocabulary above arrives in
+French. It's an early first pass at translation rather than a polished
+one — solid for the everyday words, but worth a second look from a
+fluent speaker before leaning on the health and emergency cards
+specifically, in any language beyond English. More languages arrive over
+time; English is what's had the most eyes on it so far.
+
 ## The tap, and what happens after it
 
 Here's the mechanism, in full: open a category, find a card, tap it.

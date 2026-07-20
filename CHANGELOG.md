@@ -9,6 +9,25 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Locale-aware seed vocabulary
+- `AppDatabase` now picks the seed CSV by device locale
+  (`communicards_vocabulary_v1_<lang>.csv`), falling back to the English
+  default if no matching file is bundled. Selection logic
+  (`vocabularyAssetNameFor`) is pure and unit-tested against present/
+  absent/case-insensitive locale matches.
+- French (`communicards_vocabulary_v1_fr.csv`) is the first bundled
+  translation — all 266 rows, same ids/colours/emoji/priority as the
+  English file, only the label/speech text/category names translated.
+  **This is a single-pass translation, not a native-speaker or
+  SLT-reviewed one.** Most of it is short, unambiguous words where that
+  matters little ("Oui", "Non", "Stop"). The `health_feelings_emergency`
+  category is the one place it genuinely matters — "seizure warning" →
+  "Crise à venir" and similar need a fluent speaker or clinician to check
+  before anyone relies on them in an actual emergency. Flagged in
+  `CLAUDE.md` and `BACKLOG.md` so it doesn't get lost.
+- Adding another language from here is "translate the CSV, drop it in
+  `assets/vocabulary/`" — no code changes required.
+
 ### Changed
 - Seed vocabulary replaced wholesale: 56 cards / 8 categories →
   **266 cards / 7 categories** (Core & Social, Actions & Requests,
@@ -88,10 +107,13 @@ kind of waste of everyone's time.
 - Reorder cards within categories
 - Favourites / frequently used cards
 - Usage history and statistics
-- Locale-aware seed vocabulary (currently English-only)
-- Real screenshots for the README
-- UI/instrumented tests — everything above is unit-tested, nothing has
-  been watched running on a device or emulator yet
+- More bundled languages (mechanism's done; each one is now just a
+  translated CSV)
+- Native-speaker/SLT review of the French translation, especially
+  `health_feelings_emergency`
+- Real screenshots for the README — blocked, no emulator available
+- UI/instrumented tests — blocked for the same reason; everything so far
+  is unit-tested, nothing has been watched running on a device
 
 ## [1.0.0] - 2026-07-19
 
