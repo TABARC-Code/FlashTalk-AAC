@@ -69,9 +69,19 @@ this item started with._
 
 ## P3 — future, only after the above
 
-4. **[L] Sentence strip mode**, optional and off by default — tap cards
-   to build a strip, tap the strip to speak the whole phrase.
-   PECS-adjacent, and deliberately not the default experience.
+~~**[L] Sentence strip mode.**~~ **Done.** Off by default, a Settings
+toggle away. On: tapping a card in `CategoryActivity` appends it to an
+in-memory strip instead of speaking it straight away; a dedicated strip
+bar replaces the ordinary speech bar while the mode's on, showing the
+sentence built so far, with a tap-to-speak and a separate clear control.
+Off (the default): behaviour is unchanged from every other section of
+this document. The join logic lives in `SentenceStrip`, a plain object
+with no Context dependency, precisely so it could be unit-tested without
+Robolectric — four tests cover the empty-strip, single-card, multi-card,
+and label/speech-text-differ cases. The strip itself is deliberately not
+persisted; it's a scratchpad for one sentence, not vocabulary data, and
+doesn't need to survive the activity being recreated.
+
 5. **[L] Multiple profiles.**
 6. **[M] Home-screen widget** for the Needs category.
 7. **[L] Switch-access scanning support.**

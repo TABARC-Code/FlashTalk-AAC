@@ -18,21 +18,25 @@ trying to make it work in practice. Also, frankly, anyone who's tired of
 communication apps that cost money and phone home for no reason.
 
 **Design position:** closer to Leeloo's quick-tap communication than
-PECS-style sentence assembly. Narrow on purpose — it does one interaction
-(tap → speak) and says no to anything that would slow that down, which is
-a harder discipline to hold onto than it sounds when every feature
-request looks reasonable in isolation.
+PECS-style sentence assembly, by default. Narrow on purpose — it does one
+interaction (tap → speak) and says no to anything that would slow that
+down, which is a harder discipline to hold onto than it sounds when every
+feature request looks reasonable in isolation. Sentence strip mode is the
+one deliberate exception, and it stays opt-in specifically so it never
+becomes the default experience by accident.
 
 **Stack:** Kotlin, MVVM, Room (KSP, not kapt), Coroutines, Glide, Material
 Components. Min SDK 24. One module, no DI framework, and no network
 stack at all — not even an INTERNET permission in the manifest.
 
 **Status:** edit/delete, a persistent speech bar, a Settings/Import
-maths gate, category export, and locale-aware seed vocabulary (English
-+ French so far) are all in now, alongside the original tap-to-speak
-core. 34 unit tests cover the logic layer (CSV parsing, manifest
-parsing, DiffUtil callbacks, Repository CRUD via Robolectric). Seed
-cards render as emoji glyphs rather than photos, which sidesteps a
+maths gate, category export, locale-aware seed vocabulary (English
++ French so far), and an opt-in sentence strip mode are all in now,
+alongside the original tap-to-speak core, which stays completely
+unchanged unless strip mode's deliberately switched on. 38 unit tests
+cover the logic layer (CSV parsing, manifest parsing, DiffUtil
+callbacks, sentence-strip joining, Repository CRUD via Robolectric).
+Seed cards render as emoji glyphs rather than photos, which sidesteps a
 symbol-set licensing decision entirely rather than kicking it down the
 road. The honest gaps: the French translation needs a native-speaker or
 SLT review before the emergency vocabulary specifically is trusted,

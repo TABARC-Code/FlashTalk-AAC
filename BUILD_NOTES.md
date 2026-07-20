@@ -253,6 +253,36 @@ priority flags — a script confirmed it, not just a read-through. That's
 the part testing can verify. The words themselves needed a human who
 isn't me, and didn't get one yet.
 
+## Sentence strip mode, and keeping it genuinely optional
+
+First item off P3, and the one bit of this app that's structurally
+closer to PECS-style sentence assembly than the tap-once design everyone
+else in this document keeps insisting on. Which is exactly why it's
+off by default and stays that way unless a caregiver turns it on
+deliberately in Settings — the same pattern Edit mode already
+established, and for the same reason: nothing about the ordinary
+tap-to-speak path is allowed to change for someone who never asked for
+this.
+
+The implementation is almost entirely UI plumbing once you accept that
+constraint. `CategoryActivity` already branched card taps through a
+single `onCardClick` lambda, so turning that into a two-way branch (speak
+immediately, or append to an in-memory list) cost nothing structurally.
+The one piece I did pull out deliberately is the sentence-joining itself
+— `SentenceStrip`, a plain object, no Context, no Activity dependency —
+because I've been burned once already this session by logic that looked
+too simple to bother testing (the Gson defaults bug, see above), and
+"join some strings together" is exactly the kind of thing that looks too
+simple right up until someone's card list is empty or a label and its
+speech text genuinely differ.
+
+The strip bar itself replaces the speech bar rather than sitting
+alongside it — the two are mutually exclusive by design, and showing
+both would just be confusing about which one's currently doing anything.
+Deliberately not persisted anywhere: it's scratch state for building one
+sentence, not vocabulary, so it clears itself when the mode's switched
+off or the screen's re-entered. Nothing there anyone would miss.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -273,6 +303,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and thirty-four passing unit
+skipped. Compiling clean, linting clean, and thirty-eight passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.

@@ -165,6 +165,32 @@ the same format Import reads, photos and all, ready to hand to another
 device or another person, or just to keep somewhere safe. It's the same
 category you started with, just portable.
 
+## Building a sentence, for the users who want to
+
+Everything above assumes one tap, one word, spoken straight away — and
+for most users, most of the time, that's exactly right. But some people
+are ready for more than a single word at once, and want to string a few
+cards together into something closer to a proper sentence before it gets
+said out loud. That's what **Sentence strip mode** is for, and it's the
+one part of this app that works differently from everything else in
+this guide.
+
+It's off until a caregiver turns it on (Menu → Settings → Sentence strip
+mode), and it changes the whole rhythm of the screen once it is on. The
+familiar bar at the top — the one that normally shows the last word
+spoken — is replaced by a strip bar instead. Tapping a card no longer
+speaks it immediately; it adds the word to the strip, building up a short
+phrase word by word. Tap the strip itself once it says what you want, and
+the whole sentence is spoken in one go. Change your mind partway through?
+A separate clear control empties the strip without speaking anything at
+all, so a wrong tap doesn't have to become an awkward sentence out loud.
+
+Turn the setting back off and everything returns to normal instantly —
+one tap, one word, spoken straight away, exactly as described everywhere
+else in this guide. Nothing about the ordinary experience changes for
+anyone who never goes looking for this setting; it's there for the users
+who are ready to build sentences, and invisible to everyone else.
+
 ## Shaping how it sounds and looks
 
 Every voice needs adjusting for the person listening to it, and
@@ -185,7 +211,8 @@ to glare — flip it and it applies straight away, no restart required.
 app rather than just on one screen. Worth turning on early rather than
 waiting for it to become a problem.
 
-**Edit mode** lives here too — see "Changing your mind" above.
+**Edit mode** and **Sentence strip mode** live here too — see "Changing
+your mind" and "Building a sentence" above.
 
 A quick word on that maths question you'll see before Settings or
 Import open: it's two single-digit numbers and a sum, nothing more.
@@ -274,6 +301,7 @@ just in case.
 | Bring in a whole vocabulary | Menu → Import Set → choose ZIP or JSON |
 | Send a category elsewhere | Open it → category menu → Export |
 | Edit or delete a card/category | Settings → turn on Edit mode → long-press it |
+| Build a short sentence from several cards | Settings → turn on Sentence strip mode |
 | Change how fast it speaks | Menu → Settings → Speech Rate |
 | Ease eye strain | Menu → Settings → Dark Mode |
 | Make everything bigger | Menu → Settings → Large Text |

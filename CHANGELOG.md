@@ -9,6 +9,23 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Sentence strip mode
+- Optional, off by default (Settings → Sentence strip mode). On:
+  `CategoryActivity` stops speaking a card the moment it's tapped and
+  instead appends it to an in-memory strip, shown in a dedicated strip
+  bar that replaces the ordinary speech bar while the mode's active.
+  Tapping the strip speaks the whole built sentence and clears it;
+  a separate control clears it without speaking. Off (the default):
+  tap-to-speak is exactly as before, nothing about the existing path
+  changed.
+- Sentence-building lives in `SentenceStrip`, a Context-free object with
+  `displayText`/`speechText` — the former joins cards' on-screen labels,
+  the latter joins `speechText`, same split `speakCard` already used for
+  a single card. Four unit tests cover it.
+- The strip is intentionally not persisted anywhere: it's a scratchpad
+  for building one sentence, not vocabulary data, so it resets on
+  category re-entry or when the mode's toggled off.
+
 ### Added — Locale-aware seed vocabulary
 - `AppDatabase` now picks the seed CSV by device locale
   (`communicards_vocabulary_v1_<lang>.csv`), falling back to the English

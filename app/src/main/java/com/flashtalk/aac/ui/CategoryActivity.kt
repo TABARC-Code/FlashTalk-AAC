@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.FlashCard
 import com.flashtalk.aac.utils.ImageSetExporter
+import com.flashtalk.aac.utils.SentenceStrip
 import com.flashtalk.aac.utils.TTSManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +37,11 @@ class CategoryActivity : BaseActivity() {
     private lateinit var flashCardAdapter: FlashCardAdapter
     private var categoryId: Long = -1
     private val prefs by lazy { getSharedPreferences(TTSManager.PREFS_NAME, Context.MODE_PRIVATE) }
+
+    // In-memory only, by design: the strip is a scratchpad for building one
+    // sentence, not vocabulary data, so it doesn't belong in Room and
+    // doesn't need to survive process death.
+    private val strip = mutableListOf<FlashCard>()
 
     // Set just before launching the picker from the edit-card dialog, read
     // back in the ActivityResult callback — GetContent() is a separate
@@ -72,17 +78,19 @@ class CategoryActivity : BaseActivity() {
 
         setupRecyclerView()
         setupFab()
+        setupStripBar()
         observeData()
     }
 
     override fun onResume() {
         super.onResume()
         applyEditModeState()
+        applyStripModeState()
     }
 
     private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.flashCardsRecyclerView)
-        flashCardAdapter = FlashCardAdapter(onCardClick = { card -> speakCard(card) })
+        flashCardAdapter = FlashCardAdapter(onCardClick = { card -> onCardTapped(card) })
         recyclerView.apply {
             layoutManager = GridLayoutManager(this@CategoryActivity, 3)
             adapter = flashCardAdapter
@@ -95,6 +103,47 @@ class CategoryActivity : BaseActivity() {
         findViewById<View>(R.id.editModeBanner).visibility = if (editModeOn) View.VISIBLE else View.GONE
         flashCardAdapter.onCardLongClick = if (editModeOn) { card -> showEditCardDialog(card) } else null
         flashCardAdapter.notifyDataSetChanged()
+    }
+
+    private fun applyStripModeState() {
+        val stripModeOn = prefs.getBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, false)
+        findViewById<View>(R.id.stripBar).visibility = if (stripModeOn) View.VISIBLE else View.GONE
+        findViewById<View>(R.id.speechBar).visibility = if (stripModeOn) View.GONE else View.VISIBLE
+        if (!stripModeOn && strip.isNotEmpty()) {
+            strip.clear()
+        }
+        updateStripBarText()
+    }
+
+    private fun setupStripBar() {
+        findViewById<TextView>(R.id.stripBarText).setOnClickListener { speakStrip() }
+        findViewById<View>(R.id.buttonClearStrip).setOnClickListener { clearStrip() }
+    }
+
+    private fun onCardTapped(flashCard: FlashCard) {
+        if (prefs.getBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, false)) {
+            strip.add(flashCard)
+            updateStripBarText()
+        } else {
+            speakCard(flashCard)
+        }
+    }
+
+    private fun updateStripBarText() {
+        val display = SentenceStrip.displayText(strip)
+        findViewById<TextView>(R.id.stripBarText).text =
+            display.ifEmpty { getString(R.string.strip_bar_empty_hint) }
+    }
+
+    private fun speakStrip() {
+        if (strip.isEmpty()) return
+        ttsManager.speak(SentenceStrip.speechText(strip))
+        clearStrip()
+    }
+
+    private fun clearStrip() {
+        strip.clear()
+        updateStripBarText()
     }
 
     private fun setupFab() {

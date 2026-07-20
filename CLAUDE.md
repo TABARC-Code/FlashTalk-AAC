@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 30 of them, see below
+./gradlew test                 # unit tests — 38 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -60,7 +60,9 @@ ui/       One activity per screen + ViewModel + adapter. Main (category
 utils/    TTSManager (reads rate/pitch from SharedPreferences
           "FlashTalkSettings" on every speak() call), ImageSetImporter
           (ZIP/JSON bulk import), ImageSetExporter (the reverse — same
-          manifest schema, reused rather than duplicated)
+          manifest schema, reused rather than duplicated), SentenceStrip
+          (pure displayText/speechText joining for sentence strip mode —
+          no Context, so it's plain-JUnit testable)
 FlashTalkApplication  Applies the stored dark-mode preference at process
           start, before any activity is created.
 ```
@@ -138,14 +140,28 @@ turn this from an AAC app into a mildly insulting toy:
     needing that review specifically before anyone relies on it for a
     real emergency. Don't add another language file and assume it's
     "done" just because it parses and displays.
+12. **Sentence strip mode is off by default and mutually exclusive with
+    the ordinary speech bar, not layered on top of it.** When
+    `KEY_SENTENCE_STRIP_MODE` is off, `CategoryActivity` behaves exactly
+    as if the feature didn't exist — card taps speak immediately, the
+    strip bar stays `View.GONE`. When it's on, the strip bar replaces the
+    speech bar (only one is visible at a time) and taps append to an
+    in-memory `strip` list instead of speaking. Don't merge the two bars
+    or make strip mode change tap behaviour while leaving the old speech
+    bar visible — that's two competing metaphors on screen at once, not
+    one coherent mode switch.
 
 ## Design rules (accessibility is the product)
 
 - Touch targets: 48dp absolute minimum, cards are 140dp. Keep them big —
   this isn't a density flex, it's the point.
 - Contrast: WCAG AA minimum on every text/background pair.
-- One tap = one utterance. Never require a double-tap or long-press for
-  core communication, however tempting it is for some future feature.
+- One tap = one utterance, by default, always. Never require a
+  double-tap or long-press for core communication, however tempting it
+  is for some future feature. Sentence strip mode is the one sanctioned
+  exception, and only because it's opt-in and off by default (invariant
+  12) — that's the difference between "a deliberate, chosen mode" and
+  "breaking the rule."
 - No sudden animation, no flashing, no autoplaying sound other than the
   requested utterance. Sensory sensitivity isn't a nice-to-have here.
 - Everything must work with TalkBack. Add contentDescription to any new
@@ -226,10 +242,13 @@ don't reintroduce them just because it'd be quicker):
   ZIP+manifest format `ImageSetImporter` reads. Round-trip covered by
   `ImageSetExporterTest`.
 - kapt → KSP, and the unused Glide annotation processor removed outright.
-- 30 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Sentence strip mode (invariant 12): off by default, opt-in via
+  Settings, builds a short sentence from several tapped cards instead of
+  speaking each one immediately.
+- 38 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
-  `BUILD_NOTES.md`), DiffUtil callbacks, the export round-trip, and
-  Repository CRUD via Robolectric.
+  `BUILD_NOTES.md`), DiffUtil callbacks, sentence-strip joining, the
+  export round-trip, and Repository CRUD via Robolectric.
 
 ## Skills that pair with this repo
 

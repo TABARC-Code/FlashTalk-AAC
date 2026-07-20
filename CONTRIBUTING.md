@@ -92,20 +92,20 @@ issue with:
 ## Areas for Contribution
 
 `BACKLOG.md` is the actively-maintained, prioritised queue — that's the
-real answer. Edit/delete, the speech bar, the Settings/Import lock, and
-export are all done now (see `CHANGELOG.md`); what's left, highest
-priority first:
+real answer. Edit/delete, the speech bar, the Settings/Import lock,
+export, locale-aware seed vocabulary, and sentence strip mode are all
+done now (see `CHANGELOG.md`); what's left, highest priority first:
 
 ### Medium Priority
 - [ ] Reorder cards
-- [ ] Locale-aware seed vocabulary (currently English-only)
+- [ ] Native-speaker/SLT review of the French translation, especially
+  the emergency category
 - [ ] Real screenshots for the README
-- [ ] UI/instrumented tests — everything so far is unit-tested (30 tests,
+- [ ] UI/instrumented tests — everything so far is unit-tested (38 tests,
   JVM + Robolectric), but nothing's been watched running on an actual
   device or emulator yet
 
 ### Low Priority (P3 in BACKLOG.md)
-- [ ] Sentence builder mode (PECS-style, opt-in)
 - [ ] Multiple user profiles
 - [ ] Home-screen widget
 - [ ] Switch-access scanning support

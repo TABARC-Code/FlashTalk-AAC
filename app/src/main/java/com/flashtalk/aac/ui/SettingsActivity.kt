@@ -24,6 +24,7 @@ class SettingsActivity : BaseActivity() {
         setupDarkModeSwitch()
         setupLargeTextSwitch()
         setupEditModeSwitch()
+        setupSentenceStripModeSwitch()
     }
 
     private fun setupRateSlider() {
@@ -77,6 +78,15 @@ class SettingsActivity : BaseActivity() {
             isChecked = prefs.getBoolean(TTSManager.KEY_EDIT_MODE, false)
             setOnCheckedChangeListener { _, isChecked ->
                 prefs.edit().putBoolean(TTSManager.KEY_EDIT_MODE, isChecked).apply()
+            }
+        }
+    }
+
+    private fun setupSentenceStripModeSwitch() {
+        findViewById<MaterialSwitch>(R.id.switchSentenceStripMode).apply {
+            isChecked = prefs.getBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit().putBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, isChecked).apply()
             }
         }
     }

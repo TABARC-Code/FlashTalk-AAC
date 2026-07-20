@@ -18,6 +18,11 @@
     <string name="edit_mode_banner">Edit mode is on — long-press a card or category to edit or delete it</string>
     <string name="repeat_content_description">Repeat</string>
 
+    <!-- Sentence strip mode -->
+    <string name="strip_bar_empty_hint">Tap cards to build a sentence…</string>
+    <string name="speak_strip_content_description">Speak the built sentence</string>
+    <string name="clear_strip_content_description">Clear the sentence strip</string>
+
     <!-- Edit/delete dialogs -->
     <string name="edit_category_title">Edit category</string>
     <string name="delete">Delete</string>
@@ -45,6 +50,8 @@
     <string name="settings_large_text">Large text</string>
     <string name="settings_edit_mode">Edit mode</string>
     <string name="settings_edit_mode_explainer">Turn this on to edit or delete cards and categories by long-press. Off by default, so nothing changes by accident.</string>
+    <string name="settings_sentence_strip_mode">Sentence strip mode</string>
+    <string name="settings_sentence_strip_mode_explainer">Turn this on to build a short sentence from several cards before speaking it, instead of speaking each card immediately. Off by default — most users want the immediate tap-to-speak behaviour.</string>
 
     <!-- Settings lock -->
     <string name="settings_lock_title">Quick check</string>

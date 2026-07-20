@@ -90,6 +90,26 @@
                 android:minHeight="48dp"
                 android:text="@string/settings_edit_mode" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="24dp"
+                android:background="@color/colorSurface" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_sentence_strip_mode_explainer"
+                android:textSize="13sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchSentenceStripMode"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp"
+                android:text="@string/settings_sentence_strip_mode" />
+
         </LinearLayout>
     </ScrollView>
 

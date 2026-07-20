@@ -81,6 +81,7 @@ class TTSManager(private val context: Context) {
         const val KEY_DARK_MODE = "dark_mode"
         const val KEY_LARGE_TEXT = "large_text"
         const val KEY_EDIT_MODE = "edit_mode"
+        const val KEY_SENTENCE_STRIP_MODE = "sentence_strip_mode"
         const val DEFAULT_RATE = 0.9f
         const val DEFAULT_PITCH = 1.0f
         const val RATE_MIN = 0.5f

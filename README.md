@@ -45,6 +45,10 @@ everyone wants.
   caregiver-facing speed bump against wandering in mid-session
 - TTS rate and pitch controls, dark mode, and a large-text mode that
   actually does something
+- Sentence strip mode, off by default — tap cards to build a short
+  sentence instead of speaking each one immediately, then tap the strip
+  to speak the whole thing. PECS-adjacent, opt-in only, and the ordinary
+  tap-once behaviour is completely unchanged when it's off
 - Works entirely offline, always
 
 ## What it doesn't do (yet)
@@ -55,13 +59,14 @@ a photo — that's a decision, not a placeholder waiting on one. It means
 the app never had to settle a symbol-set licence before it could ship
 with cards that look like something. Your own photo cards work exactly
 as you'd expect, no caveats there.
-There's no sentence building yet (single-tap is the whole design, though
-a strip mode is sitting in the backlog for anyone who wants it), and no
-card reordering. Nothing here has been run on an actual device or
-emulator either — compiled, linted, and unit-tested (34 tests), but not
-watched running, and that's not a "hasn't gotten to it yet": this
-environment has no `/dev/kvm` and no CPU virtualisation flags at all, so
-an Android emulator genuinely isn't something that runs here. `BACKLOG.md`
+There's no card reordering yet. Sentence strip mode exists now but is
+opt-in and off by default — single-tap is still the default design, and
+that's deliberate, not a placeholder. Nothing here has been run on an
+actual device or emulator either — compiled, linted, and unit-tested (38
+tests), but not watched running, and that's not a "hasn't gotten to it
+yet": this environment has no `/dev/kvm` and no CPU virtualisation flags
+at all, so an Android emulator genuinely isn't something that runs here.
+`BACKLOG.md`
 has the full confession, in priority order — I'd rather it be too honest
 than flattering.
 
