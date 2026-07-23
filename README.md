@@ -53,6 +53,8 @@ everyone wants.
   sentence instead of speaking each one immediately, then tap the strip
   to speak the whole thing. PECS-adjacent, opt-in only, and the ordinary
   tap-once behaviour is completely unchanged when it's off
+- A home-screen widget for one chosen category — tap a card on the widget
+  and it speaks, without opening the app at all
 - Works entirely offline, always
 
 ## What it doesn't do (yet)

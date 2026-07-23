@@ -114,7 +114,24 @@ Settings and Import; deleting the last remaining profile is refused
 outright, since the app must never open onto zero profiles. Deleting a
 profile only removes categories it actually owns — the shared vocabulary
 is untouched.
-5. **[M] Home-screen widget** for the Needs category.
+~~**[M] Home-screen widget** for the Needs category.~~ **Done, with a
+scope note.** A `GridView`-backed widget (`NeedsWidgetProvider`) shows one
+configured category's cards and speaks a card on tap without opening the
+app, via a one-shot `TextToSpeech` in `WidgetTapReceiver` rather than
+`TTSManager` (a `BroadcastReceiver`'s lifecycle doesn't suit a
+long-lived TTS instance) — it still respects the rate/pitch a caregiver
+set in Settings, since it reads the same preference keys. Configuration
+(`WidgetConfigActivity`, launched automatically when the widget's placed)
+only offers the *shared* vocabulary, deliberately — a widget lives on the
+home screen, outside any profile's session, so a profile's own custom
+category isn't a coherent thing to point a widget at. The honest gap:
+the widget refreshes on its own roughly every 30 minutes
+(`updatePeriodMillis`, Android's minimum granularity) rather than the
+instant it's edited in-app — wiring live invalidation into every card/
+category mutation path felt like more coupling than a home-screen widget
+earns on a first pass; flagged here rather than silently left as a "why
+didn't my edit show up" surprise.
+
 6. **[L] Switch-access scanning support.**
 
 ## Rejected / not doing

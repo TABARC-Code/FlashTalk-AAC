@@ -9,6 +9,34 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Home-screen widget
+- **`NeedsWidgetProvider`**: a home-screen widget showing one configured
+  category's cards in a `GridView`, tap a card to speak it without
+  opening the app at all. Configuration (`WidgetConfigActivity`, launched
+  automatically when the widget's placed) only offers the shared
+  vocabulary (`Category.profileId == 0L`) — a widget lives outside any
+  profile's in-app session, so a profile's own custom category isn't a
+  coherent thing to point it at.
+- **`WidgetTapReceiver`**: a one-shot `TextToSpeech` per tap, not
+  `TTSManager` — a `BroadcastReceiver`'s lifecycle doesn't suit a
+  long-lived TTS instance the way an Activity's does. Still reads the
+  same `KEY_SPEECH_RATE`/`KEY_PITCH` preference keys `TTSManager` does,
+  so the widget doesn't quietly speak at a different rate/pitch than the
+  one a caregiver already set in Settings.
+- Widget-id-to-category mapping lives in its own SharedPreferences file,
+  cleaned up when a widget's removed from the home screen
+  (`AppWidgetProvider.onDeleted`).
+- **Known trade-off, stated plainly**: the widget refreshes on its own
+  roughly every 30 minutes (`updatePeriodMillis`, Android's minimum
+  granularity), not the instant a card's edited in-app — wiring live
+  invalidation into every card/category mutation path was more coupling
+  than felt earned for a first pass. It self-heals within half an hour;
+  it just isn't instant.
+- 6 new unit tests: `NeedsWidgetProviderTest` covers the widget-id →
+  category preference mapping (Robolectric, since it needs a real
+  Context); `AppRepositoryTest` gained cases for
+  `getSharedCategoriesSync` and `getEnabledCardsByCategorySync`.
+
 ### Added — Multiple profiles
 - **`Profile`** entity (name, emoji icon) plus a `profileId` column on
   `Category`: `0L` (the default) means shared/global vocabulary, visible

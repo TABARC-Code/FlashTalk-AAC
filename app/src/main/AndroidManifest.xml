@@ -59,6 +59,48 @@
             android:label="@string/import_title"
             android:parentActivityName=".ui.MainActivity" />
 
+        <!--
+            The widget host (the launcher, a separate app) needs to start
+            this directly via an explicit Intent built from
+            needs_widget_info.xml's android:configure — it has to be
+            exported for that cross-app launch to succeed.
+        -->
+        <activity
+            android:name=".ui.WidgetConfigActivity"
+            android:exported="true"
+            android:label="@string/widget_config_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            AppWidgetManager/the launcher deliver widget lifecycle broadcasts
+            from outside this app's process, so this one genuinely needs
+            exported="true" — unlike WidgetTapReceiver below, which is only
+            ever triggered via a PendingIntent this app itself constructed.
+        -->
+        <receiver
+            android:name=".widget.NeedsWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/needs_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.WidgetTapReceiver"
+            android:exported="false" />
+
+        <service
+            android:name=".widget.NeedsWidgetRemoteViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

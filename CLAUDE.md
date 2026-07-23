@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 45 of them, see below
+./gradlew test                 # unit tests — 51 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -66,6 +66,11 @@ utils/    TTSManager (reads rate/pitch from SharedPreferences
           manifest schema, reused rather than duplicated), SentenceStrip
           (pure displayText/speechText joining for sentence strip mode —
           no Context, so it's plain-JUnit testable)
+widget/   NeedsWidgetProvider (home-screen widget, one configured shared
+          category, GridView backed by NeedsWidgetRemoteViewsService),
+          WidgetTapReceiver (a one-shot TextToSpeech instance per tap —
+          deliberately not TTSManager, see invariant 14).
+          ui/WidgetConfigActivity picks the category at placement time.
 FlashTalkApplication  Applies the stored dark-mode preference at process
           start, before any activity is created.
 ```
@@ -169,6 +174,22 @@ turn this from an AAC app into a mildly insulting toy:
     duplicating the CSV per profile. `ProfileActivity` refuses to delete
     the last remaining profile — the app must never open onto zero
     profiles.
+14. **The home-screen widget only ever offers shared categories
+    (`profileId == 0L`), never a profile's own custom ones.** A widget
+    lives on the home screen, outside any profile's in-app session, so
+    only the vocabulary every profile can see is a stable, sensible thing
+    to configure it against — don't wire `WidgetConfigActivity` up to
+    `getCategoriesForProfile`/`getCategoriesByProfileSync` to "let people
+    pick their custom categories too," that reintroduces the exact
+    ambiguity (whose custom category is this, if the active profile
+    changes later?) this design avoided on purpose.
+    `WidgetTapReceiver` builds its own one-shot `TextToSpeech`, not
+    `TTSManager` — `TTSManager` assumes a long-lived Activity holding it
+    between calls, which a `BroadcastReceiver`'s `onReceive` doesn't have.
+    It still reads the same `KEY_SPEECH_RATE`/`KEY_PITCH` prefs
+    `TTSManager` does, though — don't let the widget silently ignore a
+    rate/pitch a caregiver already set in Settings just because it isn't
+    going through `TTSManager` itself.
 
 ## Design rules (accessibility is the product)
 
@@ -273,12 +294,15 @@ don't reintroduce them just because it'd be quicker):
   vocabulary every profile sees plus per-profile custom categories,
   a `ProfileActivity` for switching/adding/editing/deleting, gated by
   MathGate like Settings/Import. Deleting the last profile is refused.
-- 45 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Home-screen widget (invariant 14): a configurable single-category
+  GridView widget, tap a card to speak it without opening the app.
+  Configuration only offers shared categories, deliberately.
+- 51 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
   `BUILD_NOTES.md`), DiffUtil callbacks (including ProfileAdapter),
-  sentence-strip joining, the export round-trip, and Repository CRUD
-  (including profile-scoped category visibility and cascade delete) via
-  Robolectric.
+  sentence-strip joining, the export round-trip, Repository CRUD
+  (including profile-scoped category visibility and cascade delete), and
+  the widget's category-id preference mapping, via Robolectric.
 
 ## Skills that pair with this repo
 

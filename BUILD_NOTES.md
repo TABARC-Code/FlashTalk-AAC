@@ -384,6 +384,73 @@ it's down to one. An AAC app that could open onto zero profiles would
 be considerably worse than one that shares a bit more vocabulary than
 some future use case might prefer.
 
+## The widget, and the Android plumbing nobody warns you about
+
+Home-screen widgets are the one part of this app that genuinely doesn't
+run in the same world as the rest of it. Everything else here is an
+Activity with a ViewModel talking to Room through coroutines — perfectly
+ordinary. A widget's `RemoteViews` live in the launcher's process, not
+this app's, and can only be built from a small, fixed set of view types
+and a small, fixed set of things you're allowed to do with them (no
+arbitrary click listeners, no direct database access from the click
+itself). Getting that plumbing right mattered more here than the actual
+feature logic did.
+
+Three pieces, each solving a different constraint. `NeedsWidgetProvider`
+handles the widget's lifecycle (`onUpdate`, `onDeleted`) — importantly,
+`onUpdate` runs on the *main* thread (it's a `BroadcastReceiver`
+callback), so it can't touch Room directly without crashing; it uses
+`goAsync()` plus a coroutine to do the actual database work off the main
+thread before finishing. `NeedsWidgetRemoteViewsService` is the opposite
+case — its `RemoteViewsFactory` methods are individually documented by
+Android as already running on a background thread the widget host
+provides for exactly this purpose, so blocking Room calls there
+(`runBlocking`) are the correct, expected pattern, not a shortcut I got
+lazy about. Two structurally similar-looking pieces of code, opposite
+threading rules, and getting them backwards would have meant either a
+`CalledFromWrongThreadException`-style crash or an ANR, in two different
+ways nobody would think to test until an actual device ran it.
+
+Tapping a card is its own small maze. A `GridView`-backed collection
+widget can't just call code on click — it fires a `PendingIntent`
+template, merged with a per-item "fill-in" `Intent` from the factory,
+landing wherever that template points. I pointed it at a
+`BroadcastReceiver` (`WidgetTapReceiver`) rather than an Activity,
+specifically so nothing visible flashes on screen for a tap that's
+supposed to feel instant. The one non-obvious requirement: the template
+`PendingIntent` has to be created with `FLAG_MUTABLE`, not the
+`FLAG_IMMUTABLE` every general Android security guide tells you to
+prefer — collection widgets need the fill-in intent's extras to actually
+merge in, and an immutable template silently refuses that. Left a
+comment on it in the code specifically so a future security-conscious
+pass doesn't "fix" it into something that quietly breaks every tap.
+
+`WidgetTapReceiver` doesn't reuse `TTSManager`, and that's worth
+explaining rather than looking like an oversight — `TTSManager` is built
+around an Activity holding one instance alive between calls;
+`onReceive()` gets a few seconds to do its work and then it's gone, no
+Activity to hold anything. So it builds and tears down its own
+`TextToSpeech` per tap, with a `goAsync()` `PendingResult` held open
+until an `UtteranceProgressListener` says the speech actually finished
+(plus a 4-second safety-net timeout, in case that callback never fires —
+better to cut a tap short than risk an ANR over a receiver that never
+calls `finish()`). It does still read the same `KEY_SPEECH_RATE`/
+`KEY_PITCH` preference keys `TTSManager` uses, though, precisely so the
+widget doesn't quietly speak at a different rate than whatever a
+caregiver already dialled in.
+
+The scope cut I want on the record: the widget refreshes on a roughly
+30-minute timer (`updatePeriodMillis`, which Android clamps to that
+floor regardless of what's requested) rather than the instant a card's
+edited in the app. Making it instant would mean threading a
+"notify any widgets watching this category" call through every existing
+card/category mutation path — `CategoryActivity`'s edit/delete,
+`MainActivity`'s edit/delete, the importer, the exporter — coupling the
+whole app to a feature that, realistically, most people will glance at
+a few times a day rather than watch for real-time updates. Thirty
+minutes of staleness felt like the honest trade, not a corner cut
+silently.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -404,6 +471,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and forty-five passing unit
+skipped. Compiling clean, linting clean, and fifty-one passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.

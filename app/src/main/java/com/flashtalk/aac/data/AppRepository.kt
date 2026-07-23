@@ -21,6 +21,8 @@ class AppRepository(
     suspend fun getCategoriesByProfileSync(profileId: Long): List<Category> =
         categoryDao.getCategoriesByProfileSync(profileId)
 
+    suspend fun getSharedCategoriesSync(): List<Category> = categoryDao.getSharedCategoriesSync()
+
     // Deleting a profile only removes the categories/cards it owns
     // (profileId == profile.id) — the shared vocabulary (profileId == 0L,
     // seeded from the CSV) is never touched by a profile delete. Reuses
@@ -68,6 +70,10 @@ class AppRepository(
 
     suspend fun getCardsByCategorySync(categoryId: Long): List<FlashCard> {
         return flashCardDao.getCardsByCategorySync(categoryId)
+    }
+
+    suspend fun getEnabledCardsByCategorySync(categoryId: Long): List<FlashCard> {
+        return flashCardDao.getEnabledCardsByCategorySync(categoryId)
     }
 
     suspend fun getCardById(id: Long): FlashCard? {

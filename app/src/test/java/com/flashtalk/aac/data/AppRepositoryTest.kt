@@ -138,6 +138,30 @@ class AppRepositoryTest {
     }
 
     @Test
+    fun `shared categories are only the ones with the default profileId`() = runTest {
+        val profileA = repository.insertProfile(Profile(name = "A"))
+        repository.insertCategory(Category(name = "Shared", icon = "🌍", color = "#FFFFFF"))
+        repository.insertCategory(Category(name = "A's own", icon = "🅰️", color = "#FFFFFF", profileId = profileA))
+
+        val shared = repository.getSharedCategoriesSync()
+
+        assertEquals(1, shared.size)
+        assertEquals("Shared", shared[0].name)
+    }
+
+    @Test
+    fun `getEnabledCardsByCategorySync excludes disabled cards`() = runTest {
+        val categoryId = repository.insertCategory(Category(name = "Test", icon = "🎯", color = "#FFFFFF"))
+        repository.insertCard(FlashCard(categoryId = categoryId, text = "On", emoji = "✅", enabled = true))
+        repository.insertCard(FlashCard(categoryId = categoryId, text = "Off", emoji = "❌", enabled = false))
+
+        val enabled = repository.getEnabledCardsByCategorySync(categoryId)
+
+        assertEquals(1, enabled.size)
+        assertEquals("On", enabled[0].text)
+    }
+
+    @Test
     fun `deleting a profile cleans up its owned categories' custom card images`() = runTest {
         val profileA = repository.insertProfile(Profile(name = "A"))
         val categoryId = repository.insertCategory(Category(name = "A's own", icon = "🅰️", color = "#FFFFFF", profileId = profileA))

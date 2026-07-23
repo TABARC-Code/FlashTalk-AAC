@@ -85,4 +85,11 @@
     <string name="exporting">Exporting…</string>
     <string name="export_success">Exported "%1$s" (%2$d card(s))</string>
     <string name="export_failed">Export failed: %1$s</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_label">FlashTalk Needs</string>
+    <string name="widget_config_title">Choose a category for this widget</string>
+    <string name="widget_not_configured">Not set up</string>
+    <string name="widget_not_configured_hint">Tap to choose a category</string>
+    <string name="widget_no_cards">No cards in this category yet</string>
 </resources>

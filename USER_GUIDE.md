@@ -237,6 +237,35 @@ else in this guide. Nothing about the ordinary experience changes for
 anyone who never goes looking for this setting; it's there for the users
 who are ready to build sentences, and invisible to everyone else.
 
+## Speaking straight from the home screen
+
+Sometimes opening an app at all is one step too many — a phone locked in
+a pocket, a tablet propped up across the room, a moment where every
+second before a word gets spoken matters. For that, FlashTalk AAC offers
+a home-screen widget: long-press an empty patch of home screen, choose
+Widgets, find FlashTalk AAC, and drag it into place.
+
+The first time it lands, it'll ask which category it should show — pick
+one, and its cards appear right there on the home screen, no app-opening
+required. Tap a card on the widget and the phone speaks it, exactly as
+if you'd tapped it inside the app. Resize the widget if there's room to
+spare; more of the category's cards will show at once.
+
+One deliberate limit worth knowing: the widget can only show categories
+from the seeded vocabulary shared by every profile, not a custom
+category built for one specific person. That's not an oversight — a
+widget sits on the home screen outside any particular profile's session,
+so it needs a category that means the same thing no matter who's using
+the device at that moment. If a household needs several different
+widgets for several different people, several widgets can be added side
+by side, each pointed at its own category.
+
+One more honest note: editing a card in the app can take up to half an
+hour to show up on an already-placed widget, since it refreshes on a
+gentle timer rather than the instant something changes. It always
+catches up on its own — nothing needs restarting — it just isn't
+instant.
+
 ## Shaping how it sounds and looks
 
 Every voice needs adjusting for the person listening to it, and
@@ -350,6 +379,7 @@ just in case.
 | Build a short sentence from several cards | Settings → turn on Sentence strip mode |
 | Switch who's using the device | Menu → Profiles → tap a profile |
 | Add or remove a profile | Menu → Profiles → **+**, or Edit mode → long-press it |
+| Speak a card without opening the app | Add the home-screen widget, choose a category |
 | Change how fast it speaks | Menu → Settings → Speech Rate |
 | Ease eye strain | Menu → Settings → Dark Mode |
 | Make everything bigger | Menu → Settings → Large Text |

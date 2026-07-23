@@ -14,6 +14,14 @@ interface CategoryDao {
     @Query("SELECT * FROM categories WHERE profileId = :profileId")
     suspend fun getCategoriesByProfileSync(profileId: Long): List<Category>
 
+    // The home-screen widget (NeedsWidgetProvider) only ever offers the
+    // shared vocabulary for its configuration picker, not a specific
+    // profile's own categories — a widget lives on the home screen, not
+    // inside any one profile's session, so only the categories every
+    // profile can see are a sensible, stable choice.
+    @Query("SELECT * FROM categories WHERE profileId = 0 ORDER BY `order` ASC, name ASC")
+    suspend fun getSharedCategoriesSync(): List<Category>
+
     @Query("SELECT * FROM categories WHERE id = :categoryId")
     suspend fun getCategoryById(categoryId: Long): Category?
 
@@ -40,6 +48,13 @@ interface FlashCardDao {
 
     @Query("SELECT * FROM flashcards WHERE categoryId = :categoryId ORDER BY `order` ASC, text ASC")
     suspend fun getCardsByCategorySync(categoryId: Long): List<FlashCard>
+
+    // Used by the widget's RemoteViewsFactory — same enabled-only filter
+    // as getCardsByCategory's LiveData version (a disabled card shouldn't
+    // reappear just because it's shown on a home screen instead of in the
+    // app), but synchronous, since RemoteViewsFactory has no LiveData hook.
+    @Query("SELECT * FROM flashcards WHERE categoryId = :categoryId AND enabled = 1 ORDER BY `order` ASC, text ASC")
+    suspend fun getEnabledCardsByCategorySync(categoryId: Long): List<FlashCard>
 
     @Query("SELECT * FROM flashcards WHERE id = :cardId")
     suspend fun getCardById(cardId: Long): FlashCard?

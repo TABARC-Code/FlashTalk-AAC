@@ -32,14 +32,16 @@ stack at all — not even an INTERNET permission in the manifest.
 **Status:** edit/delete, a persistent speech bar, a Settings/Import/
 Profiles maths gate, category export, locale-aware seed vocabulary
 (English + French, 334 cards across 9 categories), an opt-in sentence
-strip mode, and multiple profiles are all in now, alongside the original
-tap-to-speak core, which stays completely unchanged unless strip mode's
-deliberately switched on. Profiles share the seeded vocabulary (chosen
-for efficiency over duplicating it per profile) but each has its own
-custom categories and cards. 45 unit tests cover the logic layer (CSV
-parsing, manifest parsing, DiffUtil callbacks, sentence-strip joining,
-Repository CRUD including profile-scoped visibility, via Robolectric).
-Seed cards render as emoji glyphs rather than photos, which sidesteps a
+strip mode, multiple profiles, and a home-screen widget are all in now,
+alongside the original tap-to-speak core, which stays completely
+unchanged unless strip mode's deliberately switched on. Profiles share
+the seeded vocabulary (chosen for efficiency over duplicating it per
+profile) but each has its own custom categories and cards; the widget
+only ever shows shared categories, for the same reason. 51 unit tests
+cover the logic layer (CSV parsing, manifest parsing, DiffUtil callbacks,
+sentence-strip joining, Repository CRUD including profile-scoped
+visibility, the widget's category mapping, via Robolectric). Seed cards
+render as emoji glyphs rather than photos, which sidesteps a
 symbol-set licensing decision entirely rather than kicking it down the
 road. The honest gaps: the French translation needs a native-speaker or
 SLT review before the emergency vocabulary specifically is trusted,
