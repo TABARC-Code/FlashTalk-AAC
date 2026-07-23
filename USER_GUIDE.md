@@ -25,24 +25,30 @@ arrives empty is one more thing to set up before it's any use at all,
 and setting things up is precisely the kind of task that gets postponed
 indefinitely when life is already full.
 
-Seven categories are seeded in from the start, and between them they
-carry 266 cards — a genuinely working vocabulary, not a demo:
+Nine categories are seeded in from the start, and between them they
+carry 334 cards — a genuinely working vocabulary, not a demo:
 
-- **Core & Social** — yes, no, please, thank you, hello, sorry, the
-  small connective words that carry most of a conversation's weight
-- **Actions & Requests** — want, stop, help, more, wait, go
+- **Core & Social** — yes, no, please, thank you, hello, sorry, named
+  family roles like mum and dad, the small connective words that carry
+  most of a conversation's weight
+- **Actions & Requests** — want, stop, help, more, wait, go, follow me
 - **Physical Needs & Self-Care** — the bathroom, food, water, washing,
-  dressing, medication
+  dressing, medication, and a proper spread of specific foods and drinks
 - **Health, Feelings & Emergencies** — pain, sickness, fear, and the
-  urgent ones: *emergency*, *call for help*, *seizure warning*, marked
-  with a red border so they're never the card you have to search for
+  urgent ones: *emergency*, *call ambulance*, *call police*, *seizure
+  warning*, marked with a red border so they're never the card you have
+  to search for
 - **Sensory & Comfort** — too loud, too bright, need a break, need to
   move — the vocabulary that autistic users especially reach for, and
   that many simpler apps leave out entirely
-- **Objects & Leisure** — toys, screens, books, the things worth asking
-  for beyond survival
+- **Objects & Leisure** — toys, screens, books, keys, glasses, a
+  backpack, the things worth asking for beyond survival
 - **Places, Time & Sequence** — home, school, now, later, days of the
   week, first, then, next
+- **Communication Support** — "I can't talk right now", "speak slowly",
+  "write it down" — for the moments talking itself is the hard part
+- **About Me** — "I'm autistic", "I need routine", "please don't rush
+  me" — cards for explaining yourself to someone who doesn't know you yet
 
 None of this needs building before it's useful. It needs using.
 
@@ -226,7 +232,7 @@ Software is only half of this. The other half is how it gets introduced,
 and that part is entirely down to the people around the user.
 
 **The first fortnight** is for exploring, not customising. Let the
-seeded 266 cards do their job. Practise tapping together. Respond to
+seeded 334 cards do their job. Practise tapping together. Respond to
 every tap the same way you'd respond to spoken words — immediately,
 consistently, without correcting or second-guessing the choice.
 

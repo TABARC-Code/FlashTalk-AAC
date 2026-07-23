@@ -12,8 +12,8 @@ _All clear. See CHANGELOG.md for what got fixed (seed card images,
 "Large text" actually doing something, delete cleaning up after itself).
 I'm not pretending these were hard — they were mostly embarrassing._
 
-_Seed imagery specifically: the vocabulary covers 266 real cards across
-7 categories, each with a hand-picked emoji glyph, sourced from a CSV
+_Seed imagery specifically: the vocabulary covers 334 real cards across
+9 categories, each with a hand-picked emoji glyph, sourced from a CSV
 that's the actual seed data (not hardcoded Kotlin). A proper symbol set
 is still an open, separate decision — whatever gets chosen has to work
 for a commercial product, which rules out more than it lets in. Not
@@ -41,15 +41,32 @@ this item started with._
    for everyone else.** `AppDatabase` now picks
    `communicards_vocabulary_v1_<lang>.csv` by device locale
    (`vocabularyAssetNameFor`, tested), falling back to the English file
-   when no variant is bundled. Only French is bundled today — 266 rows
-   translated in one pass, by me, not a fluent speaker, not an SLT. Fine
-   for a lot of it; **not** fine to trust blind for
-   `health_feelings_emergency` specifically ("seizure warning", "allergic
-   reaction", "call for help" and the like) — those need a native-speaker
-   or clinical review before anyone relies on them for a real emergency.
-   Flagged in `BUILD_NOTES.md` too so it doesn't get lost. Adding another
-   language is now "translate a CSV, drop it in `assets/vocabulary/`" —
-   no code changes required.
+   when no variant is bundled. Only French is bundled today — every row
+   (334 of them now, after the vocabulary expansion below) translated in
+   one pass, by me, not a fluent speaker, not an SLT. Fine for a lot of
+   it; **not** fine to trust blind for `health_feelings_emergency`
+   specifically ("seizure warning", "allergic reaction", "call ambulance"
+   and the like) — those need a native-speaker or clinical review before
+   anyone relies on them for a real emergency. Flagged in `BUILD_NOTES.md`
+   too so it doesn't get lost. Adding another language is now "translate a
+   CSV, drop it in `assets/vocabulary/`" — no code changes required.
+
+~~**[M] Expand the seed vocabulary.**~~ **Done.** A caregiver-supplied
+brainstorm (visible AAC/PECS board cards plus a much longer "what an
+autistic user might need" list — Emergency, Communication Difficulty,
+Regulation, Autism-specific self-disclosure, and more) got cross-checked
+against the existing 266 cards line by line rather than dumped in
+wholesale — most of it (Yes/No/Please/Toilet/fidget toy/sunglasses/GP,
+and so on) was already covered under different category names. Only the
+genuinely new 68 cards got added: most slotted into the existing 7
+categories (9 new food items, 8 new contacts/emergency actions, 6 new
+family/role people, 6 new everyday objects, and so on), and two concepts
+didn't fit anywhere existing, so they became new categories —
+**Communication Support** (7 cards: "I can't talk right now", "Speak
+slowly", "Write it down") and **About Me** (8 cards: "I'm autistic", "I
+need routine", "Please don't rush me"). 334 cards, 9 categories, both
+English and French kept in sync row-for-row. See `BUILD_NOTES.md` for
+the full reasoning on why this was additive rather than a rebuild.
 
 2. **[S] Screenshots.** Take real ones on an emulator, drop them in
    `docs/screenshots/`. Nothing currently references phantom images, so

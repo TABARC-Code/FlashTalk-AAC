@@ -20,10 +20,10 @@ everyone wants.
 ## What it does
 
 - Single-tap communication — card to speech, nothing blocking in between
-- Seven seeded categories (Core & Social, Actions & Requests, Physical
+- Nine seeded categories (Core & Social, Actions & Requests, Physical
   Needs & Self-Care, Health/Feelings/Emergencies, Sensory & Comfort,
-  Objects & Leisure, Places/Time/Sequence), 266 starter cards — a real
-  vocabulary set, not a starter list
+  Objects & Leisure, Places/Time/Sequence, Communication Support, About
+  Me), 334 starter cards — a real vocabulary set, not a starter list
 - Seed vocabulary follows the device's locale — French is bundled
   alongside English, and adding another language is just translating a
   CSV, no code changes needed. (The French file is a single first-pass

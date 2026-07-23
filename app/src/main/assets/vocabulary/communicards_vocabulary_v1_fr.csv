@@ -265,3 +265,71 @@ places_time_sequence-holiday,Vacances,Vacances,places_time_sequence,"Lieux, temp
 places_time_sequence-calendar,Calendrier,Calendrier,places_time_sequence,"Lieux, temps et séquence",White,#F5F5F5,,standard,True,264,🗓️
 places_time_sequence-schedule,Emploi du temps,Emploi du temps,places_time_sequence,"Lieux, temps et séquence",White,#F5F5F5,,standard,True,265,📋
 places_time_sequence-schedule-change,Changement d'horaire,Changement d'horaire,places_time_sequence,"Lieux, temps et séquence",White,#F5F5F5,,standard,True,266,🔄
+core_social-maybe,Peut-être,Peut-être,core_social,Core & Social,Yellow,#F4D35E,,standard,True,267,🤷
+core_social-again,Encore,Encore,core_social,Core & Social,Yellow,#F4D35E,,standard,True,268,🔁
+core_social-please-dont-touch-me,"Ne me touchez pas, s'il vous plaît","Ne me touchez pas, s'il vous plaît",core_social,Core & Social,Yellow,#F4D35E,,standard,True,269,✋
+core_social-im-listening,J'écoute,J'écoute,core_social,Core & Social,Yellow,#F4D35E,,standard,True,270,👂
+core_social-im-thinking,Je réfléchis,Je réfléchis,core_social,Core & Social,Yellow,#F4D35E,,standard,True,271,🤔
+core_social-i-dont-like-eye-contact,Je n'aime pas le contact visuel,Je n'aime pas le contact visuel,core_social,Core & Social,Yellow,#F4D35E,,standard,True,272,🙈
+core_social-please-be-patient,"Soyez patient, s'il vous plaît","Soyez patient, s'il vous plaît",core_social,Core & Social,Yellow,#F4D35E,,standard,True,273,⏳
+core_social-mum,Maman,Maman,core_social,Core & Social,Yellow,#F4D35E,,standard,True,274,👩
+core_social-dad,Papa,Papa,core_social,Core & Social,Yellow,#F4D35E,,standard,True,275,👨
+core_social-partner,Partenaire,Partenaire,core_social,Core & Social,Yellow,#F4D35E,,standard,True,276,💞
+core_social-nurse,Infirmière,Infirmière,core_social,Core & Social,Yellow,#F4D35E,,standard,True,277,👩‍⚕️
+core_social-reception,Accueil,Accueil,core_social,Core & Social,Yellow,#F4D35E,,standard,True,278,🛎️
+core_social-police,Police,Police,core_social,Core & Social,Yellow,#F4D35E,,standard,True,279,👮
+actions_requests-go-away,Va-t'en,Va-t'en,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,280,🚷
+actions_requests-follow-me,Suis-moi,Suis-moi,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,281,🚶
+actions_requests-carry-this,Porte ça,Porte ça,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,282,📦
+actions_requests-hold-this,Tiens ça,Tiens ça,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,283,🤲
+physical_self_care-fruit,Fruit,Fruit,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,284,🍎
+physical_self_care-vegetables,Légumes,Légumes,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,285,🥦
+physical_self_care-sandwich,Sandwich,Sandwich,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,286,🥪
+physical_self_care-crisps,Chips,Chips,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,287,🍟
+physical_self_care-chocolate,Chocolat,Chocolat,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,288,🍫
+physical_self_care-tea,Thé,Thé,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,289,🍵
+physical_self_care-coffee,Café,Café,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,290,☕
+physical_self_care-juice,Jus,Jus,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,291,🧃
+physical_self_care-milk,Lait,Lait,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,292,🥛
+health_feelings_emergency-call-family,Appeler la famille,Appeler la famille,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,293,👪
+health_feelings_emergency-call-carer,Appeler l'aidant,Appeler l'aidant,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,294,📱
+health_feelings_emergency-call-ambulance,Appeler une ambulance,Appeler une ambulance,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,295,🚑
+health_feelings_emergency-call-police,Appeler la police,Appeler la police,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,296,🚓
+health_feelings_emergency-contact-card,Carte de contact,Carte de contact,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,297,🪪
+health_feelings_emergency-medical-condition,Condition médicale,Condition médicale,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,298,📋
+health_feelings_emergency-im-lost,Je suis perdu,Je suis perdu,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,299,🧭
+health_feelings_emergency-stay-with-me,Reste avec moi,Reste avec moi,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,300,🤝
+health_feelings_emergency-anxiety-attack,Crise d'angoisse,Crise d'angoisse,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,301,😰
+health_feelings_emergency-panic-attack,Crise de panique,Crise de panique,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,302,😱
+health_feelings_emergency-lonely,Seul,Seul,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,303,😔
+health_feelings_emergency-embarrassed,Gêné,Gêné,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,304,😳
+health_feelings_emergency-comfortable,À l'aise,À l'aise,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,305,😌
+sensory_comfort-too-much-information,Trop d'informations,Trop d'informations,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,306,🤯
+sensory_comfort-deep-breaths-help,Respirer profondément aide,Respirer profondément aide,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,307,🌬️
+sensory_comfort-hand-flapping-helps-me,Battre des mains m'aide,Battre des mains m'aide,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,308,🙌
+sensory_comfort-stimming-helps-me,Les stims m'aident,Les stims m'aident,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,309,🔄
+sensory_comfort-repeating-words-helps-me,Répéter des mots m'aide,Répéter des mots m'aide,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,310,🔂
+sensory_comfort-i-need-my-plushie,J'ai besoin de ma peluche,J'ai besoin de ma peluche,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,311,🧸
+objects_leisure-wallet,Portefeuille,Portefeuille,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,312,👛
+objects_leisure-keys,Clés,Clés,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,313,🔑
+objects_leisure-glasses,Lunettes,Lunettes,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,314,👓
+objects_leisure-backpack,Sac à dos,Sac à dos,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,315,🎒
+objects_leisure-umbrella,Parapluie,Parapluie,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,316,☂️
+objects_leisure-water-bottle,Bouteille d'eau,Bouteille d'eau,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,317,🥤
+places_time_sequence-pharmacy,Pharmacie,Pharmacie,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,318,💊
+places_time_sequence-evening,Soir,Soir,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,319,🌆
+communication_support-i-cant-talk-right-now,Je ne peux pas parler maintenant,Je ne peux pas parler maintenant,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,320,🤐
+communication_support-i-need-more-time,J'ai besoin de plus de temps,J'ai besoin de plus de temps,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,321,⏱️
+communication_support-im-processing,Je traite l'information,Je traite l'information,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,322,💭
+communication_support-please-repeat-that,"Répétez, s'il vous plaît","Répétez, s'il vous plaît",communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,323,🔁
+communication_support-speak-slowly,Parlez lentement,Parlez lentement,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,324,🐢
+communication_support-write-it-down,Écrivez-le,Écrivez-le,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,325,✍️
+communication_support-too-many-questions,Trop de questions,Trop de questions,communication_support,Aide à la communication,Teal,#00B8A9,,standard,True,326,❓
+about_me-im-autistic,Je suis autiste,Je suis autiste,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,327,🧩
+about_me-i-communicate-differently,Je communique différemment,Je communique différemment,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,328,💬
+about_me-i-may-not-respond-immediately,Je ne réponds peut-être pas tout de suite,Je ne réponds peut-être pas tout de suite,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,329,⏳
+about_me-i-need-routine,J'ai besoin de routine,J'ai besoin de routine,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,330,📅
+about_me-unexpected-changes-are-difficult,Les changements inattendus sont difficiles,Les changements inattendus sont difficiles,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,331,🔀
+about_me-i-may-stim,Il se peut que je stimme,Il se peut que je stimme,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,332,🔄
+about_me-please-dont-rush-me,"Ne me pressez pas, s'il vous plaît","Ne me pressez pas, s'il vous plaît",about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,333,🐌
+about_me-i-need-to-leave,J'ai besoin de partir,J'ai besoin de partir,about_me,À propos de moi,Dusty Rose,#C06C84,,standard,True,334,🚪

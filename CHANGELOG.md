@@ -9,6 +9,33 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Vocabulary expansion (68 new cards, 2 new categories)
+- A caregiver-supplied brainstorm of AAC/PECS vocabulary (Emergency
+  contacts, Communication Difficulty, Regulation/stimming, Autism-specific
+  self-disclosure, specific foods and family roles, and more) was
+  cross-checked line-by-line against the existing 266-card set — most of
+  it was already covered under a different label (Yes/No/Please, Toilet,
+  fidget toy, sunglasses, GP, and dozens more). Only the 68 cards that
+  were genuinely new got added, appended after the existing rows so every
+  existing id, sort order, and category assignment is untouched.
+- Most new cards slotted into the existing 7 categories: 9 specific foods
+  (Fruit, Sandwich, Tea, Milk…) into Physical Needs & Self-Care, 13 new
+  emergency/feelings cards (Call ambulance, Call police, Anxiety attack,
+  Panic attack, Lonely, Embarrassed…) into Health/Feelings/Emergencies, 6
+  new named family roles (Mum, Dad, Partner, Nurse…) into Core & Social,
+  and smaller additions to the rest.
+- Two concepts didn't fit any existing category, so two new ones were
+  added: **Communication Support** (7 cards — "I can't talk right now",
+  "Speak slowly", "Write it down") and **About Me** (8 cards — "I'm
+  autistic", "I need routine", "Please don't rush me"). `AppDatabase
+  .CATEGORY_ICONS` updated with icons for both (🗣️, 🧩).
+- 266 cards / 7 categories → **334 cards / 9 categories**. Both the
+  English and French CSVs got every new row, kept in the same order and
+  count — the French additions are the same single-pass, not-clinically-
+  reviewed translation as the original 266 (see the existing entry below
+  and `BACKLOG.md` item 1); several of the new cards are emergency
+  contact actions, so that caveat matters more now, not less.
+
 ### Added — Sentence strip mode
 - Optional, off by default (Settings → Sentence strip mode). On:
   `CategoryActivity` stops speaking a card the moment it's tapped and

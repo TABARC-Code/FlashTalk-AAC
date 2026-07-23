@@ -7,7 +7,7 @@ Android, built for autistic users.
 device. Tap a card, it speaks the word. That's genuinely the whole
 mechanism, and I'd rather defend that as a feature than apologise for it.
 No sentence-building ceremony, no account creation, no cloud, no
-subscription. Seven seeded categories, 266 cards, cover a genuinely
+subscription. Nine seeded categories, 334 cards, cover a genuinely
 comprehensive daily-needs vocabulary out of the box — not a starter
 list — and caregivers can extend it further with photos from the
 gallery or a bulk-imported card set built on a PC.

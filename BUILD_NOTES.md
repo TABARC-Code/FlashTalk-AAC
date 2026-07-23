@@ -283,6 +283,60 @@ Deliberately not persisted anywhere: it's scratch state for building one
 sentence, not vocabulary, so it clears itself when the mode's switched
 off or the screen's re-entered. Nothing there anyone would miss.
 
+## Sixty-eight new cards, and why I didn't just rebuild the CSV
+
+A caregiver sent over a proper brainstorm of AAC/PECS vocabulary — some
+of it read off a real example board, most of it an expanded "what would
+an autistic user actually need" list running to Emergency, Communication
+Difficulty, Regulation, Autism-specific self-disclosure, and a good few
+other headings. The instinct when handed a list like that is to treat it
+as the new spec and rebuild the category structure around it. I didn't,
+and it's worth saying why: the existing 266-card set wasn't a rough
+draft. It's the clinically-structured vocabulary this app has been built
+around since the very first CSV import, French translation and all, and
+throwing that away to match a different person's brainstormed category
+names would have been a straightforward regression dressed up as
+progress.
+
+So instead of rebuilding, I cross-checked the new list against the
+existing one, label by label. Most of it was already there under a
+different heading — "Toilet" and "Bathroom" both already exist, "Fidget
+toy" and "Sunglasses" already exist, the days of the week and half a
+dozen relevant places already exist. Once the genuine overlaps were
+stripped out, 68 cards were left that the app actually didn't have:
+specific foods (there was "Breakfast/Lunch/Dinner" but no actual food
+items — fruit, a sandwich, tea, milk), named family roles (only generic
+"Family" existed, not "Mum" or "Dad"), a run of specific emergency
+contact actions ("Call ambulance", "Call police", "I'm lost"), and two
+clusters of cards that didn't fit any existing category at all —
+communication breakdown phrases ("I can't talk right now", "Speak
+slowly", "Write it down") and autism self-disclosure phrases ("I'm
+autistic", "I need routine", "Please don't rush me"). Those became two
+new categories, Communication Support and About Me, rather than being
+forced into Core & Social or Health/Feelings/Emergencies where they'd
+have sat oddly.
+
+Every new row got appended to the end of the CSV rather than inserted
+inline, specifically so none of the existing 266 rows' ids, sort orders,
+or category groupings moved even slightly — `Category.order` is set the
+first time a category_id is seen in the file, so new rows for an
+existing category (say, nine new food items landing in
+`physical_self_care`) don't touch where that category sits in the grid.
+A small Python script did the actual row generation (id slugs, sort
+order continuing from 267, per-card emoji), checked afterwards for
+duplicate ids, row-count parity between English and French, and that
+every field was actually populated — the same kind of "verified with a
+script, not just a read-through" approach the French translation got the
+first time round.
+
+Which brings up French again: I translated all 68 new cards myself, same
+single-pass, not-clinically-reviewed basis as the original 266 — see
+above. Several of the new cards are specifically emergency actions
+("Appeler une ambulance", "Appeler la police"), so the existing caveat
+about `health_feelings_emergency` needing a native-speaker or SLT review
+before anyone relies on it applies more, not less, now that there's more
+of it.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`

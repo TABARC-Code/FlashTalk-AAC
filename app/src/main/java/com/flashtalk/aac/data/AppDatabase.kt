@@ -40,7 +40,9 @@ abstract class AppDatabase : RoomDatabase() {
             "health_feelings_emergency" to "🩺",
             "sensory_comfort" to "🧘",
             "objects_leisure" to "🧸",
-            "places_time_sequence" to "🗺️"
+            "places_time_sequence" to "🗺️",
+            "communication_support" to "🗣️",
+            "about_me" to "🧩"
         )
 
         fun getDatabase(context: Context): AppDatabase {

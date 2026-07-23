@@ -47,7 +47,7 @@ without one.
 
 ```
 data/     Room entities (Category, FlashCard), DAOs, AppDatabase (seeds
-          from assets/vocabulary/ on first run — 266 cards, 7 categories,
+          from assets/vocabulary/ on first run — 334 cards, 9 categories,
           real production vocabulary, not a toy set. File picked by
           device locale, e.g. communicards_vocabulary_v1_fr.csv, falling
           back to the English default — see vocabularyAssetNameFor),
@@ -91,7 +91,7 @@ turn this from an AAC app into a mildly insulting toy:
    few PRs and nobody notices until Settings stops doing anything.
 5. **Seed data** lives in `assets/vocabulary/communicards_vocabulary_v1.csv`,
    parsed by `AppDatabase.populateDatabase()` on first run — not hardcoded
-   Kotlin, deliberately, because 266 rows of Kotlin literals is nobody's
+   Kotlin, deliberately, because 334 rows of Kotlin literals is nobody's
    idea of maintainable. Any *schema* change (new FlashCard/Category
    fields) still needs a proper Room migration once this app has real
    installs. It didn't need one for the current vocabulary overhaul only
@@ -203,7 +203,7 @@ way:
   so there's no emulator to take them on until this runs somewhere with
   real virtualisation.
 - Still no proper symbol imagery — emoji glyphs are the current stand-in
-  across all 266 cards, correctly, but they're a placeholder, not a
+  across all 334 cards, correctly, but they're a placeholder, not a
   destination. What replaces them is an open decision, not this file's
   to make.
 - The French vocabulary file is a single-pass translation (mine), not a
@@ -224,7 +224,10 @@ don't reintroduce them just because it'd be quicker):
   glyph (`FlashCard.emoji`) instead.
 - The vocabulary itself went from a 56-card, 8-category placeholder set
   to a real 266-card, 7-category one, sourced from a bundled CSV rather
-  than hardcoded Kotlin.
+  than hardcoded Kotlin, then to 334 cards across 9 categories (two new:
+  Communication Support, About Me) after a caregiver-supplied vocabulary
+  brainstorm was cross-checked against the existing set and only the
+  genuinely new 68 cards were appended — see `BUILD_NOTES.md`.
 - "Large text" now applies a real `Configuration.fontScale` override
   (`BaseActivity`), instead of writing a preference nothing read.
 - Deleting a card or category now removes its custom image file.

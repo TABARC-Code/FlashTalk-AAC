@@ -265,3 +265,71 @@ places_time_sequence-holiday,Holiday,Holiday,places_time_sequence,"Places, Time 
 places_time_sequence-calendar,Calendar,Calendar,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,264,🗓️
 places_time_sequence-schedule,Schedule,Schedule,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,265,📋
 places_time_sequence-schedule-change,Schedule change,Schedule change,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,266,🔄
+core_social-maybe,Maybe,Maybe,core_social,Core & Social,Yellow,#F4D35E,,standard,True,267,🤷
+core_social-again,Again,Again,core_social,Core & Social,Yellow,#F4D35E,,standard,True,268,🔁
+core_social-please-dont-touch-me,Please don't touch me,Please don't touch me,core_social,Core & Social,Yellow,#F4D35E,,standard,True,269,✋
+core_social-im-listening,I'm listening,I'm listening,core_social,Core & Social,Yellow,#F4D35E,,standard,True,270,👂
+core_social-im-thinking,I'm thinking,I'm thinking,core_social,Core & Social,Yellow,#F4D35E,,standard,True,271,🤔
+core_social-i-dont-like-eye-contact,I don't like eye contact,I don't like eye contact,core_social,Core & Social,Yellow,#F4D35E,,standard,True,272,🙈
+core_social-please-be-patient,Please be patient,Please be patient,core_social,Core & Social,Yellow,#F4D35E,,standard,True,273,⏳
+core_social-mum,Mum,Mum,core_social,Core & Social,Yellow,#F4D35E,,standard,True,274,👩
+core_social-dad,Dad,Dad,core_social,Core & Social,Yellow,#F4D35E,,standard,True,275,👨
+core_social-partner,Partner,Partner,core_social,Core & Social,Yellow,#F4D35E,,standard,True,276,💞
+core_social-nurse,Nurse,Nurse,core_social,Core & Social,Yellow,#F4D35E,,standard,True,277,👩‍⚕️
+core_social-reception,Reception,Reception,core_social,Core & Social,Yellow,#F4D35E,,standard,True,278,🛎️
+core_social-police,Police,Police,core_social,Core & Social,Yellow,#F4D35E,,standard,True,279,👮
+actions_requests-go-away,Go away,Go away,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,280,🚷
+actions_requests-follow-me,Follow me,Follow me,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,281,🚶
+actions_requests-carry-this,Carry this,Carry this,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,282,📦
+actions_requests-hold-this,Hold this,Hold this,actions_requests,Actions & Requests,Green,#7BC47F,,standard,True,283,🤲
+physical_self_care-fruit,Fruit,Fruit,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,284,🍎
+physical_self_care-vegetables,Vegetables,Vegetables,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,285,🥦
+physical_self_care-sandwich,Sandwich,Sandwich,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,286,🥪
+physical_self_care-crisps,Crisps,Crisps,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,287,🍟
+physical_self_care-chocolate,Chocolate,Chocolate,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,288,🍫
+physical_self_care-tea,Tea,Tea,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,289,🍵
+physical_self_care-coffee,Coffee,Coffee,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,290,☕
+physical_self_care-juice,Juice,Juice,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,291,🧃
+physical_self_care-milk,Milk,Milk,physical_self_care,Physical Needs & Self-Care,Blue,#72A7E0,,standard,True,292,🥛
+health_feelings_emergency-call-family,Call family,Call family,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,293,👪
+health_feelings_emergency-call-carer,Call carer,Call carer,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,294,📱
+health_feelings_emergency-call-ambulance,Call ambulance,Call ambulance,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,295,🚑
+health_feelings_emergency-call-police,Call police,Call police,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,296,🚓
+health_feelings_emergency-contact-card,Contact card,Contact card,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,297,🪪
+health_feelings_emergency-medical-condition,Medical condition,Medical condition,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,298,📋
+health_feelings_emergency-im-lost,I'm lost,I'm lost,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,299,🧭
+health_feelings_emergency-stay-with-me,Stay with me,Stay with me,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,300,🤝
+health_feelings_emergency-anxiety-attack,Anxiety attack,Anxiety attack,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,301,😰
+health_feelings_emergency-panic-attack,Panic attack,Panic attack,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,urgent,True,302,😱
+health_feelings_emergency-lonely,Lonely,Lonely,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,303,😔
+health_feelings_emergency-embarrassed,Embarrassed,Embarrassed,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,304,😳
+health_feelings_emergency-comfortable,Comfortable,Comfortable,health_feelings_emergency,"Health, Feelings & Emergencies",Red,#E97B75,,standard,True,305,😌
+sensory_comfort-too-much-information,Too much information,Too much information,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,306,🤯
+sensory_comfort-deep-breaths-help,Deep breaths help,Deep breaths help,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,307,🌬️
+sensory_comfort-hand-flapping-helps-me,Hand flapping helps me,Hand flapping helps me,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,308,🙌
+sensory_comfort-stimming-helps-me,Stimming helps me,Stimming helps me,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,309,🔄
+sensory_comfort-repeating-words-helps-me,Repeating words helps me,Repeating words helps me,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,310,🔂
+sensory_comfort-i-need-my-plushie,I need my plushie,I need my plushie,sensory_comfort,Sensory & Comfort,Purple,#B58ACB,,standard,True,311,🧸
+objects_leisure-wallet,Wallet,Wallet,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,312,👛
+objects_leisure-keys,Keys,Keys,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,313,🔑
+objects_leisure-glasses,Glasses,Glasses,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,314,👓
+objects_leisure-backpack,Backpack,Backpack,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,315,🎒
+objects_leisure-umbrella,Umbrella,Umbrella,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,316,☂️
+objects_leisure-water-bottle,Water bottle,Water bottle,objects_leisure,Objects & Leisure,Orange,#F3A65A,,standard,True,317,🥤
+places_time_sequence-pharmacy,Pharmacy,Pharmacy,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,318,💊
+places_time_sequence-evening,Evening,Evening,places_time_sequence,"Places, Time & Sequence",White,#F5F5F5,,standard,True,319,🌆
+communication_support-i-cant-talk-right-now,I can't talk right now,I can't talk right now,communication_support,Communication Support,Teal,#00B8A9,,standard,True,320,🤐
+communication_support-i-need-more-time,I need more time,I need more time,communication_support,Communication Support,Teal,#00B8A9,,standard,True,321,⏱️
+communication_support-im-processing,I'm processing,I'm processing,communication_support,Communication Support,Teal,#00B8A9,,standard,True,322,💭
+communication_support-please-repeat-that,Please repeat that,Please repeat that,communication_support,Communication Support,Teal,#00B8A9,,standard,True,323,🔁
+communication_support-speak-slowly,Speak slowly,Speak slowly,communication_support,Communication Support,Teal,#00B8A9,,standard,True,324,🐢
+communication_support-write-it-down,Write it down,Write it down,communication_support,Communication Support,Teal,#00B8A9,,standard,True,325,✍️
+communication_support-too-many-questions,Too many questions,Too many questions,communication_support,Communication Support,Teal,#00B8A9,,standard,True,326,❓
+about_me-im-autistic,I'm autistic,I'm autistic,about_me,About Me,Dusty Rose,#C06C84,,standard,True,327,🧩
+about_me-i-communicate-differently,I communicate differently,I communicate differently,about_me,About Me,Dusty Rose,#C06C84,,standard,True,328,💬
+about_me-i-may-not-respond-immediately,I may not respond immediately,I may not respond immediately,about_me,About Me,Dusty Rose,#C06C84,,standard,True,329,⏳
+about_me-i-need-routine,I need routine,I need routine,about_me,About Me,Dusty Rose,#C06C84,,standard,True,330,📅
+about_me-unexpected-changes-are-difficult,Unexpected changes are difficult,Unexpected changes are difficult,about_me,About Me,Dusty Rose,#C06C84,,standard,True,331,🔀
+about_me-i-may-stim,I may stim,I may stim,about_me,About Me,Dusty Rose,#C06C84,,standard,True,332,🔄
+about_me-please-dont-rush-me,Please don't rush me,Please don't rush me,about_me,About Me,Dusty Rose,#C06C84,,standard,True,333,🐌
+about_me-i-need-to-leave,I need to leave,I need to leave,about_me,About Me,Dusty Rose,#C06C84,,standard,True,334,🚪
