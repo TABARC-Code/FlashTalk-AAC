@@ -92,21 +92,21 @@ issue with:
 ## Areas for Contribution
 
 `BACKLOG.md` is the actively-maintained, prioritised queue — that's the
-real answer. Edit/delete, the speech bar, the Settings/Import lock,
-export, locale-aware seed vocabulary, and sentence strip mode are all
-done now (see `CHANGELOG.md`); what's left, highest priority first:
+real answer. Edit/delete, the speech bar, the Settings/Import/Profiles
+lock, export, locale-aware seed vocabulary, the vocabulary expansion,
+sentence strip mode, and multiple profiles are all done now (see
+`CHANGELOG.md`); what's left, highest priority first:
 
 ### Medium Priority
 - [ ] Reorder cards
 - [ ] Native-speaker/SLT review of the French translation, especially
   the emergency category
 - [ ] Real screenshots for the README
-- [ ] UI/instrumented tests — everything so far is unit-tested (38 tests,
+- [ ] UI/instrumented tests — everything so far is unit-tested (45 tests,
   JVM + Robolectric), but nothing's been watched running on an actual
   device or emulator yet
 
 ### Low Priority (P3 in BACKLOG.md)
-- [ ] Multiple user profiles
 - [ ] Home-screen widget
 - [ ] Switch-access scanning support
 

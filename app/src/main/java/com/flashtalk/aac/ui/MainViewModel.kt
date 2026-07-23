@@ -3,28 +3,46 @@ package com.flashtalk.aac.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.flashtalk.aac.data.AppDatabase
 import com.flashtalk.aac.data.AppRepository
 import com.flashtalk.aac.data.Category
+import com.flashtalk.aac.data.Profile
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: AppRepository
-    val allCategories: LiveData<List<Category>>
+
+    private val currentProfileId = MutableLiveData<Long>()
+    val categories: LiveData<List<Category>>
 
     init {
         val database = AppDatabase.getDatabase(application)
-        repository = AppRepository(database.categoryDao(), database.flashCardDao())
-        allCategories = repository.allCategories
+        repository = AppRepository(database.categoryDao(), database.flashCardDao(), database.profileDao())
+        categories = currentProfileId.switchMap { profileId -> repository.getCategoriesForProfile(profileId) }
     }
 
-    fun addCategory(name: String, icon: String, color: String) {
+    // Called from MainActivity.onResume() every time the active profile
+    // might have changed (Settings-style "read prefs on resume" pattern —
+    // see applyEditModeState/applyStripModeState in other activities).
+    fun setCurrentProfile(profileId: Long) {
+        if (currentProfileId.value != profileId) {
+            currentProfileId.value = profileId
+        }
+    }
+
+    suspend fun getAllProfilesSync(): List<Profile> = repository.getAllProfilesSync()
+
+    fun addCategory(name: String, icon: String, color: String, profileId: Long) {
         viewModelScope.launch {
-            repository.insertCategory(Category(name = name, icon = icon, color = color, isCustom = true))
+            repository.insertCategory(
+                Category(name = name, icon = icon, color = color, isCustom = true, profileId = profileId)
+            )
         }
     }
 

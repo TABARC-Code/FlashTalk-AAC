@@ -5,11 +5,36 @@ import java.io.File
 
 class AppRepository(
     private val categoryDao: CategoryDao,
-    private val flashCardDao: FlashCardDao
+    private val flashCardDao: FlashCardDao,
+    private val profileDao: ProfileDao
 ) {
 
+    // Profiles
+    val allProfiles: LiveData<List<Profile>> = profileDao.getAllProfiles()
+
+    suspend fun getAllProfilesSync(): List<Profile> = profileDao.getAllProfilesSync()
+
+    suspend fun insertProfile(profile: Profile): Long = profileDao.insertProfile(profile)
+
+    suspend fun updateProfile(profile: Profile) = profileDao.updateProfile(profile)
+
+    suspend fun getCategoriesByProfileSync(profileId: Long): List<Category> =
+        categoryDao.getCategoriesByProfileSync(profileId)
+
+    // Deleting a profile only removes the categories/cards it owns
+    // (profileId == profile.id) — the shared vocabulary (profileId == 0L,
+    // seeded from the CSV) is never touched by a profile delete. Reuses
+    // deleteCategory per owned category so custom photo files get cleaned
+    // up the same way an ordinary category delete already does.
+    suspend fun deleteProfile(profile: Profile) {
+        categoryDao.getCategoriesByProfileSync(profile.id).forEach { deleteCategory(it) }
+        profileDao.deleteProfile(profile)
+    }
+
     // Categories
-    val allCategories: LiveData<List<Category>> = categoryDao.getAllCategories()
+    fun getCategoriesForProfile(profileId: Long): LiveData<List<Category>> {
+        return categoryDao.getCategoriesForProfile(profileId)
+    }
 
     suspend fun getCategoryById(id: Long): Category? {
         return categoryDao.getCategoryById(id)

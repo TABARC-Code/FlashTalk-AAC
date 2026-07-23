@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 38 of them, see below
+./gradlew test                 # unit tests — 45 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -53,10 +53,13 @@ data/     Room entities (Category, FlashCard), DAOs, AppDatabase (seeds
           back to the English default — see vocabularyAssetNameFor),
           AppRepository
 ui/       One activity per screen + ViewModel + adapter. Main (category
-          grid) → Category (card grid) → tap speaks via TTSManager.
-          BaseActivity applies the "Large text" font-scale override that
-          every other activity extends. MathGate is a shared maths-
-          question dialog gating Settings/Import entry.
+          grid, scoped to the active profile) → Category (card grid) →
+          tap speaks via TTSManager. Profile is its own screen (switch/
+          add/edit/delete), reachable from Main's menu, gated by MathGate
+          like Settings/Import. BaseActivity applies the "Large text"
+          font-scale override that every other activity extends. MathGate
+          is a shared maths-question dialog gating Settings/Import/
+          Profiles entry.
 utils/    TTSManager (reads rate/pitch from SharedPreferences
           "FlashTalkSettings" on every speak() call), ImageSetImporter
           (ZIP/JSON bulk import), ImageSetExporter (the reverse — same
@@ -150,6 +153,22 @@ turn this from an AAC app into a mildly insulting toy:
     or make strip mode change tap behaviour while leaving the old speech
     bar visible — that's two competing metaphors on screen at once, not
     one coherent mode switch.
+13. **`Category.profileId == 0L` means shared vocabulary, visible to every
+    profile — it is not "unowned" or a bug.** All seeded CSV categories
+    default to `0L` and stay that way forever; a profile's own custom
+    categories get `profileId = <that profile's id>`.
+    `CategoryDao.getCategoriesForProfile` is `WHERE profileId = 0 OR
+    profileId = :profileId` — don't "simplify" that to an exact match, it
+    would hide the shared vocabulary from every profile. Deleting a
+    profile (`AppRepository.deleteProfile`) only ever deletes categories
+    where `profileId == profile.id`; the shared vocabulary is never
+    touched by a profile delete, deliberately — this was a scoped-for-
+    efficiency choice over giving every profile its own full copy of the
+    seed data, so an edit or delete to a *shared* category still affects
+    every profile. That trade-off is intentional, not a bug to "fix" by
+    duplicating the CSV per profile. `ProfileActivity` refuses to delete
+    the last remaining profile — the app must never open onto zero
+    profiles.
 
 ## Design rules (accessibility is the product)
 
@@ -248,10 +267,18 @@ don't reintroduce them just because it'd be quicker):
 - Sentence strip mode (invariant 12): off by default, opt-in via
   Settings, builds a short sentence from several tapped cards instead of
   speaking each one immediately.
-- 38 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Vocabulary expanded from 266 to 334 cards (7 to 9 categories) — see
+  `BUILD_NOTES.md` for why this was additive rather than a rebuild.
+- Multiple profiles (invariant 13): a `Profile` entity, a shared
+  vocabulary every profile sees plus per-profile custom categories,
+  a `ProfileActivity` for switching/adding/editing/deleting, gated by
+  MathGate like Settings/Import. Deleting the last profile is refused.
+- 45 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
-  `BUILD_NOTES.md`), DiffUtil callbacks, sentence-strip joining, the
-  export round-trip, and Repository CRUD via Robolectric.
+  `BUILD_NOTES.md`), DiffUtil callbacks (including ProfileAdapter),
+  sentence-strip joining, the export round-trip, and Repository CRUD
+  (including profile-scoped category visibility and cascade delete) via
+  Robolectric.
 
 ## Skills that pair with this repo
 

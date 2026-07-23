@@ -12,5 +12,9 @@ data class Category(
     val color: String, // Hex color code
     val isCustom: Boolean = false,
     val order: Int = 0,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    // 0L (the default) is the shared/global vocabulary — every profile
+    // sees it. Any other value is a specific profile's own custom
+    // category, visible only to that profile (see CLAUDE.md invariant 13).
+    val profileId: Long = 0L
 )

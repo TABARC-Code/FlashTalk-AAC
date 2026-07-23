@@ -25,6 +25,12 @@ class MainActivity : BaseActivity() {
     private lateinit var categoryAdapter: CategoryAdapter
     private val prefs by lazy { getSharedPreferences(TTSManager.PREFS_NAME, Context.MODE_PRIVATE) }
 
+    // Read/refreshed every onResume (profile switching happens in a
+    // separate activity that writes the pref and finishes — same pattern
+    // as Edit mode/strip mode). Used when creating a new category so it's
+    // scoped to whichever profile is actually active right now.
+    private var currentProfileId: Long = 0L
+
     // A fixed, high-contrast rotating palette for custom categories —
     // simpler and more foolproof than a colour-picker UI for v1.0.
     private val customCategoryPalette = listOf(
@@ -51,6 +57,26 @@ class MainActivity : BaseActivity() {
         // Edit mode is toggled in SettingsActivity — pick up any change made
         // while we were away, without needing to rebuild the adapter.
         applyEditModeState()
+        refreshActiveProfile()
+    }
+
+    // Profile switching happens in ProfileActivity, which just writes the
+    // pref and finishes — this is where MainActivity actually picks the
+    // change up, same pattern as applyEditModeState(). Also covers first
+    // launch, when no profile id has been stored yet.
+    private fun refreshActiveProfile() {
+        lifecycleScope.launch {
+            val profiles = viewModel.getAllProfilesSync()
+            if (profiles.isEmpty()) return@launch
+            val storedId = prefs.getLong(TTSManager.KEY_CURRENT_PROFILE_ID, -1L)
+            val activeProfile = profiles.firstOrNull { it.id == storedId } ?: profiles.first()
+            if (activeProfile.id != storedId) {
+                prefs.edit().putLong(TTSManager.KEY_CURRENT_PROFILE_ID, activeProfile.id).apply()
+            }
+            currentProfileId = activeProfile.id
+            supportActionBar?.subtitle = activeProfile.name
+            viewModel.setCurrentProfile(activeProfile.id)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -77,7 +103,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun observeData() {
-        viewModel.allCategories.observe(this) { categories ->
+        viewModel.categories.observe(this) { categories ->
             categoryAdapter.submitList(categories)
         }
     }
@@ -95,7 +121,7 @@ class MainActivity : BaseActivity() {
                 if (name.isNotEmpty()) {
                     val icon = iconInput.text.toString().trim().ifEmpty { "📦" }
                     val color = customCategoryPalette[(categoryAdapter.itemCount) % customCategoryPalette.size]
-                    viewModel.addCategory(name, icon, color)
+                    viewModel.addCategory(name, icon, color, currentProfileId)
                 }
             }
             .setNegativeButton(R.string.cancel, null)
@@ -151,7 +177,16 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_import -> {
-                MathGate.show(this) { startActivity(Intent(this, ImportSetActivity::class.java)) }
+                MathGate.show(this) {
+                    startActivity(
+                        Intent(this, ImportSetActivity::class.java)
+                            .putExtra(EXTRA_PROFILE_ID, currentProfileId)
+                    )
+                }
+                true
+            }
+            R.id.action_profiles -> {
+                MathGate.show(this) { startActivity(Intent(this, ProfileActivity::class.java)) }
                 true
             }
             R.id.action_settings -> {
@@ -166,5 +201,6 @@ class MainActivity : BaseActivity() {
         const val EXTRA_CATEGORY_ID = "category_id"
         const val EXTRA_CATEGORY_NAME = "category_name"
         const val EXTRA_CATEGORY_COLOR = "category_color"
+        const val EXTRA_PROFILE_ID = "profile_id"
     }
 }

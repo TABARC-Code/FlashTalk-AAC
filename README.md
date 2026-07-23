@@ -32,6 +32,10 @@ everyone wants.
 - Custom cards from your own photos, unlimited — picked via the system
   photo/document chooser, so no storage permission is ever requested
 - Custom categories, unlimited
+- Multiple profiles — everyone shares the seeded 334-card vocabulary, but
+  each profile has its own custom categories/cards, switchable from the
+  main menu. One profile always exists; the app refuses to let you delete
+  the last one
 - Bulk import of whole card sets from ZIP or JSON — build a set on your
   PC, drop it onto the device — and export any category back out again
   in the same format
@@ -41,8 +45,8 @@ everyone wants.
 - A persistent speech bar shows the last-spoken word with a repeat
   button, instead of a Toast that's gone before anyone slower than
   instant can read it
-- A maths-question gate on Settings and Import — not security, a
-  caregiver-facing speed bump against wandering in mid-session
+- A maths-question gate on Settings, Import, and Profiles — not security,
+  a caregiver-facing speed bump against wandering in mid-session
 - TTS rate and pitch controls, dark mode, and a large-text mode that
   actually does something
 - Sentence strip mode, off by default — tap cards to build a short

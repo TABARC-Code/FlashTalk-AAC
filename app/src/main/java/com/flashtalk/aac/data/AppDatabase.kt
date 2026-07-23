@@ -10,11 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-@Database(entities = [Category::class, FlashCard::class], version = 1, exportSchema = false)
+@Database(entities = [Category::class, FlashCard::class, Profile::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao
     abstract fun flashCardDao(): FlashCardDao
+    abstract fun profileDao(): ProfileDao
 
     companion object {
         @Volatile
@@ -57,7 +58,12 @@ abstract class AppDatabase : RoomDatabase() {
                             super.onCreate(db)
                             INSTANCE?.let { database ->
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    populateDatabase(context, database.categoryDao(), database.flashCardDao())
+                                    populateDatabase(
+                                        context,
+                                        database.categoryDao(),
+                                        database.flashCardDao(),
+                                        database.profileDao()
+                                    )
                                 }
                             }
                         }
@@ -71,8 +77,15 @@ abstract class AppDatabase : RoomDatabase() {
         private suspend fun populateDatabase(
             context: Context,
             categoryDao: CategoryDao,
-            flashCardDao: FlashCardDao
+            flashCardDao: FlashCardDao,
+            profileDao: ProfileDao
         ) {
+            // One profile always exists from first run — Multiple profiles
+            // (BACKLOG P3 item 5) lets caregivers add more later, but the app
+            // must never open onto zero profiles. Seed categories default to
+            // profileId = 0L (shared), so they need no profile id at all.
+            profileDao.insertProfile(Profile(name = "Default"))
+
             val availableAssets = context.assets.list(VOCABULARY_DIR)?.toSet() ?: emptySet()
             val assetName = vocabularyAssetNameFor(Locale.getDefault().language, availableAssets)
             val rows = context.assets.open("$VOCABULARY_DIR/$assetName")

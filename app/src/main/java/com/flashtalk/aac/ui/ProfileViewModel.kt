@@ -8,50 +8,49 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.flashtalk.aac.data.AppDatabase
 import com.flashtalk.aac.data.AppRepository
-import com.flashtalk.aac.data.Category
-import com.flashtalk.aac.data.FlashCard
+import com.flashtalk.aac.data.Profile
 import kotlinx.coroutines.launch
 
-class CategoryViewModel(application: Application, private val categoryId: Long) : AndroidViewModel(application) {
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: AppRepository
-    val flashCards: LiveData<List<FlashCard>>
+    val allProfiles: LiveData<List<Profile>>
 
     init {
         val database = AppDatabase.getDatabase(application)
         repository = AppRepository(database.categoryDao(), database.flashCardDao(), database.profileDao())
-        flashCards = repository.getCardsByCategory(categoryId)
+        allProfiles = repository.allProfiles
     }
 
-    suspend fun getCategory(): Category? = repository.getCategoryById(categoryId)
-
-    fun updateCategory(category: Category) {
+    fun addProfile(name: String, icon: String) {
         viewModelScope.launch {
-            repository.updateCategory(category)
+            repository.insertProfile(Profile(name = name, icon = icon))
         }
     }
 
-    fun updateCard(card: FlashCard) {
+    fun updateProfile(profile: Profile) {
         viewModelScope.launch {
-            repository.updateCard(card)
+            repository.updateProfile(profile)
         }
     }
 
-    fun deleteCard(card: FlashCard) {
+    suspend fun profileCount(): Int = repository.getAllProfilesSync().size
+
+    suspend fun ownedCategoryCountFor(profileId: Long): Int =
+        repository.getCategoriesByProfileSync(profileId).size
+
+    fun deleteProfile(profile: Profile) {
         viewModelScope.launch {
-            repository.deleteCard(card)
+            repository.deleteProfile(profile)
         }
     }
 }
 
-class CategoryViewModelFactory(
-    private val application: Application,
-    private val categoryId: Long
-) : ViewModelProvider.Factory {
+class ProfileViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CategoryViewModel(application, categoryId) as T
+            return ProfileViewModel(application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

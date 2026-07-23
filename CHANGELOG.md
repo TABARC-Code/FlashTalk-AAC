@@ -9,6 +9,34 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Multiple profiles
+- **`Profile`** entity (name, emoji icon) plus a `profileId` column on
+  `Category`: `0L` (the default) means shared/global vocabulary, visible
+  to every profile — every seeded CSV category stays at `0L` forever. Any
+  other value is a specific profile's own custom category, visible only
+  to that profile. Chosen over giving every profile a full independent
+  copy of the 334-card vocabulary specifically for efficiency — no
+  duplicated rows, no per-profile reseeding on creation. The named
+  trade-off: editing or deleting a *shared* category still affects every
+  profile, since there's genuinely only one copy of it.
+- **`ProfileActivity`**: switch profiles by tapping one (writes a pref,
+  `MainActivity.onResume()` picks it up, same pattern as Edit mode/strip
+  mode); add a profile via the FAB; edit or delete one via long-press,
+  gated by the same off-by-default Edit mode toggle as categories/cards.
+  Deleting the last remaining profile is refused outright — the app must
+  never open onto zero profiles. Reachable from `MainActivity`'s menu,
+  behind `MathGate` like Settings and Import.
+- A `Profile` named "Default" is seeded alongside the vocabulary on first
+  run, so the app never opens with zero profiles.
+- New category creation (the `+` FAB, and ZIP/JSON import) is scoped to
+  whichever profile is currently active, via `MainActivity.currentProfileId`
+  passed through to `MainViewModel`/`ImportViewModel`.
+- 7 new unit tests: `ProfileAdapterDiffTest` (DiffUtil callback) and
+  three `AppRepositoryTest` cases covering profile-scoped category
+  visibility and cascade delete (owned categories and their custom
+  images removed; shared vocabulary and other profiles' categories left
+  alone).
+
 ### Added — Vocabulary expansion (68 new cards, 2 new categories)
 - A caregiver-supplied brainstorm of AAC/PECS vocabulary (Emergency
   contacts, Communication Difficulty, Regulation/stimming, Autism-specific

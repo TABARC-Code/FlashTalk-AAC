@@ -337,6 +337,53 @@ about `health_feelings_emergency` needing a native-speaker or SLT review
 before anyone relies on it applies more, not less, now that there's more
 of it.
 
+## Multiple profiles, and the trade-off I chose on purpose
+
+The honest version of this decision, because it's the kind of thing that
+looks like a shortcut until you say the trade-off out loud: profiles
+share one copy of the seeded vocabulary rather than each getting their
+own independent 334-card set. I picked that deliberately, for efficiency
+— no duplicated rows per profile, no reseeding delay every time someone
+adds one, and a much smaller `Category` change (one nullable-by-default
+`profileId` column) than a genuinely separate-vocabulary-per-profile
+design would have needed.
+
+The cost of that choice, stated plainly rather than buried: if someone
+edits or deletes a *shared* category, every profile on the device sees
+that change, because there's only the one copy of it. For the vast
+majority of shared devices — a family, a classroom set — that's fine;
+the seeded vocabulary is right for everybody, and it's the custom
+categories layered on top that actually need to be personal. It would
+stop being fine for a use case where profiles need to diverge on the
+*shared* words too, and if that ever turns out to matter in practice,
+the honest fix is giving profiles their own seeded copy at creation time
+— a bigger change, not a bug fix, and not one to make speculatively
+before anyone's actually hit the limitation.
+
+Mechanically: `Category.profileId` defaults to `0L`, which every seeded
+row keeps forever — `CategoryDao.getCategoriesForProfile` is `WHERE
+profileId = 0 OR profileId = :profileId`, so a profile always sees the
+shared set plus whatever's actually theirs. A new category (via the `+`
+FAB or an import) gets stamped with whichever profile is active at the
+time, threaded through from `MainActivity.currentProfileId` down to
+`MainViewModel`/`ImportViewModel` — easy to miss, since it's not obvious
+from either ViewModel's signature alone that this matters, but skipping
+it would mean a profile's own new category silently becoming global.
+
+Switching happens the same way every other toggle in this app persists
+across screens: `ProfileActivity` just writes a `SharedPreferences` key
+and finishes, and `MainActivity.onResume()` reads it back and re-queries
+— identical in shape to how Edit mode and sentence strip mode already
+work, so there was no new pattern to invent here, just one more
+`onResume` reading one more key.
+
+One thing I refused to let happen regardless of how the rest turned
+out: deleting the last profile. `ProfileActivity` checks the count
+before offering the delete confirmation at all, and refuses outright if
+it's down to one. An AAC app that could open onto zero profiles would
+be considerably worse than one that shares a bit more vocabulary than
+some future use case might prefer.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -357,6 +404,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and thirty-eight passing unit
+skipped. Compiling clean, linting clean, and forty-five passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.

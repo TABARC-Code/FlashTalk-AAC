@@ -20,7 +20,7 @@ sealed class ImportUiState {
     data class Failed(val message: String) : ImportUiState()
 }
 
-class ImportViewModel(application: Application) : AndroidViewModel(application) {
+class ImportViewModel(application: Application, private val profileId: Long) : AndroidViewModel(application) {
 
     private val repository: AppRepository
     private val importer = ImageSetImporter(application)
@@ -30,7 +30,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         val database = AppDatabase.getDatabase(application)
-        repository = AppRepository(database.categoryDao(), database.flashCardDao())
+        repository = AppRepository(database.categoryDao(), database.flashCardDao(), database.profileDao())
     }
 
     fun importZip(uri: Uri) = runImport { importer.importFromZip(uri) }
@@ -42,7 +42,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             when (val result = block()) {
                 is ImageSetImporter.ImportResult.Success -> {
-                    val categoryId = repository.insertCategory(result.category)
+                    val categoryId = repository.insertCategory(result.category.copy(profileId = profileId))
                     repository.insertCards(result.cards.map { it.copy(categoryId = categoryId) })
                     _state.value = ImportUiState.Done(result.category.name, result.cards.size, result.warnings)
                 }
@@ -54,11 +54,14 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
     }
 }
 
-class ImportViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+class ImportViewModelFactory(
+    private val application: Application,
+    private val profileId: Long
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ImportViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ImportViewModel(application) as T
+            return ImportViewModel(application, profileId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

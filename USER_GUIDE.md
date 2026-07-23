@@ -93,7 +93,7 @@ different cards.
 **A new category**, from the main screen: tap the **+** button, give it
 a name, optionally give it an emoji of your own choosing, and save.
 It's sitting on the home grid within seconds, no different from the
-seven that shipped with the app.
+nine that shipped with the app.
 
 **A new card inside any category**: tap **+** again, then **Select
 Image**. This opens the phone's own photo picker — not a permission
@@ -110,6 +110,46 @@ somewhere else. And be consistent with wording: if the card says
 sometimes "loo." AAC users build associations between a specific word
 and a specific need; switching the label around undermines exactly the
 thing you're trying to build.
+
+## More than one person, one device
+
+A school with a shared tablet trolley. A family with two autistic
+children who need overlapping but not identical vocabularies. A support
+worker moving between clients across a week. All of them run into the
+same problem with a single-vocabulary app: whatever one person adds or
+renames, everybody else has to live with too. **Profiles** exist for
+exactly this.
+
+Every profile shares the same seeded vocabulary — that's deliberate, and
+worth understanding rather than assuming it's a limitation. Duplicating
+all 334 cards for every single profile would waste space and mean adding
+a profile involved a genuine wait rather than being instant, so the
+seeded words stay shared: everyone sees the same "yes," "help," and
+"bathroom." What's genuinely separate per profile is anything built on
+top — new categories, new cards, the things that make a vocabulary
+personal to one specific person. Edit a *shared* card, though, and
+everyone using this device sees that change; that's the trade-off, and
+it's a sensible one for the vast majority of shared devices, where the
+seeded vocabulary is right for everybody and only the extras differ.
+
+Switching profiles lives under the menu (⋮) on the main screen, behind
+the same quick maths question as Settings and Import. Tap **Profiles**,
+then tap whichever profile should be active — the screen closes straight
+back to the main grid, now showing that profile's own categories
+alongside the shared ones. A tick mark shows which profile is currently
+active, so nobody has to guess.
+
+Adding a profile is the same **+** pattern as everything else in this
+app: name it, give it an emoji if you like, save. One profile always
+exists on a fresh install — the app genuinely won't let anyone delete
+the last one, because it should never be possible to open FlashTalk AAC
+onto nobody.
+
+Renaming or removing a profile lives behind Edit mode, exactly like
+categories and cards — long-press a profile in the Profiles screen to
+get there. Removing one only takes its own custom categories with it;
+the shared vocabulary, and every other profile's own additions, are left
+completely alone.
 
 ## Changing your mind: editing and removing cards
 
@@ -308,6 +348,8 @@ just in case.
 | Send a category elsewhere | Open it → category menu → Export |
 | Edit or delete a card/category | Settings → turn on Edit mode → long-press it |
 | Build a short sentence from several cards | Settings → turn on Sentence strip mode |
+| Switch who's using the device | Menu → Profiles → tap a profile |
+| Add or remove a profile | Menu → Profiles → **+**, or Edit mode → long-press it |
 | Change how fast it speaks | Menu → Settings → Speech Rate |
 | Ease eye strain | Menu → Settings → Dark Mode |
 | Make everything bigger | Menu → Settings → Large Text |

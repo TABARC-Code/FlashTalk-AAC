@@ -33,7 +33,7 @@ class AppRepositoryTest {
         db = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDatabase::class.java)
             .allowMainThreadQueries()
             .build()
-        repository = AppRepository(db.categoryDao(), db.flashCardDao())
+        repository = AppRepository(db.categoryDao(), db.flashCardDao(), db.profileDao())
     }
 
     @After
@@ -106,5 +106,48 @@ class AppRepositoryTest {
         repository.updateCategory(category.copy(name = "New"))
 
         assertEquals("New", repository.getCategoryById(categoryId)?.name)
+    }
+
+    @Test
+    fun `a profile's category list includes shared vocabulary and its own categories, not another profile's`() = runTest {
+        val profileA = repository.insertProfile(Profile(name = "A"))
+        val profileB = repository.insertProfile(Profile(name = "B"))
+        repository.insertCategory(Category(name = "Shared", icon = "🌍", color = "#FFFFFF")) // profileId defaults to 0L
+        repository.insertCategory(Category(name = "A's own", icon = "🅰️", color = "#FFFFFF", profileId = profileA))
+        repository.insertCategory(Category(name = "B's own", icon = "🅱️", color = "#FFFFFF", profileId = profileB))
+
+        val forA = repository.getCategoriesByProfileSync(profileA)
+        val forB = repository.getCategoriesByProfileSync(profileB)
+
+        assertEquals(1, forA.size)
+        assertEquals("A's own", forA[0].name)
+        assertEquals(1, forB.size)
+        assertEquals("B's own", forB[0].name)
+    }
+
+    @Test
+    fun `deleting a profile removes only its own categories, not shared vocabulary or another profile's`() = runTest {
+        val profileA = repository.insertProfile(Profile(name = "A"))
+        val sharedId = repository.insertCategory(Category(name = "Shared", icon = "🌍", color = "#FFFFFF"))
+        val ownId = repository.insertCategory(Category(name = "A's own", icon = "🅰️", color = "#FFFFFF", profileId = profileA))
+
+        repository.deleteProfile(repository.getAllProfilesSync().first { it.id == profileA })
+
+        assertNull(repository.getCategoryById(ownId))
+        assertEquals("Shared", repository.getCategoryById(sharedId)?.name)
+    }
+
+    @Test
+    fun `deleting a profile cleans up its owned categories' custom card images`() = runTest {
+        val profileA = repository.insertProfile(Profile(name = "A"))
+        val categoryId = repository.insertCategory(Category(name = "A's own", icon = "🅰️", color = "#FFFFFF", profileId = profileA))
+        val imageFile = File.createTempFile("card", ".jpg")
+        repository.insertCard(
+            FlashCard(categoryId = categoryId, text = "Photo", imagePath = imageFile.absolutePath, isCustom = true)
+        )
+
+        repository.deleteProfile(repository.getAllProfilesSync().first { it.id == profileA })
+
+        assertFalse(imageFile.exists())
     }
 }

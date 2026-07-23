@@ -28,7 +28,8 @@ class ImportSetActivity : BaseActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel = ViewModelProvider(this, ImportViewModelFactory(application))[ImportViewModel::class.java]
+        val profileId = intent.getLongExtra(MainActivity.EXTRA_PROFILE_ID, 0L)
+        viewModel = ViewModelProvider(this, ImportViewModelFactory(application, profileId))[ImportViewModel::class.java]
         progressBar = findViewById(R.id.importProgress)
         statusText = findViewById(R.id.importStatus)
 

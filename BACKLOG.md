@@ -99,9 +99,23 @@ and label/speech-text-differ cases. The strip itself is deliberately not
 persisted; it's a scratchpad for one sentence, not vocabulary data, and
 doesn't need to survive the activity being recreated.
 
-5. **[L] Multiple profiles.**
-6. **[M] Home-screen widget** for the Needs category.
-7. **[L] Switch-access scanning support.**
+~~**[L] Multiple profiles.**~~ **Done, shared-vocabulary design.** A
+`Profile` entity plus a `profileId` column on `Category` — `0L` means
+shared/global (every seeded category defaults to it, visible to every
+profile), any other value is a specific profile's own custom category,
+visible only to that profile. Chose this over giving every profile a
+full independent copy of the 334-card vocabulary specifically for
+efficiency: no duplicated rows, no per-profile reseeding, and adding a
+profile is instant rather than a fresh 334-row insert. The trade-off,
+stated plainly: editing or deleting a *shared* category still affects
+every profile, since there's only one copy of it. `ProfileActivity`
+(switch/add/edit-mode-gated edit/delete) sits behind MathGate like
+Settings and Import; deleting the last remaining profile is refused
+outright, since the app must never open onto zero profiles. Deleting a
+profile only removes categories it actually owns — the shared vocabulary
+is untouched.
+5. **[M] Home-screen widget** for the Needs category.
+6. **[L] Switch-access scanning support.**
 
 ## Rejected / not doing
 

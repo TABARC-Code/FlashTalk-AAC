@@ -59,6 +59,19 @@
     <string name="settings_lock_wrong">Not quite — try again</string>
     <string name="continue_action">Continue</string>
 
+    <!-- Profiles -->
+    <string name="action_profiles">Profiles</string>
+    <string name="new_profile">New Profile</string>
+    <string name="profile_name_hint">Profile name</string>
+    <string name="edit_profile_title">Edit profile</string>
+    <string name="delete_profile_title">Delete profile?</string>
+    <string name="delete_profile_message">This removes "%1$s" and any custom categories of its own (%2$d) — shared vocabulary is never affected. This can\'t be undone.</string>
+    <string name="last_profile_title">Can\'t delete the last profile</string>
+    <string name="last_profile_message">At least one profile has to exist. Add another profile before removing this one.</string>
+    <string name="current_profile_content_description">Current profile</string>
+    <string name="add_profile_content_description">Add profile</string>
+    <string name="ok">OK</string>
+
     <!-- Import screen -->
     <string name="action_import">Import Set</string>
     <string name="import_title">Import a card set</string>

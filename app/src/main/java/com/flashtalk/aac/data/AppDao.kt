@@ -5,8 +5,14 @@ import androidx.room.*
 
 @Dao
 interface CategoryDao {
-    @Query("SELECT * FROM categories ORDER BY `order` ASC, name ASC")
-    fun getAllCategories(): LiveData<List<Category>>
+    // profileId = 0 is the shared/global vocabulary, visible to every
+    // profile; profileId = the given profile's own id are that profile's
+    // custom categories. See Category.profileId / CLAUDE.md invariant 13.
+    @Query("SELECT * FROM categories WHERE profileId = 0 OR profileId = :profileId ORDER BY `order` ASC, name ASC")
+    fun getCategoriesForProfile(profileId: Long): LiveData<List<Category>>
+
+    @Query("SELECT * FROM categories WHERE profileId = :profileId")
+    suspend fun getCategoriesByProfileSync(profileId: Long): List<Category>
 
     @Query("SELECT * FROM categories WHERE id = :categoryId")
     suspend fun getCategoryById(categoryId: Long): Category?
@@ -55,4 +61,22 @@ interface FlashCardDao {
 
     @Query("DELETE FROM flashcards WHERE isCustom = 1")
     suspend fun deleteAllCustomCards()
+}
+
+@Dao
+interface ProfileDao {
+    @Query("SELECT * FROM profiles ORDER BY createdAt ASC")
+    fun getAllProfiles(): LiveData<List<Profile>>
+
+    @Query("SELECT * FROM profiles ORDER BY createdAt ASC")
+    suspend fun getAllProfilesSync(): List<Profile>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProfile(profile: Profile): Long
+
+    @Update
+    suspend fun updateProfile(profile: Profile)
+
+    @Delete
+    suspend fun deleteProfile(profile: Profile)
 }

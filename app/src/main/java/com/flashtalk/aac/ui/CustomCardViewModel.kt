@@ -16,7 +16,7 @@ class CustomCardViewModel(application: Application) : AndroidViewModel(applicati
 
     init {
         val database = AppDatabase.getDatabase(application)
-        repository = AppRepository(database.categoryDao(), database.flashCardDao())
+        repository = AppRepository(database.categoryDao(), database.flashCardDao(), database.profileDao())
     }
 
     fun addCard(categoryId: Long, text: String, imagePath: String) {
