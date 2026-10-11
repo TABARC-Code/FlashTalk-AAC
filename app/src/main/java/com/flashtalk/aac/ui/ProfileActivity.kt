@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.Profile
+import com.flashtalk.aac.utils.FontPreference
 import com.flashtalk.aac.utils.TTSManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
@@ -39,6 +40,7 @@ class ProfileActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         applyEditModeState()
+        applyFontPreferenceState()
     }
 
     private fun setupRecyclerView() {
@@ -56,6 +58,12 @@ class ProfileActivity : BaseActivity() {
         val editModeOn = prefs.getBoolean(TTSManager.KEY_EDIT_MODE, false)
         findViewById<View>(R.id.editModeBanner).visibility = if (editModeOn) View.VISIBLE else View.GONE
         profileAdapter.onProfileLongClick = if (editModeOn) { profile -> showEditProfileDialog(profile) } else null
+        profileAdapter.notifyDataSetChanged()
+    }
+
+    private fun applyFontPreferenceState() {
+        val fontStyle = prefs.getString(TTSManager.KEY_FONT_STYLE, FontPreference.DEFAULT) ?: FontPreference.DEFAULT
+        profileAdapter.customTypeface = FontPreference.resolveTypeface(this, fontStyle)
         profileAdapter.notifyDataSetChanged()
     }
 

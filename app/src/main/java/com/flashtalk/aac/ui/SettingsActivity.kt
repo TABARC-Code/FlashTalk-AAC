@@ -2,8 +2,10 @@ package com.flashtalk.aac.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatDelegate
 import com.flashtalk.aac.R
+import com.flashtalk.aac.utils.FontPreference
 import com.flashtalk.aac.utils.TTSManager
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
@@ -26,6 +28,8 @@ class SettingsActivity : BaseActivity() {
         setupEditModeSwitch()
         setupSentenceStripModeSwitch()
         setupMascotModeSwitch()
+        setupPureTextModeSwitch()
+        setupFontStyleOptions()
     }
 
     private fun setupRateSlider() {
@@ -98,6 +102,34 @@ class SettingsActivity : BaseActivity() {
             setOnCheckedChangeListener { _, isChecked ->
                 prefs.edit().putBoolean(TTSManager.KEY_MASCOT_MODE, isChecked).apply()
             }
+        }
+    }
+
+    private fun setupPureTextModeSwitch() {
+        findViewById<MaterialSwitch>(R.id.switchPureTextMode).apply {
+            isChecked = prefs.getBoolean(TTSManager.KEY_PURE_TEXT_MODE, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit().putBoolean(TTSManager.KEY_PURE_TEXT_MODE, isChecked).apply()
+            }
+        }
+    }
+
+    private fun setupFontStyleOptions() {
+        val radioGroup = findViewById<RadioGroup>(R.id.radioGroupFontStyle)
+        val checkedId = when (prefs.getString(TTSManager.KEY_FONT_STYLE, FontPreference.DEFAULT)) {
+            FontPreference.DYSLEXIA_FRIENDLY -> R.id.radioFontDyslexia
+            FontPreference.EASY_READ -> R.id.radioFontEasyRead
+            else -> R.id.radioFontDefault
+        }
+        radioGroup.check(checkedId)
+        radioGroup.setOnCheckedChangeListener { _, newCheckedId ->
+            val fontStyle = when (newCheckedId) {
+                R.id.radioFontDyslexia -> FontPreference.DYSLEXIA_FRIENDLY
+                R.id.radioFontEasyRead -> FontPreference.EASY_READ
+                else -> FontPreference.DEFAULT
+            }
+            prefs.edit().putString(TTSManager.KEY_FONT_STYLE, fontStyle).apply()
+            recreate() // re-applies BaseActivity#setContentView's font pass with the new choice
         }
     }
 

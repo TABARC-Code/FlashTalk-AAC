@@ -1,5 +1,6 @@
 package com.flashtalk.aac.ui
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,9 @@ class ProfileAdapter(
     private val onProfileClick: (Profile) -> Unit,
     // Null when Edit mode is off — same not-attached-at-all pattern as
     // CategoryAdapter/FlashCardAdapter (CLAUDE.md invariant 9).
-    var onProfileLongClick: ((Profile) -> Unit)? = null
+    var onProfileLongClick: ((Profile) -> Unit)? = null,
+    // Null means "use whatever the view already has" — no override.
+    var customTypeface: Typeface? = null
 ) : ListAdapter<Profile, ProfileAdapter.ProfileViewHolder>(ProfileDiffCallback()) {
 
     // Set by ProfileActivity from the stored preference; changing it just
@@ -32,7 +35,7 @@ class ProfileAdapter(
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         val profile = getItem(position)
-        holder.bind(profile, profile.id == currentProfileId, onProfileClick, onProfileLongClick)
+        holder.bind(profile, profile.id == currentProfileId, customTypeface, onProfileClick, onProfileLongClick)
     }
 
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,9 +43,18 @@ class ProfileAdapter(
         private val nameText: TextView = itemView.findViewById(R.id.profileName)
         private val currentMark: View = itemView.findViewById(R.id.profileCurrentMark)
 
-        fun bind(profile: Profile, isCurrent: Boolean, onClick: (Profile) -> Unit, onLongClick: ((Profile) -> Unit)?) {
+        fun bind(
+            profile: Profile,
+            isCurrent: Boolean,
+            customTypeface: Typeface?,
+            onClick: (Profile) -> Unit,
+            onLongClick: ((Profile) -> Unit)?
+        ) {
             iconText.text = profile.icon
             nameText.text = profile.name
+            if (customTypeface != null) {
+                nameText.typeface = customTypeface
+            }
             itemView.contentDescription = profile.name
             currentMark.visibility = if (isCurrent) View.VISIBLE else View.GONE
 

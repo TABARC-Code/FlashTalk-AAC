@@ -94,4 +94,22 @@
     <string name="widget_not_configured">Not set up</string>
     <string name="widget_not_configured_hint">Tap to choose a category</string>
     <string name="widget_no_cards">No cards in this category yet</string>
+
+    <!-- Display preferences: pure text mode + font choice, set during
+         onboarding and changeable later in Settings -->
+    <string name="settings_pure_text_mode">Pure text mode</string>
+    <string name="settings_pure_text_mode_explainer">Turn this on to show only words on cards — no emoji, no photos, no mascot artwork. Off by default.</string>
+    <string name="settings_font_style">Font</string>
+    <string name="font_style_default">Default</string>
+    <string name="font_style_dyslexia">Dyslexia-friendly (OpenDyslexic)</string>
+    <string name="font_style_easy_read">Easy Read (Atkinson Hyperlegible)</string>
+
+    <!-- Onboarding (first launch only) -->
+    <string name="onboarding_title">Before you start</string>
+    <string name="onboarding_intro">Two quick choices — both changeable later in Settings, any time.</string>
+    <string name="onboarding_pure_text_heading">How should cards look?</string>
+    <string name="onboarding_pure_text_body">By default, cards show a small picture or emoji alongside the word. Turn Pure text mode on to show words only.</string>
+    <string name="onboarding_font_heading">Which font reads easiest?</string>
+    <string name="onboarding_font_body">Tap an option below to preview it.</string>
+    <string name="onboarding_get_started">Get Started</string>
 </resources>

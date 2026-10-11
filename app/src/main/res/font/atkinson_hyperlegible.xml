@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Atkinson Hyperlegible, SIL Open Font License 1.1 — see
+    assets/font_licenses/ATKINSON_HYPERLEGIBLE_OFL.txt and
+    THIRD_PARTY_LICENSES.md. Designed by the Braille Institute for low-vision
+    legibility; used here as the "Easy Read" option.
+-->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/atkinson_hyperlegible_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/atkinson_hyperlegible_regular" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/atkinson_hyperlegible_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700"
+        app:font="@font/atkinson_hyperlegible_bold" />
+</font-family>

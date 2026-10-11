@@ -31,6 +31,11 @@
         </activity>
 
         <activity
+            android:name=".ui.OnboardingActivity"
+            android:exported="false"
+            android:label="@string/onboarding_title" />
+
+        <activity
             android:name=".ui.CategoryActivity"
             android:exported="false"
             android:parentActivityName=".ui.MainActivity" />

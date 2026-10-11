@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    OpenDyslexic, SIL Open Font License 1.1 — see
+    assets/font_licenses/OPENDYSLEXIC_OFL.txt and THIRD_PARTY_LICENSES.md.
+    Both android: and app: attributes are set so this resolves correctly
+    on API 24-25 too, via AppCompat's font-compat loading — native
+    android:fontFamily XML support only starts at API 26.
+-->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/opendyslexic_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/opendyslexic_regular" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/opendyslexic_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700"
+        app:font="@font/opendyslexic_bold" />
+</font-family>

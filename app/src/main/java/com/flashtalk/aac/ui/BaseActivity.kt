@@ -1,13 +1,25 @@
 package com.flashtalk.aac.ui
 
 import android.content.Context
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.flashtalk.aac.utils.FontPreference
 import com.flashtalk.aac.utils.TTSManager
 
 /**
- * Applies the "Large text" preference as a Configuration.fontScale override
- * so every sp-based size in the app scales together — resolves BACKLOG.md
- * item 2 (the switch used to save a preference nothing read).
+ * Applies two cross-cutting display preferences every Activity needs,
+ * before/after the usual lifecycle points so subclasses don't each have to
+ * remember to:
+ * - "Large text": a Configuration.fontScale override — resolves BACKLOG.md
+ *   item 2 (the switch used to save a preference nothing read).
+ * - Font style (default/dyslexia-friendly/Easy Read, CLAUDE.md invariant
+ *   16): applied to every TextView under the content view, right after
+ *   setContentView inflates it. This only covers each Activity's own
+ *   static layout — a RecyclerView's item views don't exist yet at this
+ *   point, so adapters that render user-facing text (CategoryAdapter,
+ *   FlashCardAdapter, ProfileAdapter) apply the same FontPreference.applyTo
+ *   themselves, at bind time.
  */
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -24,6 +36,29 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             super.attachBaseContext(newBase)
         }
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        applyFontPreference()
+    }
+
+    override fun setContentView(view: View) {
+        super.setContentView(view)
+        applyFontPreference()
+    }
+
+    override fun setContentView(view: View, params: ViewGroup.LayoutParams) {
+        super.setContentView(view, params)
+        applyFontPreference()
+    }
+
+    private fun applyFontPreference() {
+        val prefs = getSharedPreferences(TTSManager.PREFS_NAME, Context.MODE_PRIVATE)
+        val fontStyle = prefs.getString(TTSManager.KEY_FONT_STYLE, FontPreference.DEFAULT) ?: FontPreference.DEFAULT
+        val typeface = FontPreference.resolveTypeface(this, fontStyle) ?: return
+        val content = findViewById<View>(android.R.id.content) ?: return
+        FontPreference.applyTo(content, typeface)
     }
 
     companion object {

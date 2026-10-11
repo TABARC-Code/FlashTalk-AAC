@@ -16,6 +16,35 @@ someone else — all of you are the audience here, and all of you are
 going to be asking some version of the same question: how do I make
 this thing actually useful for this specific person, today?
 
+## Before anything else: two quick choices
+
+The very first time FlashTalk AAC opens, before the card grid appears at
+all, it asks two questions and then gets out of the way. Neither one is
+permanent — both live in Settings afterward too, changeable any time —
+but getting them right from the start saves a few days of "actually,
+that's not quite working" later.
+
+**Pure text mode** asks whether cards should show a picture or emoji
+alongside each word, or just the word on its own. Most people leave this
+off — the small picture is genuinely useful for anyone who reads less
+confidently than they recognise images — but for a reader who finds
+pictures distracting, or simply prefers words, turning it on strips
+every card back to plain text. It's a complete switch, not a partial
+one: once it's on, nothing on a card shows a picture, whatever else is
+set elsewhere (a custom photo, Mascot mode's artwork once that exists —
+all of it stands down in favour of plain words).
+
+**Font choice** offers three options, and the onboarding screen lets you
+tap each one and watch the whole screen redraw in it before deciding —
+no guessing from a name alone. Alongside the system default, there's
+**OpenDyslexic**, whose letters are weighted to sit more firmly on the
+line, a design aimed at reducing the letter-rotation confusion some
+dyslexic readers experience; and **Atkinson Hyperlegible**, built by the
+Braille Institute specifically for clarity at a glance regardless of
+vision — the option here labelled "Easy Read." Neither is a universal
+right answer. The only way to know which helps a specific reader is to
+try it, which is exactly what the live preview is for.
+
 ## First look: what's already there
 
 Open the app for the first time and you're met with a grid of coloured
@@ -383,6 +412,8 @@ just in case.
 | Change how fast it speaks | Menu → Settings → Speech Rate |
 | Ease eye strain | Menu → Settings → Dark Mode |
 | Make everything bigger | Menu → Settings → Large Text |
+| Show words only, no pictures | Menu → Settings → Pure text mode |
+| Switch to a dyslexia-friendly or Easy Read font | Menu → Settings → Font |
 
 Accessibility isn't a features list bolted onto the side here — it's
 most of what the app actually is. Large touch targets throughout. High

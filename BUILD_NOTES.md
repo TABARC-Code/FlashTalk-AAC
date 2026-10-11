@@ -497,6 +497,77 @@ licenses, write a throwaway `local.properties`) exactly the way the
 first verification pass describes above, which is the whole reason that
 section exists as a reusable recipe rather than a one-off aside.
 
+## Onboarding, pure text mode, and two real fonts
+
+Two requests arrived together: a button at setup for an image-free, pure
+text option, and dyslexia-friendly/Easy Read font support. Both needed
+an actual onboarding screen, since "on install" means before the app's
+normal UI exists yet — but both also needed to NOT be onboarding-only,
+since locking an accessibility preference behind a screen you only see
+once is a real design mistake, not a convenience. So every choice
+`OnboardingActivity` makes also lives as an ordinary `SettingsActivity`
+switch, and I built Settings' version first conceptually, then had
+onboarding just be an earlier, friendlier entry point to the same
+stored preferences.
+
+The gating itself needed more care than it looks like it should.
+`MainActivity.onCreate` checks `KEY_ONBOARDING_COMPLETE` before
+`setContentView`, and redirects + `finish()`s if it's unset. The gotcha:
+Android still calls `onResume()` once on the way out after a `finish()`
+called from `onCreate()` — it doesn't just stop dead. `MainActivity`'s
+`onResume` reads prefs and touches `categoryAdapter`, which was never
+initialised in the onboarding-redirect branch (`setupRecyclerView()`
+never ran), so without a guard this crashes on literally every first
+launch — the one path that most needs to work. Fixed with
+`if (!::categoryAdapter.isInitialized) return` at the top of
+`onResume()`, and commented clearly in CLAUDE.md invariant 16 so the
+next finish()-from-onCreate path doesn't reintroduce the same bug
+blind.
+
+Pure text mode's precedence rule matters more than it sounds: it has to
+beat a custom photo and Mascot mode's artwork, not just the plain emoji
+fallback, or "pure text" would quietly mean "pure text, except for the
+cards someone's already customised" — a confusing half-measure for
+exactly the reader it's meant to help. `FlashCardAdapter.bind()` checks
+it first, before any of the photo/mascot/emoji branching even runs.
+
+Font style turned into the more interesting engineering problem, because
+there are two genuinely different places text gets rendered and they
+need two different mechanisms. A static screen's text exists the moment
+`setContentView` returns, so `BaseActivity` can walk the whole content
+view tree once, right after inflation, and set a custom `Typeface` on
+every `TextView` it finds — reliable, version-proof (`ResourcesCompat
+.getFont` plus manual `.typeface =` assignment works identically back to
+API 14, unlike leaning on theme-level `fontFamily` cascading through
+Material's `TextAppearance` styles, which I didn't trust enough to rely
+on alone without being able to verify it against a real device). But a
+RecyclerView's item views don't exist at `setContentView` time — they
+get inflated later, as the list scrolls — so `BaseActivity`'s one-shot
+walk can't reach card labels, category names, or profile names, which
+are arguably the most important text in the whole app to get legible.
+Fixed by giving `CategoryAdapter`/`FlashCardAdapter`/`ProfileAdapter`
+their own `customTypeface` field, applied at bind time, set by their
+hosting Activity's `onResume` — the exact same shape as Edit mode and
+Mascot mode already used, so no new pattern needed inventing, just the
+existing one extended to a third mutable field.
+
+For the fonts themselves: OpenDyslexic and Atkinson Hyperlegible, both
+fetched from their own GitHub repositories, both SIL Open Font License
+1.1 — verified by actually downloading and reading `OFL.txt` from each
+repo rather than assuming, since this is a project that already ruled
+out ARASAAC specifically over a non-commercial licence clause. SIL OFL
+is unambiguous: free to embed in a commercial app, the only real
+restriction is not selling the font file on its own, which was never
+the plan. Regular and Bold weights for both, wired through font-family
+XML resources with both `android:` and `app:` attribute pairs — the
+native `android:fontFamily` XML support only starts at API 26, and this
+app's `minSdk` is 24, so the `app:`-prefixed duplicates are what
+actually make OpenDyslexic/Atkinson Hyperlegible work correctly on API
+24-25 via AppCompat's font-compat loading. Full attribution in the new
+`THIRD_PARTY_LICENSES.md`, plus each font's own `OFL.txt` bundled
+unmodified in `assets/font_licenses/` — the license itself has to travel
+with the font, not just get mentioned in a README somewhere.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -517,6 +588,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and fifty-seven passing unit
+skipped. Compiling clean, linting clean, and sixty-two passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.

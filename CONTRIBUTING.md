@@ -94,8 +94,9 @@ issue with:
 `BACKLOG.md` is the actively-maintained, prioritised queue — that's the
 real answer. Edit/delete, the speech bar, the Settings/Import/Profiles
 lock, export, locale-aware seed vocabulary, the vocabulary expansion,
-sentence strip mode, multiple profiles, a home-screen widget, and Mascot
-mode's toggle/rendering plumbing are all done now (see `CHANGELOG.md`);
+sentence strip mode, multiple profiles, a home-screen widget, Mascot
+mode's toggle/rendering plumbing, and onboarding (pure text mode + the
+two bundled accessible fonts) are all done now (see `CHANGELOG.md`);
 what's left, highest priority first:
 
 ### Medium Priority
@@ -103,7 +104,7 @@ what's left, highest priority first:
 - [ ] Native-speaker/SLT review of the French translation, especially
   the emergency category
 - [ ] Real screenshots for the README
-- [ ] UI/instrumented tests — everything so far is unit-tested (57 tests,
+- [ ] UI/instrumented tests — everything so far is unit-tested (62 tests,
   JVM + Robolectric), but nothing's been watched running on an actual
   device or emulator yet
 - [ ] Live-refresh the home-screen widget on card/category edits, instead

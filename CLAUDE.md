@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 57 of them, see below
+./gradlew test                 # unit tests — 62 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -56,16 +56,23 @@ ui/       One activity per screen + ViewModel + adapter. Main (category
           grid, scoped to the active profile) → Category (card grid) →
           tap speaks via TTSManager. Profile is its own screen (switch/
           add/edit/delete), reachable from Main's menu, gated by MathGate
-          like Settings/Import. BaseActivity applies the "Large text"
-          font-scale override that every other activity extends. MathGate
-          is a shared maths-question dialog gating Settings/Import/
-          Profiles entry.
+          like Settings/Import. OnboardingActivity runs once, before
+          MainActivity ever builds its UI, gated by
+          KEY_ONBOARDING_COMPLETE. BaseActivity applies the "Large text"
+          font-scale override and the chosen font style (via
+          FontPreference) that every other activity extends — except
+          OnboardingActivity itself, deliberately not a BaseActivity (see
+          its class doc). MathGate is a shared maths-question dialog
+          gating Settings/Import/Profiles entry.
 utils/    TTSManager (reads rate/pitch from SharedPreferences
           "FlashTalkSettings" on every speak() call), ImageSetImporter
           (ZIP/JSON bulk import), ImageSetExporter (the reverse — same
           manifest schema, reused rather than duplicated), SentenceStrip
           (pure displayText/speechText joining for sentence strip mode —
-          no Context, so it's plain-JUnit testable)
+          no Context, so it's plain-JUnit testable), FontPreference (pure
+          pref-value→font-resource mapping plus the Typeface
+          resolve/apply helpers BaseActivity and every text-rendering
+          adapter share)
 widget/   NeedsWidgetProvider (home-screen widget, one configured shared
           category, GridView backed by NeedsWidgetRemoteViewsService),
           WidgetTapReceiver (a one-shot TextToSpeech instance per tap —
@@ -205,6 +212,34 @@ turn this from an AAC app into a mildly insulting toy:
     drop the PNGs into `res/drawable/`. The toggle (Settings, off by
     default) and the resource-lookup plumbing are the real, tested,
     shippable part; the content is intentionally not here yet.
+16. **Onboarding runs exactly once, gated by
+    `TTSManager.KEY_ONBOARDING_COMPLETE`, and every choice it makes is
+    also in Settings — it's not a one-shot trap.** `MainActivity.onCreate`
+    checks the flag before `setContentView` and redirects to
+    `OnboardingActivity` (then `finish()`s) on first launch only; don't
+    add more gates there without remembering Android still calls
+    `onResume()` once on the way out after a `finish()` from `onCreate`
+    — `MainActivity.onResume` guards on `::categoryAdapter.isInitialized`
+    specifically because of this. Pure text mode and font style, the two
+    things onboarding sets, are ordinary `SettingsActivity` switches too;
+    never make onboarding the only place a preference can be changed.
+    Pure text mode (`KEY_PURE_TEXT_MODE`) takes priority over *everything*
+    else in `FlashCardAdapter`/`CategoryAdapter` — a custom photo, mascot
+    art, the emoji fallback, all of it — because "image free" has to mean
+    image free, not "unless something else was already set." Font style
+    (`KEY_FONT_STYLE`: default/dyslexia/easy_read) is applied two
+    different ways for two different reasons — `BaseActivity.
+    setContentView` walks each Activity's own static layout once, right
+    after inflation, but a RecyclerView's item views don't exist at that
+    point, so `CategoryAdapter`/`FlashCardAdapter`/`ProfileAdapter` each
+    apply `FontPreference.applyTo` themselves, at bind time, via a
+    `customTypeface` field their hosting Activity sets in `onResume` —
+    the same pattern Edit mode and Mascot mode already use. Don't move
+    the RecyclerView-item font logic into `BaseActivity`'s walk thinking
+    it's redundant; by the time that walk runs, those views don't exist
+    yet. The two bundled fonts (OpenDyslexic, Atkinson Hyperlegible) are
+    both SIL Open Font License 1.1 — see `THIRD_PARTY_LICENSES.md` before
+    adding, removing, or modifying either one.
 
 ## Design rules (accessibility is the product)
 
@@ -315,13 +350,19 @@ don't reintroduce them just because it'd be quicker):
 - Mascot mode (invariant 15): the toggle and rendering plumbing exist and
   are tested; no actual mascot artwork ships yet, deliberately — see
   invariant 15 before "finishing" this.
-- 57 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Onboarding, pure text mode, and accessible fonts (invariant 16): a
+  one-time first-launch screen setting two preferences that are also
+  ordinary Settings switches — pure text mode (hides every image, not
+  just emoji) and a font choice between two bundled, SIL OFL-licensed
+  fonts (OpenDyslexic, Atkinson Hyperlegible as "Easy Read").
+- 62 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
   `BUILD_NOTES.md`), DiffUtil callbacks (including ProfileAdapter),
   sentence-strip joining, the export round-trip, Repository CRUD
   (including profile-scoped category visibility and cascade delete), the
-  widget's category-id preference mapping, and the mascot pose→resource
-  name sanitiser, via Robolectric where a Context is needed.
+  widget's category-id preference mapping, the mascot pose→resource
+  name sanitiser, and the font-style→resource mapping, via Robolectric
+  where a Context is needed.
 
 ## Skills that pair with this repo
 

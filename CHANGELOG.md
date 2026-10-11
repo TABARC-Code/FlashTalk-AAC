@@ -9,6 +9,31 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Onboarding, pure text mode, and accessible fonts
+- **`OnboardingActivity`**: shown exactly once, before `MainActivity`
+  builds any UI (gated by `KEY_ONBOARDING_COMPLETE`), offering two
+  choices — both also ordinary switches in Settings afterward, never
+  onboarding-only.
+- **Pure text mode**: hides every image on a card — emoji, custom
+  photos, mascot artwork, all of it — for anyone who wants words only.
+  Takes priority over everything else in `FlashCardAdapter`/
+  `CategoryAdapter`'s rendering logic, deliberately: "image free" means
+  image free.
+- **Font style**: a choice of the system default, **OpenDyslexic**
+  ("Dyslexia-friendly"), or **Atkinson Hyperlegible** ("Easy Read" — the
+  Braille Institute's low-vision-legibility font). Both bundled for
+  real, SIL Open Font License 1.1, fully attributed in the new
+  `THIRD_PARTY_LICENSES.md`. Onboarding previews each option live as
+  you tap it, before anything's saved.
+- Font style applies two ways: `BaseActivity` walks each Activity's
+  static layout once right after `setContentView`; `CategoryAdapter`/
+  `FlashCardAdapter`/`ProfileAdapter` each apply it again at bind time
+  for their RecyclerView item views, which don't exist yet when
+  `BaseActivity`'s walk runs. Same `onResume`-reads-prefs pattern Edit
+  mode and Mascot mode already use.
+- 5 new unit tests for `FontPreference`'s pure pref-value→resource
+  mapping.
+
 ### Added — Mascot mode (image-free toggle and rendering plumbing)
 - A caregiver is designing an original mascot character (their own IP)
   and plans a reusable set of pose variations rather than bespoke art

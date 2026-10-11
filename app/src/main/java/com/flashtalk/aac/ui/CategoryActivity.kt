@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.FlashCard
+import com.flashtalk.aac.utils.FontPreference
 import com.flashtalk.aac.utils.ImageSetExporter
 import com.flashtalk.aac.utils.SentenceStrip
 import com.flashtalk.aac.utils.TTSManager
@@ -87,6 +88,7 @@ class CategoryActivity : BaseActivity() {
         applyEditModeState()
         applyStripModeState()
         applyMascotModeState()
+        applyDisplayPreferencesState()
     }
 
     private fun setupRecyclerView() {
@@ -118,6 +120,13 @@ class CategoryActivity : BaseActivity() {
 
     private fun applyMascotModeState() {
         flashCardAdapter.mascotModeEnabled = prefs.getBoolean(TTSManager.KEY_MASCOT_MODE, false)
+        flashCardAdapter.notifyDataSetChanged()
+    }
+
+    private fun applyDisplayPreferencesState() {
+        flashCardAdapter.pureTextMode = prefs.getBoolean(TTSManager.KEY_PURE_TEXT_MODE, false)
+        val fontStyle = prefs.getString(TTSManager.KEY_FONT_STYLE, FontPreference.DEFAULT) ?: FontPreference.DEFAULT
+        flashCardAdapter.customTypeface = FontPreference.resolveTypeface(this, fontStyle)
         flashCardAdapter.notifyDataSetChanged()
     }
 

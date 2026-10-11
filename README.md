@@ -49,6 +49,14 @@ everyone wants.
   a caregiver-facing speed bump against wandering in mid-session
 - TTS rate and pitch controls, dark mode, and a large-text mode that
   actually does something
+- A one-time first-launch setup screen for pure text mode and font
+  choice — both also ordinary Settings switches afterward, never locked
+  to onboarding
+- Pure text mode: hide every image on a card (emoji, custom photos,
+  mascot artwork alike) and show words only
+- A choice of accessible fonts — OpenDyslexic ("Dyslexia-friendly") or
+  Atkinson Hyperlegible ("Easy Read"), both bundled, both SIL Open Font
+  License 1.1 (see `THIRD_PARTY_LICENSES.md`)
 - Sentence strip mode, off by default — tap cards to build a short
   sentence instead of speaking each one immediately, then tap the strip
   to speak the whole thing. PECS-adjacent, opt-in only, and the ordinary
@@ -73,7 +81,7 @@ are real and tested, but no card has mascot artwork set, since that's a
 caregiver-designed character whose pose set doesn't exist yet. Turning
 the toggle on won't change how anything looks until that artwork lands.
 Nothing here has been run on an
-actual device or emulator either — compiled, linted, and unit-tested (57
+actual device or emulator either — compiled, linted, and unit-tested (62
 tests), but not watched running, and that's not a "hasn't gotten to it
 yet": this environment has no `/dev/kvm` and no CPU virtualisation flags
 at all, so an Android emulator genuinely isn't something that runs here.
@@ -134,6 +142,9 @@ not an implementation detail.
 
 MIT. Use it, fork it, ship it. If it helps someone talk, it's done its
 job — everything else is secondary to that.
+
+Two bundled fonts (OpenDyslexic, Atkinson Hyperlegible) carry their own
+SIL Open Font License 1.1 — see `THIRD_PARTY_LICENSES.md`.
 
 ---
 

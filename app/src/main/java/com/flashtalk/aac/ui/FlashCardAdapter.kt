@@ -1,10 +1,12 @@
 package com.flashtalk.aac.ui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -25,7 +27,14 @@ class FlashCardAdapter(
     var onCardLongClick: ((FlashCard) -> Unit)? = null,
     // Off by default, matching Settings' Mascot mode default (CLAUDE.md
     // invariant 15). Mutable for the same reason as onCardLongClick above.
-    var mascotModeEnabled: Boolean = false
+    var mascotModeEnabled: Boolean = false,
+    // Off by default (CLAUDE.md invariant 16) — takes priority over
+    // everything else below: a custom photo, mascot art, even the emoji
+    // fallback. "Image free" means image free, not "image free except for
+    // whatever else happens to be set."
+    var pureTextMode: Boolean = false,
+    // Null means "use whatever the view already has" — no override.
+    var customTypeface: Typeface? = null
 ) : ListAdapter<FlashCard, FlashCardAdapter.FlashCardViewHolder>(FlashCardDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlashCardViewHolder {
@@ -35,7 +44,7 @@ class FlashCardAdapter(
     }
 
     override fun onBindViewHolder(holder: FlashCardViewHolder, position: Int) {
-        holder.bind(getItem(position), mascotModeEnabled, onCardClick, onCardLongClick)
+        holder.bind(getItem(position), mascotModeEnabled, pureTextMode, customTypeface, onCardClick, onCardLongClick)
     }
 
     class FlashCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -49,12 +58,18 @@ class FlashCardAdapter(
         fun bind(
             flashCard: FlashCard,
             mascotModeEnabled: Boolean,
+            pureTextMode: Boolean,
+            customTypeface: Typeface?,
             onClick: (FlashCard) -> Unit,
             onLongClick: ((FlashCard) -> Unit)?
         ) {
             textView.text = flashCard.text
             itemView.contentDescription =
                 if (flashCard.priority == "urgent") "Urgent: ${flashCard.text}" else flashCard.text
+
+            if (customTypeface != null) {
+                textView.typeface = customTypeface
+            }
 
             // Urgent cards (Stop, Emergency, Seizure warning, ...) get a
             // visible red border so they're quick to spot under stress,
@@ -66,35 +81,42 @@ class FlashCardAdapter(
                 cardView.strokeWidth = 0
             }
 
-            val photoFile = flashCard.imagePath.takeIf { it.isNotBlank() }?.let { File(it) }
-            val mascotResId = if (mascotModeEnabled) mascotDrawableResId(flashCard.mascotPose) else null
+            if (pureTextMode) {
+                imageView.visibility = View.GONE
+                emojiView.visibility = View.GONE
+                setTextFillsCard(true)
+            } else {
+                setTextFillsCard(false)
+                val photoFile = flashCard.imagePath.takeIf { it.isNotBlank() }?.let { File(it) }
+                val mascotResId = if (mascotModeEnabled) mascotDrawableResId(flashCard.mascotPose) else null
 
-            when {
-                flashCard.isCustom && photoFile?.exists() == true -> {
-                    imageView.visibility = View.VISIBLE
-                    emojiView.visibility = View.GONE
-                    Glide.with(context)
-                        .load(photoFile)
-                        .centerCrop()
-                        .placeholder(R.drawable.ic_image_placeholder)
-                        .into(imageView)
-                }
-                // Mascot mode, and this card has a pose with matching
-                // artwork actually bundled — see MascotArt. Every seed card
-                // ships with mascotPose blank, so this branch does nothing
-                // yet on an unmodified install; it only activates once both
-                // a card's mascotPose and a matching drawable exist.
-                mascotResId != null -> {
-                    imageView.visibility = View.VISIBLE
-                    emojiView.visibility = View.GONE
-                    imageView.setImageResource(mascotResId)
-                }
-                else -> {
-                    // Seed (and image-less imported) cards render their emoji glyph
-                    // directly — see BACKLOG.md item 1 and FlashCard.emoji.
-                    imageView.visibility = View.GONE
-                    emojiView.visibility = View.VISIBLE
-                    emojiView.text = flashCard.emoji.ifBlank { "🗂️" }
+                when {
+                    flashCard.isCustom && photoFile?.exists() == true -> {
+                        imageView.visibility = View.VISIBLE
+                        emojiView.visibility = View.GONE
+                        Glide.with(context)
+                            .load(photoFile)
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_image_placeholder)
+                            .into(imageView)
+                    }
+                    // Mascot mode, and this card has a pose with matching
+                    // artwork actually bundled — see MascotArt. Every seed card
+                    // ships with mascotPose blank, so this branch does nothing
+                    // yet on an unmodified install; it only activates once both
+                    // a card's mascotPose and a matching drawable exist.
+                    mascotResId != null -> {
+                        imageView.visibility = View.VISIBLE
+                        emojiView.visibility = View.GONE
+                        imageView.setImageResource(mascotResId)
+                    }
+                    else -> {
+                        // Seed (and image-less imported) cards render their emoji glyph
+                        // directly — see BACKLOG.md item 1 and FlashCard.emoji.
+                        imageView.visibility = View.GONE
+                        emojiView.visibility = View.VISIBLE
+                        emojiView.text = flashCard.emoji.ifBlank { "🗂️" }
+                    }
                 }
             }
 
@@ -112,6 +134,23 @@ class FlashCardAdapter(
                 itemView.setOnLongClickListener(null)
                 itemView.isLongClickable = false
             }
+        }
+
+        // Views get recycled, so this has to run every bind (not just when
+        // pure text mode turns on) — a holder last bound in pure-text mode
+        // must have its weight/height reset for the next, non-pure-text card.
+        private fun setTextFillsCard(fillsCard: Boolean) {
+            val params = textView.layoutParams as LinearLayout.LayoutParams
+            if (fillsCard) {
+                params.height = 0
+                params.weight = 1f
+                textView.gravity = android.view.Gravity.CENTER
+            } else {
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                params.weight = 0f
+                textView.gravity = android.view.Gravity.CENTER
+            }
+            textView.layoutParams = params
         }
 
         // Resources.getIdentifier is a reflection-based lookup — fine here

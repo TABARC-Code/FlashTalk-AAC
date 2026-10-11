@@ -1,6 +1,7 @@
 package com.flashtalk.aac.ui
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.Category
+import com.flashtalk.aac.utils.FontPreference
 
 class CategoryAdapter(
     private val onCategoryClick: (Category) -> Unit,
@@ -20,7 +22,13 @@ class CategoryAdapter(
     // Settings changes Edit mode, without rebuilding the whole adapter —
     // call notifyDataSetChanged() after changing it so bound holders pick
     // the new value up.
-    var onCategoryLongClick: ((Category) -> Unit)? = null
+    var onCategoryLongClick: ((Category) -> Unit)? = null,
+    // Off by default, matching Settings' Pure text mode default (CLAUDE.md
+    // invariant 16). Hides the category icon entirely, not just emoji —
+    // "image free" means image free.
+    var pureTextMode: Boolean = false,
+    // Null means "use whatever the view already has" — no override.
+    var customTypeface: Typeface? = null
 ) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -30,7 +38,7 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(getItem(position), onCategoryClick, onCategoryLongClick)
+        holder.bind(getItem(position), pureTextMode, customTypeface, onCategoryClick, onCategoryLongClick)
     }
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,10 +46,21 @@ class CategoryAdapter(
         private val iconText: TextView = itemView.findViewById(R.id.categoryIcon)
         private val nameText: TextView = itemView.findViewById(R.id.categoryName)
 
-        fun bind(category: Category, onClick: (Category) -> Unit, onLongClick: ((Category) -> Unit)?) {
+        fun bind(
+            category: Category,
+            pureTextMode: Boolean,
+            customTypeface: Typeface?,
+            onClick: (Category) -> Unit,
+            onLongClick: ((Category) -> Unit)?
+        ) {
             iconText.text = category.icon
+            iconText.visibility = if (pureTextMode) View.GONE else View.VISIBLE
             nameText.text = category.name
             itemView.contentDescription = category.name
+
+            if (customTypeface != null) {
+                nameText.typeface = customTypeface
+            }
 
             try {
                 cardView.setCardBackgroundColor(Color.parseColor(category.color))

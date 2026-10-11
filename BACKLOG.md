@@ -150,6 +150,27 @@ invariant 15). Next step, once real art and pose names exist: drop
 CSV column (same pattern `emoji` already uses) — no further code changes
 needed.
 
+~~**[M] Onboarding: pure text mode + accessible fonts.**~~ **Done.** A
+one-time first-launch screen (`OnboardingActivity`, gated by
+`KEY_ONBOARDING_COMPLETE`) sets two preferences — both also ordinary
+switches in Settings afterward, never onboarding-only. **Pure text
+mode** hides every image on a card (emoji, custom photos, mascot art
+alike — not just one of them) for whoever wants words only. **Font
+style** offers a choice of three: the system default, OpenDyslexic
+("Dyslexia-friendly"), or Atkinson Hyperlegible ("Easy Read" — the
+Braille Institute's low-vision-legibility font, a defensible match for
+what "Easy Read" means in a UI context). Both fonts are bundled for
+real, SIL Open Font License 1.1, fully attributed in
+`THIRD_PARTY_LICENSES.md` — this one didn't get the "ships image free"
+treatment Mascot mode did, because accessible fonts are a solved,
+available, low-risk thing to actually source and ship, unlike someone
+else's bespoke character design. Font style applies two different ways
+for two different reasons: `BaseActivity` walks each Activity's static
+layout once after `setContentView`, but a RecyclerView's item views
+don't exist yet at that point, so `CategoryAdapter`/`FlashCardAdapter`/
+`ProfileAdapter` each apply it themselves at bind time, same pattern
+Edit mode and Mascot mode already use. See CLAUDE.md invariant 16.
+
 6. **[L] Switch-access scanning support.**
 
 ## Rejected / not doing

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flashtalk.aac.R
 import com.flashtalk.aac.data.Category
+import com.flashtalk.aac.utils.FontPreference
 import com.flashtalk.aac.utils.TTSManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
@@ -40,6 +41,17 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Onboarding is a one-time gate, checked before anything else gets
+        // built — see OnboardingActivity. finish() so MainActivity isn't
+        // left underneath it on the back stack; MainActivity re-launches
+        // itself normally once onboarding finishes.
+        if (!prefs.getBoolean(TTSManager.KEY_ONBOARDING_COMPLETE, false)) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+            return
+        }
+
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -54,9 +66,15 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        // onCreate() redirects to OnboardingActivity and finish()es on first
+        // launch, without ever reaching setupRecyclerView() — but Android
+        // still calls onResume() once on the way out even after finish(),
+        // so this guard is needed, not defensive-for-its-own-sake.
+        if (!::categoryAdapter.isInitialized) return
         // Edit mode is toggled in SettingsActivity — pick up any change made
         // while we were away, without needing to rebuild the adapter.
         applyEditModeState()
+        applyDisplayPreferencesState()
         refreshActiveProfile()
     }
 
@@ -93,6 +111,13 @@ class MainActivity : BaseActivity() {
         val editModeOn = prefs.getBoolean(TTSManager.KEY_EDIT_MODE, false)
         findViewById<View>(R.id.editModeBanner).visibility = if (editModeOn) View.VISIBLE else View.GONE
         categoryAdapter.onCategoryLongClick = if (editModeOn) { category -> showEditCategoryDialog(category) } else null
+        categoryAdapter.notifyDataSetChanged()
+    }
+
+    private fun applyDisplayPreferencesState() {
+        categoryAdapter.pureTextMode = prefs.getBoolean(TTSManager.KEY_PURE_TEXT_MODE, false)
+        val fontStyle = prefs.getString(TTSManager.KEY_FONT_STYLE, FontPreference.DEFAULT) ?: FontPreference.DEFAULT
+        categoryAdapter.customTypeface = FontPreference.resolveTypeface(this, fontStyle)
         categoryAdapter.notifyDataSetChanged()
     }
 
