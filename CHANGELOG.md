@@ -9,6 +9,21 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Multiple mascot characters + seasonal variants (skeleton)
+- `MascotArt.resourceNameCandidates(character, season, pose)` extends
+  Mascot mode's existing `mascot_<pose>` resource lookup into a fallback
+  chain: `mascot_<character>_<season>_<pose>` →
+  `mascot_<character>_<pose>` → plain `mascot_<pose>`, most specific
+  first. Fully backward compatible — both `character` and `season`
+  default to blank, which collapses the chain back to exactly the
+  original single-name lookup.
+- Two free-text fields in Settings (`KEY_MASCOT_CHARACTER`,
+  `KEY_MASCOT_SEASON`) let a caregiver type whichever character/season
+  name matches whatever artwork eventually exists — deliberately not a
+  dropdown or a fixed list, same reasoning as Mascot mode's pose names:
+  the taxonomy is the designer's call, not something to guess here.
+- 6 new unit tests for the candidate-chain logic.
+
 ### Added — Onboarding, pure text mode, and accessible fonts
 - **`OnboardingActivity`**: shown exactly once, before `MainActivity`
   builds any UI (gated by `KEY_ONBOARDING_COMPLETE`), offering two

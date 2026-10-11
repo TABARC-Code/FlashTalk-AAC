@@ -40,17 +40,18 @@ switched on. Profiles share the seeded vocabulary (chosen for efficiency
 over duplicating it per profile) but each has its own custom categories
 and cards; the widget only ever shows shared categories, for the same
 reason. Mascot mode ships "image free" on purpose — the toggle and
-rendering logic are real and tested, but no cards carry mascot artwork
-yet, since that's the character designer's creative call, not mine to
-invent. Pure text mode and the two bundled accessible fonts
+rendering logic are real and tested, including a resource-name fallback
+chain for multiple characters and seasonal variants, but no cards carry
+mascot artwork yet, since that's the character designer's creative call,
+not mine to invent. Pure text mode and the two bundled accessible fonts
 (OpenDyslexic, Atkinson Hyperlegible — both SIL OFL, see
 `THIRD_PARTY_LICENSES.md`) are the opposite: shipped complete, real
 fonts bundled for real, since that's a solved, low-risk thing to source
-rather than someone else's creative call to wait on. 62 unit tests cover
+rather than someone else's creative call to wait on. 68 unit tests cover
 the logic layer (CSV parsing, manifest parsing, DiffUtil callbacks,
 sentence-strip joining, Repository CRUD including profile-scoped
-visibility, the widget's category mapping, the mascot pose sanitiser,
-the font-style mapping, via Robolectric).
+visibility, the widget's category mapping, the mascot pose/character/
+season fallback chain, the font-style mapping, via Robolectric).
 Seed cards render as emoji glyphs rather than photos, which sidesteps a
 symbol-set licensing decision entirely rather than kicking it down the
 road. The honest gaps: the French translation needs a native-speaker or

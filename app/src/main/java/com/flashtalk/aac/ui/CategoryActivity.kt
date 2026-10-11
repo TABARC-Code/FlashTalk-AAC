@@ -120,6 +120,8 @@ class CategoryActivity : BaseActivity() {
 
     private fun applyMascotModeState() {
         flashCardAdapter.mascotModeEnabled = prefs.getBoolean(TTSManager.KEY_MASCOT_MODE, false)
+        flashCardAdapter.mascotCharacter = prefs.getString(TTSManager.KEY_MASCOT_CHARACTER, "") ?: ""
+        flashCardAdapter.mascotSeason = prefs.getString(TTSManager.KEY_MASCOT_SEASON, "") ?: ""
         flashCardAdapter.notifyDataSetChanged()
     }
 

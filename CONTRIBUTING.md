@@ -95,24 +95,27 @@ issue with:
 real answer. Edit/delete, the speech bar, the Settings/Import/Profiles
 lock, export, locale-aware seed vocabulary, the vocabulary expansion,
 sentence strip mode, multiple profiles, a home-screen widget, Mascot
-mode's toggle/rendering plumbing, and onboarding (pure text mode + the
-two bundled accessible fonts) are all done now (see `CHANGELOG.md`);
-what's left, highest priority first:
+mode's toggle/rendering plumbing (including the multi-character/seasonal
+skeleton), and onboarding (pure text mode + the two bundled accessible
+fonts) are all done now (see `CHANGELOG.md`); what's left, highest
+priority first:
 
 ### Medium Priority
 - [ ] Reorder cards
 - [ ] Native-speaker/SLT review of the French translation, especially
   the emergency category
 - [ ] Real screenshots for the README
-- [ ] UI/instrumented tests — everything so far is unit-tested (62 tests,
+- [ ] UI/instrumented tests — everything so far is unit-tested (68 tests,
   JVM + Robolectric), but nothing's been watched running on an actual
   device or emulator yet
 - [ ] Live-refresh the home-screen widget on card/category edits, instead
   of its current ~30-minute refresh timer
 - [ ] Mascot artwork + pose names (once the character designer finishes
-  their pose set): drop `mascot_<pose>.png` files into `res/drawable/`
-  and add a `mascot_pose` CSV column — see CLAUDE.md invariant 15, no
-  code changes needed beyond that
+  their pose set): drop `mascot_<pose>.png` (or `mascot_<character>_
+  <pose>.png` / `mascot_<character>_<season>_<pose>.png` for multiple
+  characters/seasonal variants) files into `res/drawable/` and add a
+  `mascot_pose` CSV column — see CLAUDE.md invariants 15/17, no code
+  changes needed beyond that
 
 ### Low Priority (P3 in BACKLOG.md)
 - [ ] Switch-access scanning support

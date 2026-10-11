@@ -84,6 +84,8 @@ class TTSManager(private val context: Context) {
         const val KEY_SENTENCE_STRIP_MODE = "sentence_strip_mode"
         const val KEY_CURRENT_PROFILE_ID = "current_profile_id"
         const val KEY_MASCOT_MODE = "mascot_mode"
+        const val KEY_MASCOT_CHARACTER = "mascot_character"
+        const val KEY_MASCOT_SEASON = "mascot_season"
         const val KEY_PURE_TEXT_MODE = "pure_text_mode"
         const val KEY_FONT_STYLE = "font_style"
         const val KEY_ONBOARDING_COMPLETE = "onboarding_complete"

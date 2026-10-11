@@ -2,6 +2,7 @@ package com.flashtalk.aac.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatDelegate
 import com.flashtalk.aac.R
@@ -28,6 +29,7 @@ class SettingsActivity : BaseActivity() {
         setupEditModeSwitch()
         setupSentenceStripModeSwitch()
         setupMascotModeSwitch()
+        setupMascotCharacterAndSeasonFields()
         setupPureTextModeSwitch()
         setupFontStyleOptions()
     }
@@ -101,6 +103,29 @@ class SettingsActivity : BaseActivity() {
             isChecked = prefs.getBoolean(TTSManager.KEY_MASCOT_MODE, false)
             setOnCheckedChangeListener { _, isChecked ->
                 prefs.edit().putBoolean(TTSManager.KEY_MASCOT_MODE, isChecked).apply()
+            }
+        }
+    }
+
+    // Free-text, not a picker — which characters/seasonal variants exist is
+    // the mascot designer's call, not a fixed list this app bakes in (see
+    // CLAUDE.md invariant 17). Saved on focus-lost rather than per
+    // keystroke, same as any other settled-value text field.
+    private fun setupMascotCharacterAndSeasonFields() {
+        findViewById<EditText>(R.id.inputMascotCharacter).apply {
+            setText(prefs.getString(TTSManager.KEY_MASCOT_CHARACTER, ""))
+            setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    prefs.edit().putString(TTSManager.KEY_MASCOT_CHARACTER, text.toString().trim()).apply()
+                }
+            }
+        }
+        findViewById<EditText>(R.id.inputMascotSeason).apply {
+            setText(prefs.getString(TTSManager.KEY_MASCOT_SEASON, ""))
+            setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    prefs.edit().putString(TTSManager.KEY_MASCOT_SEASON, text.toString().trim()).apply()
+                }
             }
         }
     }

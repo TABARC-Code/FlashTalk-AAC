@@ -54,6 +54,10 @@
     <string name="settings_sentence_strip_mode_explainer">Turn this on to build a short sentence from several cards before speaking it, instead of speaking each card immediately. Off by default — most users want the immediate tap-to-speak behaviour.</string>
     <string name="settings_mascot_mode">Mascot mode</string>
     <string name="settings_mascot_mode_explainer">Turn this on to show mascot character artwork on cards that have it, instead of a plain icon. Off by default — right now this won\'t change how any card looks, since no cards have mascot artwork set up yet.</string>
+    <string name="settings_mascot_character_explainer">If more than one mascot character exists, type its name here to use that one\'s artwork. Leave blank to use whichever artwork isn\'t tied to a specific character.</string>
+    <string name="settings_mascot_character_hint">Character name (optional)</string>
+    <string name="settings_mascot_season_explainer">If seasonal artwork exists (e.g. a Halloween or winter version), type its name here. Leave blank for no seasonal variant.</string>
+    <string name="settings_mascot_season_hint">Season name (optional)</string>
 
     <!-- Settings lock -->
     <string name="settings_lock_title">Quick check</string>

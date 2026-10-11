@@ -28,6 +28,13 @@ class FlashCardAdapter(
     // Off by default, matching Settings' Mascot mode default (CLAUDE.md
     // invariant 15). Mutable for the same reason as onCardLongClick above.
     var mascotModeEnabled: Boolean = false,
+    // Both blank by default (CLAUDE.md invariant 17) — "no character
+    // chosen" and "no seasonal variant," which is exactly the pre-17
+    // mascot_<pose> behaviour, unchanged. Free-form strings, not an enum:
+    // which characters/seasons exist is the mascot designer's call, not
+    // something to invent here.
+    var mascotCharacter: String = "",
+    var mascotSeason: String = "",
     // Off by default (CLAUDE.md invariant 16) — takes priority over
     // everything else below: a custom photo, mascot art, even the emoji
     // fallback. "Image free" means image free, not "image free except for
@@ -44,7 +51,16 @@ class FlashCardAdapter(
     }
 
     override fun onBindViewHolder(holder: FlashCardViewHolder, position: Int) {
-        holder.bind(getItem(position), mascotModeEnabled, pureTextMode, customTypeface, onCardClick, onCardLongClick)
+        holder.bind(
+            getItem(position),
+            mascotModeEnabled,
+            mascotCharacter,
+            mascotSeason,
+            pureTextMode,
+            customTypeface,
+            onCardClick,
+            onCardLongClick
+        )
     }
 
     class FlashCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -58,6 +74,8 @@ class FlashCardAdapter(
         fun bind(
             flashCard: FlashCard,
             mascotModeEnabled: Boolean,
+            mascotCharacter: String,
+            mascotSeason: String,
             pureTextMode: Boolean,
             customTypeface: Typeface?,
             onClick: (FlashCard) -> Unit,
@@ -88,7 +106,11 @@ class FlashCardAdapter(
             } else {
                 setTextFillsCard(false)
                 val photoFile = flashCard.imagePath.takeIf { it.isNotBlank() }?.let { File(it) }
-                val mascotResId = if (mascotModeEnabled) mascotDrawableResId(flashCard.mascotPose) else null
+                val mascotResId = if (mascotModeEnabled) {
+                    mascotDrawableResId(mascotCharacter, mascotSeason, flashCard.mascotPose)
+                } else {
+                    null
+                }
 
                 when {
                     flashCard.isCustom && photoFile?.exists() == true -> {
@@ -153,14 +175,19 @@ class FlashCardAdapter(
             textView.layoutParams = params
         }
 
-        // Resources.getIdentifier is a reflection-based lookup — fine here
-        // since it only runs once per card bind, not in a hot loop. Returns
-        // null (not 0) when nothing matches, so callers don't need to know
-        // Android's "0 means not found" convention.
-        private fun mascotDrawableResId(pose: String): Int? {
-            val name = MascotArt.resourceNameFor(pose) ?: return null
-            val resId = context.resources.getIdentifier(name, "drawable", context.packageName)
-            return resId.takeIf { it != 0 }
+        // Tries each candidate name most-specific-first (character+season,
+        // then character alone, then pose alone) and returns the first one
+        // that's actually bundled. Resources.getIdentifier is a
+        // reflection-based lookup — fine here since it only runs once or
+        // twice per card bind, not in a hot loop. Returns null (not 0) when
+        // nothing matches, so callers don't need to know Android's "0 means
+        // not found" convention.
+        private fun mascotDrawableResId(character: String, season: String, pose: String): Int? {
+            for (name in MascotArt.resourceNameCandidates(character, season, pose)) {
+                val resId = context.resources.getIdentifier(name, "drawable", context.packageName)
+                if (resId != 0) return resId
+            }
+            return null
         }
     }
 

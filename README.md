@@ -77,11 +77,13 @@ There's no card reordering yet. Sentence strip mode exists now but is
 opt-in and off by default — single-tap is still the default design, and
 that's deliberate, not a placeholder. Mascot mode exists in Settings
 too, but it's genuinely inert right now — the toggle and rendering logic
-are real and tested, but no card has mascot artwork set, since that's a
-caregiver-designed character whose pose set doesn't exist yet. Turning
-the toggle on won't change how anything looks until that artwork lands.
+are real and tested, including the groundwork for multiple characters
+and seasonal variants (two free-text Settings fields), but no card has
+mascot artwork set, since that's a caregiver-designed character whose
+pose set doesn't exist yet. Turning the toggle on won't change how
+anything looks until that artwork lands.
 Nothing here has been run on an
-actual device or emulator either — compiled, linted, and unit-tested (62
+actual device or emulator either — compiled, linted, and unit-tested (68
 tests), but not watched running, and that's not a "hasn't gotten to it
 yet": this environment has no `/dev/kvm` and no CPU virtualisation flags
 at all, so an Android emulator genuinely isn't something that runs here.

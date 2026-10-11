@@ -171,6 +171,22 @@ don't exist yet at that point, so `CategoryAdapter`/`FlashCardAdapter`/
 `ProfileAdapter` each apply it themselves at bind time, same pattern
 Edit mode and Mascot mode already use. See CLAUDE.md invariant 16.
 
+~~**[S] Multiple mascot characters + seasonal variants — skeleton.**~~
+**Done, deliberately skeleton-only.** The caregiver designing the mascot
+mentioned plans beyond one character — a dino, a zombie fox, an axolotl
+— plus seasonal reskins. `MascotArt.resourceNameCandidates` extends the
+existing `mascot_<pose>` lookup (invariant 15) into a fallback chain:
+`mascot_<character>_<season>_<pose>` → `mascot_<character>_<pose>` →
+plain `mascot_<pose>`, most specific first. Two free-text fields in
+Settings (`KEY_MASCOT_CHARACTER`, `KEY_MASCOT_SEASON`) let a caregiver
+type whichever character/season name matches the artwork that
+eventually exists — not a dropdown, not a fixed list, for the same
+reason the pose names themselves were never hardcoded: it's the
+designer's taxonomy to set, not this app's to guess. Both blank by
+default, which collapses the chain back to exactly the original
+single-name lookup — nothing that already worked changes. See CLAUDE.md
+invariant 17.
+
 6. **[L] Switch-access scanning support.**
 
 ## Rejected / not doing

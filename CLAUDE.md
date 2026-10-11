@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 62 of them, see below
+./gradlew test                 # unit tests — 68 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -240,6 +240,28 @@ turn this from an AAC app into a mildly insulting toy:
     yet. The two bundled fonts (OpenDyslexic, Atkinson Hyperlegible) are
     both SIL Open Font License 1.1 — see `THIRD_PARTY_LICENSES.md` before
     adding, removing, or modifying either one.
+17. **Multiple mascot characters and seasonal variants are a resource-name
+    fallback chain, not a feature to build UI pickers for yet.**
+    `MascotArt.resourceNameCandidates(character, season, pose)` tries
+    `mascot_<character>_<season>_<pose>`, then `mascot_<character>_
+    <pose>`, then plain `mascot_<pose>` (invariant 15's original scheme,
+    untouched) — most specific first, falling back gracefully when a
+    more specific drawable isn't bundled. `character` and `season` are
+    both free-form strings a caregiver types into two plain Settings
+    `EditText` fields (`KEY_MASCOT_CHARACTER`, `KEY_MASCOT_SEASON`), not
+    an enum and not a dropdown — same reasoning as invariant 15: which
+    characters exist (the dino, or whatever gets added later) and which
+    seasonal reskins exist (Halloween, Christmas, ...) is the mascot
+    designer's call, and inventing that list in code before real artwork
+    exists would mean guessing on their behalf twice over. Both fields
+    are blank by default, which collapses the fallback chain back to
+    exactly invariant 15's original single-name lookup — this is
+    additive, not a redesign; nothing that already worked changes.
+    Don't add a season *picker* with a fixed list ("Halloween",
+    "Christmas", "Spring", ...) without the user asking for one — a free
+    text field that matches whatever filename convention the actual
+    artwork ends up using is more honest than a UI that implies four
+    specific seasons are supported when zero are.
 
 ## Design rules (accessibility is the product)
 
@@ -355,14 +377,19 @@ don't reintroduce them just because it'd be quicker):
   ordinary Settings switches — pure text mode (hides every image, not
   just emoji) and a font choice between two bundled, SIL OFL-licensed
   fonts (OpenDyslexic, Atkinson Hyperlegible as "Easy Read").
-- 62 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Multiple mascot characters and seasonal variants (invariant 17): a
+  resource-name fallback chain (character+season+pose → character+pose
+  → pose) plus two free-text Settings fields, collapsing back to
+  invariant 15's original behaviour when both are left blank. Skeleton
+  only, deliberately — no UI picker, no fixed character/season list.
+- 68 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
   `BUILD_NOTES.md`), DiffUtil callbacks (including ProfileAdapter),
   sentence-strip joining, the export round-trip, Repository CRUD
   (including profile-scoped category visibility and cascade delete), the
-  widget's category-id preference mapping, the mascot pose→resource
-  name sanitiser, and the font-style→resource mapping, via Robolectric
-  where a Context is needed.
+  widget's category-id preference mapping, the mascot pose/character/
+  season→resource name fallback chain, and the font-style→resource
+  mapping, via Robolectric where a Context is needed.
 
 ## Skills that pair with this repo
 

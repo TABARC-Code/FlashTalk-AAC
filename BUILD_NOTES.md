@@ -568,6 +568,46 @@ actually make OpenDyslexic/Atkinson Hyperlegible work correctly on API
 unmodified in `assets/font_licenses/` — the license itself has to travel
 with the font, not just get mentioned in a README somewhere.
 
+## Multiple mascots and seasons: architecture now, content later
+
+A direct follow-up to Mascot mode: "put architecture in for multiple
+mascots, and a seasonal option — even if just skeleton work, so it's
+in." Worth being honest about what that request actually asked for,
+because it's a specific and useful kind of request, not a vague one.
+Not "build the feature" — there's no feature to build yet, there's no
+second character's art, no seasonal reskins. What was asked for is the
+*shape* the code should already have, so that whenever that art does
+turn up, dropping it in just works, instead of needing another pass
+through `FlashCardAdapter`'s bind logic to retrofit a concept that
+wasn't there.
+
+The actual change is small and almost entirely inside `MascotArt`:
+`resourceNameFor(pose)` (invariant 15's original function) stays exactly
+as it was — nothing that already worked changes — and
+`resourceNameCandidates(character, season, pose)` sits alongside it,
+building an ordered list of names to try, most specific first. Character
+and season are both optional; leaving both blank collapses the list down
+to a single entry that's byte-for-byte what `resourceNameFor` already
+produced. That's the actual design goal here, not a side effect of it:
+additive, not a rewrite, verified by the fact that the existing `mascot_
+<pose>`-only tests still pass unmodified.
+
+The harder question wasn't the fallback chain, it was where character
+and season should live, and in what shape. They're not per-card data
+like `pose` is — a caregiver doesn't want to tag all 334 cards with
+"dino" individually, they want to pick a character once and have it
+apply everywhere. So they're Settings-level preferences, same tier as
+Mascot mode itself, read once per `onResume` and passed down to the
+adapter exactly like `mascotModeEnabled` already was. And deliberately
+plain `EditText` fields, not a spinner or a set of radio buttons with
+"Dino", "Zombie Fox", "Axolotl" baked in — the moment I hardcode a list
+of character names in a layout file, I've made a decision about the
+character roster that isn't mine to make, and worse, one that goes
+stale the instant a new character gets added and nobody remembers to
+update the UI to match. A text field that just needs to match whatever
+the artwork's filename says is honest about the actual state of things:
+nothing's chosen yet, because nothing exists yet to choose between.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -588,6 +628,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and sixty-two passing unit
+skipped. Compiling clean, linting clean, and sixty-eight passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.
