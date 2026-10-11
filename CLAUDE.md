@@ -33,7 +33,7 @@ renaming SDK methods to make a point).
 ```bash
 ./gradlew assembleDebug        # build
 ./gradlew installDebug         # install to connected device
-./gradlew test                 # unit tests — 51 of them, see below
+./gradlew test                 # unit tests — 57 of them, see below
 ./gradlew lint                 # always run before committing
 ```
 
@@ -190,6 +190,21 @@ turn this from an AAC app into a mildly insulting toy:
     `TTSManager` does, though — don't let the widget silently ignore a
     rate/pitch a caregiver already set in Settings just because it isn't
     going through `TTSManager` itself.
+15. **Mascot mode ships "image free" on purpose — don't treat that as
+    unfinished work to tidy up.** `FlashCard.mascotPose` exists and
+    `FlashCardAdapter` will render `mascot_<pose>.png` via
+    `Resources.getIdentifier` when Mascot mode is on and a matching
+    drawable is actually bundled, but every one of the 334 seed cards
+    ships with `mascotPose = ""`, and no `mascot_*` drawables exist in
+    the repo. That's deliberate, not a bug: the pose taxonomy is the
+    character designer's creative call, not something to invent on their
+    behalf before real artwork and pose names exist. Don't "finish" this
+    by hardcoding a category→pose mapping or adding placeholder
+    `mascot_*` drawables — wait for the actual asset set, then wire
+    `mascotPose` per card (a CSV column, same pattern as `emoji`) and
+    drop the PNGs into `res/drawable/`. The toggle (Settings, off by
+    default) and the resource-lookup plumbing are the real, tested,
+    shippable part; the content is intentionally not here yet.
 
 ## Design rules (accessibility is the product)
 
@@ -297,12 +312,16 @@ don't reintroduce them just because it'd be quicker):
 - Home-screen widget (invariant 14): a configurable single-category
   GridView widget, tap a card to speak it without opening the app.
   Configuration only offers shared categories, deliberately.
-- 51 unit tests now exist, up from zero: CSV parsing, manifest parsing
+- Mascot mode (invariant 15): the toggle and rendering plumbing exist and
+  are tested; no actual mascot artwork ships yet, deliberately — see
+  invariant 15 before "finishing" this.
+- 57 unit tests now exist, up from zero: CSV parsing, manifest parsing
   (including a real Gson-vs-Kotlin-defaults bug the tests caught — see
   `BUILD_NOTES.md`), DiffUtil callbacks (including ProfileAdapter),
   sentence-strip joining, the export round-trip, Repository CRUD
-  (including profile-scoped category visibility and cascade delete), and
-  the widget's category-id preference mapping, via Robolectric.
+  (including profile-scoped category visibility and cascade delete), the
+  widget's category-id preference mapping, and the mascot pose→resource
+  name sanitiser, via Robolectric where a Context is needed.
 
 ## Skills that pair with this repo
 

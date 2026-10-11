@@ -25,6 +25,7 @@ class SettingsActivity : BaseActivity() {
         setupLargeTextSwitch()
         setupEditModeSwitch()
         setupSentenceStripModeSwitch()
+        setupMascotModeSwitch()
     }
 
     private fun setupRateSlider() {
@@ -87,6 +88,15 @@ class SettingsActivity : BaseActivity() {
             isChecked = prefs.getBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, false)
             setOnCheckedChangeListener { _, isChecked ->
                 prefs.edit().putBoolean(TTSManager.KEY_SENTENCE_STRIP_MODE, isChecked).apply()
+            }
+        }
+    }
+
+    private fun setupMascotModeSwitch() {
+        findViewById<MaterialSwitch>(R.id.switchMascotMode).apply {
+            isChecked = prefs.getBoolean(TTSManager.KEY_MASCOT_MODE, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit().putBoolean(TTSManager.KEY_MASCOT_MODE, isChecked).apply()
             }
         }
     }

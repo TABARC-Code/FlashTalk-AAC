@@ -16,5 +16,10 @@ data class FlashCard(
     val priority: String = "standard", // "standard" | "urgent" — urgent cards get a visual accent, see FlashCardAdapter
     val enabled: Boolean = true,
     val order: Int = 0,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    // Optional name of a mascot artwork pose (e.g. "happy", "distressed") to
+    // show instead of the emoji glyph when Mascot mode is on — see
+    // MascotArt and CLAUDE.md invariant 15. Blank for every seed card right
+    // now; nothing currently sets this to anything else.
+    val mascotPose: String = ""
 )

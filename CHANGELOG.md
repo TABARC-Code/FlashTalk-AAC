@@ -9,6 +9,28 @@ kind of waste of everyone's time.
 
 ## [Unreleased]
 
+### Added — Mascot mode (image-free toggle and rendering plumbing)
+- A caregiver is designing an original mascot character (their own IP)
+  and plans a reusable set of pose variations rather than bespoke art
+  per card. Built the engineering half of that now: a Settings toggle
+  ("Mascot mode", off by default), `FlashCard.mascotPose` (a free-form
+  pose name — blank on all 334 seed cards today), and a
+  `FlashCardAdapter` rendering branch that resolves `mascot_<pose>.png`
+  via `Resources.getIdentifier` when the mode's on, falling back to the
+  existing emoji glyph whenever no pose is set or no matching drawable
+  exists in the build — which, right now, is every single card.
+- Deliberately didn't invent a pose taxonomy or guess a category→pose
+  mapping — that's the character designer's creative decision to make
+  once real artwork and pose names exist, not something to speculate on
+  in code. See CLAUDE.md invariant 15.
+- `MascotArt.resourceNameFor`: a pure function sanitising a pose name
+  into its expected drawable resource name (lowercase, non-alphanumeric
+  runs collapsed to underscores) — 6 new unit tests.
+- Precedence when Mascot mode is on: a custom card's own photo still
+  wins over mascot artwork, which still wins over the emoji fallback —
+  matches the same "most specific wins" precedence the app already used
+  for custom photos vs. emoji.
+
 ### Added — Home-screen widget
 - **`NeedsWidgetProvider`**: a home-screen widget showing one configured
   category's cards in a `GridView`, tap a card to speak it without

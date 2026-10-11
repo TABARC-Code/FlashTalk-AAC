@@ -132,6 +132,24 @@ category mutation path felt like more coupling than a home-screen widget
 earns on a first pass; flagged here rather than silently left as a "why
 didn't my edit show up" surprise.
 
+~~**[S] Mascot mode — toggle and rendering plumbing.**~~ **Done,
+deliberately image-free.** A caregiver is designing an original mascot
+character (their own IP, not a licensed symbol set) and plans a reusable
+set of pose variations rather than one piece of art per card. Built the
+part that's actually an engineering decision now — a Settings toggle
+(off by default), `FlashCard.mascotPose` (a free-form pose name, blank
+on every one of the 334 seed cards), and a `FlashCardAdapter` rendering
+hook that looks up `mascot_<pose>.png` via `Resources.getIdentifier`
+when the mode's on, falling back to the ordinary emoji glyph when no
+pose is set or no matching drawable is bundled — which is every card,
+right now. Deliberately did *not* invent a pose taxonomy or map
+categories to guessed poses — that's the character designer's creative
+call, not an engineering problem to solve speculatively (CLAUDE.md
+invariant 15). Next step, once real art and pose names exist: drop
+`mascot_<pose>.png` files into `res/drawable/` and add a `mascot_pose`
+CSV column (same pattern `emoji` already uses) — no further code changes
+needed.
+
 6. **[L] Switch-access scanning support.**
 
 ## Rejected / not doing

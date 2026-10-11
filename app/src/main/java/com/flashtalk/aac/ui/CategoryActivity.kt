@@ -86,6 +86,7 @@ class CategoryActivity : BaseActivity() {
         super.onResume()
         applyEditModeState()
         applyStripModeState()
+        applyMascotModeState()
     }
 
     private fun setupRecyclerView() {
@@ -113,6 +114,11 @@ class CategoryActivity : BaseActivity() {
             strip.clear()
         }
         updateStripBarText()
+    }
+
+    private fun applyMascotModeState() {
+        flashCardAdapter.mascotModeEnabled = prefs.getBoolean(TTSManager.KEY_MASCOT_MODE, false)
+        flashCardAdapter.notifyDataSetChanged()
     }
 
     private fun setupStripBar() {

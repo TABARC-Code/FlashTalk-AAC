@@ -94,19 +94,24 @@ issue with:
 `BACKLOG.md` is the actively-maintained, prioritised queue — that's the
 real answer. Edit/delete, the speech bar, the Settings/Import/Profiles
 lock, export, locale-aware seed vocabulary, the vocabulary expansion,
-sentence strip mode, multiple profiles, and a home-screen widget are all
-done now (see `CHANGELOG.md`); what's left, highest priority first:
+sentence strip mode, multiple profiles, a home-screen widget, and Mascot
+mode's toggle/rendering plumbing are all done now (see `CHANGELOG.md`);
+what's left, highest priority first:
 
 ### Medium Priority
 - [ ] Reorder cards
 - [ ] Native-speaker/SLT review of the French translation, especially
   the emergency category
 - [ ] Real screenshots for the README
-- [ ] UI/instrumented tests — everything so far is unit-tested (51 tests,
+- [ ] UI/instrumented tests — everything so far is unit-tested (57 tests,
   JVM + Robolectric), but nothing's been watched running on an actual
   device or emulator yet
 - [ ] Live-refresh the home-screen widget on card/category edits, instead
   of its current ~30-minute refresh timer
+- [ ] Mascot artwork + pose names (once the character designer finishes
+  their pose set): drop `mascot_<pose>.png` files into `res/drawable/`
+  and add a `mascot_pose` CSV column — see CLAUDE.md invariant 15, no
+  code changes needed beyond that
 
 ### Low Priority (P3 in BACKLOG.md)
 - [ ] Switch-access scanning support

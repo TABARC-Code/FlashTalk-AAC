@@ -451,6 +451,52 @@ a few times a day rather than watch for real-time updates. Thirty
 minutes of staleness felt like the honest trade, not a corner cut
 silently.
 
+## Mascot mode, and shipping half a feature on purpose
+
+A caregiver sent over two mockup sheets of an original mascot character
+they designed — a dinosaur, AI-generated only as a "what would this look
+like" demo, the actual design is theirs. Their plan: not one piece of
+art per card, but a reusable set of maybe twenty pose variations, each
+usable across however many of the 334 cards actually fit that tone.
+Before building anything I asked whether they wanted separate reusable
+art or baked-in card templates, and recommended separate — the app
+already owns a lot of per-card rendering (category colour, the urgent
+red border, font-scale-aware labels) that a baked-in design would
+either lose or have to duplicate per colour. They confirmed: opt-in,
+default off.
+
+What I didn't do, and want on the record as a deliberate choice rather
+than something half-finished: I didn't invent a pose taxonomy. It would
+have been easy to map "health_feelings_emergency + urgent → distressed",
+"core_social → friendly", and so on, and wire up eight or so guessed
+pose names right now. I didn't, because that's not an engineering
+decision — it's the character designer's creative call, and guessing it
+for them risks either committing to names that don't match what they
+actually produce, or quietly steering their design toward whatever I
+happened to pick. So `FlashCard.mascotPose` is a genuinely free-form
+string, blank on every seed card, and the lookup
+(`MascotArt.resourceNameFor` → `Resources.getIdentifier`) resolves
+whatever pose name eventually gets set against whatever `mascot_*.png`
+eventually gets bundled — the mechanism doesn't care what the names are,
+on purpose.
+
+The result is a toggle that's completely real — persisted, tested,
+wired through `CategoryActivity`'s existing onResume-reads-prefs
+pattern — and completely invisible in its current effect, since turning
+it on changes nothing for any of the 334 existing cards. That's an
+unusual thing to ship deliberately, so it's spelled out in three places
+(CLAUDE.md invariant 15, the Settings explainer text itself, and here)
+rather than left for someone to discover by toggling it and wondering if
+it's broken.
+
+One more thing worth recording: this is the point in the session where
+the container actually got reset mid-conversation — lost the local
+clone, the Android SDK, everything but the pushed git history. Redid the
+SDK setup (command-line tools, platform 34, build-tools 34, accept
+licenses, write a throwaway `local.properties`) exactly the way the
+first verification pass describes above, which is the whole reason that
+section exists as a reusable recipe rather than a one-off aside.
+
 ## No emulator, and it's not just "not set up yet"
 
 Checked properly before writing this off: no `/dev/kvm`, no `vmx`/`svm`
@@ -471,6 +517,6 @@ See BACKLOG.md for the ordered, current list. Short version: no card
 reordering, no favourites/history, the French translation needs a
 fluent-speaker review (see above), no real screenshots, no instrumented
 tests — the last two genuinely blocked by the missing emulator, not
-skipped. Compiling clean, linting clean, and fifty-one passing unit
+skipped. Compiling clean, linting clean, and fifty-seven passing unit
 tests are real signal. They are not the same thing as tapping the app
 and watching it work.
